@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<BorderPane maxHeight="600.0" maxWidth="900.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="368.0" style="-fx-background-color: #0598ff;" BorderPane.alignment="CENTER">
+         <children>
+            <FontAwesomeIcon fill="WHITE" glyphName="BUILDING" layoutX="152.0" layoutY="205.0" size="75" />
+            <Text fill="WHITE" layoutX="71.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BlueMoon Mangagement">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="334.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <FontAwesomeIcon fill="#0598ff" glyphName="USERS" layoutX="157.0" layoutY="97.0" selectionFill="#0598ff" size="35" />
+            <TextField focusTraversable="false" layoutX="76.0" layoutY="190.0" prefHeight="28.0" prefWidth="200.0" promptText="username" style="-fx-background-color: #F1F4F9; -fx-border-color: #D8D8D8; -fx-border-radius: 8px;" />
+            <PasswordField focusTraversable="false" layoutX="76.0" layoutY="236.0" prefHeight="28.0" prefWidth="200.0" promptText="password" style="-fx-background-color: #F1F4F9; -fx-border-color: #D8D8D8; -fx-border-radius: 8px;" />
+            <FontAwesomeIcon fill="#0598ff" glyphName="USER" layoutX="43.0" layoutY="211.0" size="20" text="" />
+            <FontAwesomeIcon fill="#0598ff" glyphName="KEY" layoutX="41.0" layoutY="257.0" size="20" />
+            <ImageView fitHeight="63.0" fitWidth="59.0" layoutX="228.0" layoutY="422.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/bluemoon.jpg" />
+               </image>
+            </ImageView>
+            <Hyperlink focusTraversable="false" layoutX="218.0" layoutY="281.0" text="Forget password?" />
+            <Text fill="#0598ff" layoutX="124.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Text>
+            <Button layoutX="142.0" layoutY="310.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: #0598ff; -fx-cursor: hand;" text="Log in" textFill="WHITE" />
+            <ImageView fitHeight="62.0" fitWidth="141.0" layoutX="54.0" layoutY="423.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/logo-soict-hust.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
