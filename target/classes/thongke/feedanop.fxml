@@ -97,7 +97,7 @@
                   </Button>
                </children>
             </HBox>
-            <Text layoutX="251.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" text="THỐNG KÊ PHÍ .... CHƯA NỘP">
+            <Text layoutX="251.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" text="THỐNG KÊ PHÍ .... ĐÃ NỘP">
                <font>
                   <Font size="20.0" />
                </font>
