@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hust_cs.UI">
    <left>
       <VBox prefHeight="600.0" prefWidth="150.0" BorderPane.alignment="CENTER">
          <children>
@@ -21,9 +21,9 @@
                   <Image url="@../../../Tai_CNPM/apartment_manage/src/main/resources/img/bluemoon.jpg" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" text="Quản lý khoản phí" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" text="Quản lý hộ khẩu" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" text="Quản lý nhân khẩu" />
+            <Button mnemonicParsing="false" onAction="#khoanphi" prefHeight="36.0" prefWidth="150.0" text="Quản lý khoản phí" />
+            <Button mnemonicParsing="false" onAction="#hokhau" prefHeight="36.0" prefWidth="150.0" text="Quản lý hộ khẩu" />
+            <Button mnemonicParsing="false" onAction="#nhankhau" prefHeight="36.0" prefWidth="150.0" text="Quản lý nhân khẩu" />
             <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" text="Thông kê theo hộ" />
             <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" text="Thông kê theo khoản phí" />
             <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" text="Cập nhật thông tin" />
@@ -53,7 +53,7 @@
             <ComboBox layoutX="410.0" layoutY="14.0" prefHeight="25.0" prefWidth="118.0" promptText="Tìm kiếm theo" />
             <TextField layoutX="528.0" layoutY="14.0" promptText="Tìm kiếm" />
             <Button layoutX="693.0" layoutY="14.0" mnemonicParsing="false" text="OK" />
-            <Button layoutX="535.0" layoutY="66.0" mnemonicParsing="false" text="Thêm nhân khẩu">
+            <Button layoutX="535.0" layoutY="66.0" mnemonicParsing="false" onAction="#addNhanKhau" text="Thêm nhân khẩu">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
