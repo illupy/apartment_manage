@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hust_cs.UI">
    <left>
       <VBox prefHeight="600.0" prefWidth="150.0" BorderPane.alignment="CENTER">
          <children>
@@ -21,9 +21,9 @@
                   <Image url="@../../../Tai_CNPM/apartment_manage/src/main/resources/img/bluemoon.jpg" />
                </image>
             </ImageView>
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" text="Quản lý khoản phí" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" text="Quản lý hộ khẩu" />
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" text="Quản lý nhân khẩu" />
+            <Button mnemonicParsing="false" onAction="#khoanphi" prefHeight="36.0" prefWidth="150.0" text="Quản lý khoản phí" />
+            <Button mnemonicParsing="false" onAction="#hokhau" prefHeight="36.0" prefWidth="150.0" text="Quản lý hộ khẩu" />
+            <Button mnemonicParsing="false" onAction="#nhankhau" prefHeight="36.0" prefWidth="150.0" text="Quản lý nhân khẩu" />
             <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" text="Thông kê theo hộ" />
             <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" text="Thông kê theo khoản phí" />
             <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" text="Cập nhật thông tin" />
@@ -54,7 +54,7 @@
             <Label layoutX="248.0" layoutY="240.0" text="Giới tính" />
             <Label layoutX="248.0" layoutY="300.0" text="Ngày sinh" />
             <DatePicker layoutX="248.0" layoutY="315.0" prefHeight="30.0" prefWidth="323.0" />
-            <Button layoutX="352.0" layoutY="554.0" mnemonicParsing="false" text="Thêm hộ khẩu">
+            <Button layoutX="352.0" layoutY="554.0" mnemonicParsing="false" onAction="#hokhau" text="Thêm hộ khẩu">
                <font>
                   <Font size="15.0" />
                </font>
