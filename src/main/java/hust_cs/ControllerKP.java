@@ -34,8 +34,8 @@ public class ControllerKP {
     }
 
     @FXML
-    void addKhoanPhi(ActionEvent event) {
-
+    void addKhoanPhi(ActionEvent event) throws IOException {
+        switchScene(event, "/khoanphi/addKhoanPhi");
     }
 
     @FXML
