@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hust_cs.App">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hust_cs.ControllerNK">
    <left>
       <VBox prefHeight="600.0" prefWidth="189.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
@@ -90,7 +90,7 @@
                </columns>
             </TableView>
             <ComboBox layoutX="410.0" layoutY="14.0" prefHeight="25.0" prefWidth="118.0" promptText="Tìm kiếm theo" style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-border-radius: 8; -fx-background-radius: 8;" />
-            <Button layoutX="535.0" layoutY="80.0" mnemonicParsing="false" onAction="#addKhoanPhi" style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Thêm nhân khẩu" textFill="WHITE">
+            <Button layoutX="535.0" layoutY="80.0" mnemonicParsing="false" onAction="#addnhankhau" style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Thêm nhân khẩu" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

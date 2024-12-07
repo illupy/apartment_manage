@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hust_cs.ControllerCNTT">
    <left>
       <VBox prefHeight="600.0" prefWidth="189.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
@@ -90,7 +90,7 @@
                   <TextField layoutX="342.0" layoutY="295.0" style="-fx-background-color: f5f6fa; -fx-border-radius: 4; -fx-background-radius: 4; -fx-border-color: d5d5d5;" />
                   <Label layoutX="339.0" layoutY="195.0" text="Số điện thoại" />
                   <TextField layoutX="339.0" layoutY="215.0" style="-fx-background-color: f5f6fa; -fx-border-radius: 4; -fx-background-radius: 4; -fx-border-color: d5d5d5;" />
-                  <Button layoutX="254.0" layoutY="404.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="103.0" style="-fx-background-color: #4480ff; -fx-font-weight: bold; -fx-background-radius: 8;" text="Cập nhật" textFill="WHITE">
+                  <Button layoutX="254.0" layoutY="404.0" mnemonicParsing="false" onAction="#update" prefHeight="36.0" prefWidth="103.0" style="-fx-background-color: #4480ff; -fx-background-radius: 8;" text="Cập nhật" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

@@ -10,7 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ControllerKP {
+public class ControllerCNTT {
 
     private Stage stage;
     private Scene scene;
@@ -23,7 +23,7 @@ public class ControllerKP {
         stage.setScene(scene);
         stage.show();
     }
-  
+
     @FXML
     void TKho(ActionEvent event) throws IOException {
         switchScene(event, "/thongke/home_statistic");
@@ -32,11 +32,6 @@ public class ControllerKP {
     @FXML
     void TKkhoanphi(ActionEvent event) throws IOException {
         switchScene(event, "/thongke/fee_statistic");
-    }
-
-    @FXML
-    void addKhoanPhi(ActionEvent event) throws IOException {
-        switchScene(event, "/khoanphi/addKhoanPhi");
     }
 
     @FXML
@@ -64,5 +59,5 @@ public class ControllerKP {
     void update(ActionEvent event) throws IOException {
         switchScene(event, "/updateinfo/updateinfo");
     }
-
+    
 }
