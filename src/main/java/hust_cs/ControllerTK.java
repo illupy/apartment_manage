@@ -46,8 +46,8 @@ public class ControllerTK {
     }
 
     @FXML
-    void logout(ActionEvent event) {
-        System.exit(0);
+    void logout(ActionEvent event) throws IOException {
+        switchScene(event, "/hust_cs/login");
     }
 
     @FXML
