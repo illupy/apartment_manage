@@ -5,6 +5,8 @@ public class HoKhauModel{
 	String tenChuHo;
 	int soThanhvien;
 	String diaChi;
+	double tienCanDong;
+	double tienDaDong;
 	
 	public HoKhauModel() {}
 	
@@ -59,5 +61,22 @@ public class HoKhauModel{
 	public void setTenChuHo(String tenChuHo) {
 		this.tenChuHo = tenChuHo;
 	}
+	
+	public double getTienCanDong() {
+		return tienCanDong;
+	}
+
+	public void setTienCanDong(double tienCanDong) {
+		this.tienCanDong = tienCanDong;
+	}
+
+	public double getTienDaDong() {
+		return tienDaDong;
+	}
+
+	public void setTienDaDong(double tienDaDong) {
+		this.tienDaDong = tienDaDong;
+	}
+
 	
 }

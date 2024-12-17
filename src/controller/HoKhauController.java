@@ -16,6 +16,7 @@ import controller.hokhau.UpdateHoKhau;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,7 +42,7 @@ import services.HoKhauService;
 import services.NhanKhauService;
 import services.QuanHeService;
 
-public class HoKhauController implements Initializable{
+public class HoKhauController extends HomeController implements Initializable{
 	@FXML
 	TableColumn<HoKhauModel, String> colMaHoKhau;
 	@FXML
@@ -112,13 +113,8 @@ public class HoKhauController implements Initializable{
         stage.show();
     }
 	
-	public void addHoKhau() throws ClassNotFoundException, SQLException, IOException {
-		Parent home = FXMLLoader.load(getClass().getResource("/views/hokhau/AddHoKhau.fxml"));
-		Stage stage = new Stage();
-		stage.setScene(new Scene(home, 800, 600));
-		stage.setResizable(false);
-		stage.showAndWait();
-		showHoKhau();
+    public void addHoKhau(ActionEvent event) throws IOException {
+		switchScene(event, "/views/hokhau/addhokhau.fxml");
 	}
 	
 	public void delHoKhau() throws ClassNotFoundException, SQLException {

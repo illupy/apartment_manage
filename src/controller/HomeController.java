@@ -1,68 +1,123 @@
 package controller;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.Optional;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import models.KhoanThuModel;
+import models.LoaiKhoanThuModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import controller.khoanthu.UpdateKhoanThu;
+import controller.khoanthu.UpdateKhoanThu.KhoanThuItem;
 
-public class HomeController implements Initializable{
+public class HomeController {
 	@FXML
-	private BorderPane borderPane;
-	
-	public void setNhanKhau(ActionEvent event) throws IOException{
-		FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/views/NhanKhau.fxml"));
-		Pane nhankhauPane = (Pane) loader.load();
-		borderPane.setCenter(nhankhauPane);
-	}
-	
-	public void setHoKhau(ActionEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/views/HoKhau.fxml"));
-		Pane hokhauPane = (Pane) loader.load();
-		borderPane.setCenter(hokhauPane);
 
+	private Stage stage;
+	private Scene scene;
+
+	public void switchScene(ActionEvent event, String fxmlFile) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
+		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 	}
 
-	public void setKhoanPhi(ActionEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/views/KhoanThu.fxml"));
-		Pane khoanphiPane = (Pane) loader.load();
-		borderPane.setCenter(khoanphiPane);
-	}
-	
-	public void setDongPhi(ActionEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/NopTien.fxml"));
-		Pane dongphiPane = (Pane) loader.load();
-		borderPane.setCenter(dongphiPane);
-	}
-	
-	public void setThongKe(ActionEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/views/ThongKe.fxml"));
-		Pane thongkePane = (Pane) loader.load();
-		borderPane.setCenter(thongkePane);
+	public void switchSceneWithKhoanThuData(ActionEvent event, String fxmlFile, KhoanThuModel khoanThu)
+		    throws IOException {
+		    // Tải FXML
+		    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+		    Parent root = loader.load();
 
-	}
-	
-	public void setTrangChu(ActionEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader(LoginController.class.getResource("/views/Main.fxml"));
-		Pane trangchuPane = (Pane) loader.load();
-		borderPane.setCenter(trangchuPane);
+		    // Lấy controller của màn hình đích
+		    UpdateKhoanThu controller = loader.getController();
+		    LoaiKhoanThuModel loaiKhoanThu = new LoaiKhoanThuModel(khoanThu.getMaKhoanThu(), khoanThu.getTenKhoanThu());
 
-	}
-	
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		try {
-			Pane login = FXMLLoader.load(getClass().getResource("/views/Main.fxml"));
-			borderPane.setCenter(login);
-		} catch (IOException e) {
-			e.printStackTrace();
+		    // Thiết lập dữ liệu cho controller
+		    if (khoanThu != null) {
+		        // Điền thông tin vào các trường của controller
+		        controller.getTfSoTien().setText(String.valueOf(khoanThu.getSoTien()));
+		        controller.getTfMaHo().setText(String.valueOf(khoanThu.getMaHo()));
+		        controller.setIdKhoanThu(khoanThu.getIdKhoanThu());
+		        System.out.println(String.valueOf(khoanThu.getMaHo()));
+		  
+		        
+		        // Chuyển đổi java.sql.Date sang LocalDate
+		        if (khoanThu.getNgayBatDau() != null) {
+		            controller.getDpNgayBatDau().setValue(
+		            		((java.sql.Date) khoanThu.getNgayBatDau()).toLocalDate()
+		            );
+		        }
+		        
+		        if (khoanThu.getNgayKetThuc() != null) {
+		            controller.getDpNgayKetThuc().setValue(
+		            		((java.sql.Date) khoanThu.getNgayKetThuc()).toLocalDate()
+		            );
+		        }
+		    }
+
+		    // Chuyển cảnh
+		    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		    stage.setScene(new Scene(root));
+		    stage.show();
 		}
 
+	@FXML
+	public void setNhanKhau(ActionEvent event) throws IOException {
+		switchScene(event, "/views/NhanKhau.fxml");
 	}
-	
+
+	@FXML
+	public void setHoKhau(ActionEvent event) throws IOException {
+		switchScene(event, "/views/HoKhau.fxml");
+	}
+
+	@FXML
+	public void setKhoanPhi(ActionEvent event) throws IOException {
+		switchScene(event, "/views/KhoanThu.fxml");
+	}
+
+	@FXML
+	public void setTKho(ActionEvent event) throws IOException {
+		switchScene(event, "/views/thongke/ThongKeTheoHo.fxml");
+	}
+
+	@FXML
+	public void setTKkhoanphi(ActionEvent event) throws IOException {
+		switchScene(event, "/views/thongke/ThongKeKhoanPhi.fxml");
+	}
+
+	@FXML
+	public void update(ActionEvent event) throws IOException {
+		switchScene(event, "/views/Main.fxml");
+	}
+
+	@FXML
+	public void logout(ActionEvent event) throws IOException {
+		// Tạo một Alert với loại CONFIRMATION
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Xác nhận đăng xuất");
+		alert.setHeaderText(null);
+		alert.setContentText("Bạn có chắc chắn muốn đăng xuất?");
+
+		// Hiển thị Alert và chờ người dùng phản hồi
+		Optional<ButtonType> result = alert.showAndWait();
+
+		// Kiểm tra xem người dùng đã chọn OK hoặc Cancel
+		if (result.isPresent() && result.get() == ButtonType.OK) {
+			// Nếu chọn OK, thực hiện đăng xuất
+			switchScene(event, "/views/Login.fxml");
+		} else {
+			// Người dùng chọn Cancel hoặc đóng cửa sổ Alert, không làm gì cả
+		}
+	}
 }

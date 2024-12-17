@@ -27,7 +27,7 @@ import services.HoKhauService;
 import services.NhanKhauService;
 import services.QuanHeService;
 
-public class AddHoKhau implements Initializable{
+public class AddHoKhau extends controller.HomeController implements Initializable{
 	@FXML
 	private TextField tfMaHoKhau;
 	@FXML
@@ -158,6 +158,6 @@ public class AddHoKhau implements Initializable{
 
 	    @Override
 	    public void initialize(URL url, ResourceBundle resourceBundle) {
-	        tfGioiTinhChuHo.setItems(FXCollections.observableArrayList("Nam", "Nữ"));
+	        //tfGioiTinhChuHo.setItems(FXCollections.observableArrayList("Nam", "Nữ"));
 	    }
 }

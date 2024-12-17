@@ -67,7 +67,7 @@ public class ChooseNguoiNop implements Initializable {
 	private List<NhanKhauModel> listNhanKhau;
 
 	public void showNhanKhau() throws ClassNotFoundException, SQLException {
-		listNhanKhau = new NhanKhauService().getListNhanKhau();
+		listNhanKhau = new NhanKhauService().getListNhanKhau(null);
 		listValueTableView = FXCollections.observableArrayList(listNhanKhau);
 
 		// tao map anh xa gia tri Id sang maHo

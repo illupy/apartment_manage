@@ -1,26 +1,166 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.khoanthu.AddKhoanThu">
-   <children>
-      <Label layoutX="122.0" layoutY="144.0" text="Mã khoản thu" />
-      <TextField fx:id="tfMaKhoanThu" layoutX="254.0" layoutY="138.0" prefHeight="39.0" prefWidth="353.0" />
-      <Label layoutX="120.0" layoutY="225.0" text="Tên khoản thu" />
-      <TextField fx:id="tfTenKhoanThu" layoutX="254.0" layoutY="219.0" prefHeight="39.0" prefWidth="353.0" />
-      <Label layoutX="118.0" layoutY="301.0" text="Loại khoản thu" />
-      <ComboBox fx:id="cbLoaiKhoanThu" layoutX="254.0" layoutY="295.0" prefHeight="39.0" prefWidth="353.0" />
-      <Label layoutX="118.0" layoutY="372.0" text="Số tiền" />
-      <TextField fx:id="tfSoTien" layoutX="254.0" layoutY="366.0" prefHeight="39.0" prefWidth="353.0" />
-      <Button layoutX="383.0" layoutY="487.0" mnemonicParsing="false" onAction="#addKhoanThu" text="Thêm" />
-      <Label layoutX="303.0" layoutY="58.0" text="THÊM KHOẢN THU">
-         <font>
-            <Font name="Arial Bold" size="25.0" />
-         </font>
-      </Label>
-   </children>
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+	prefWidth="970.0" xmlns="http://javafx.com/javafx/23"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="controller.khoanthu.AddKhoanThu">
+	<left>
+		<VBox prefHeight="600.0" prefWidth="189.0"
+			style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+			<children>
+				<ImageView fitHeight="189.0" fitWidth="205.0"
+					pickOnBounds="true" preserveRatio="true">
+					<image>
+						<Image url="@../../../img/bluemoon.jpg" />
+					</image>
+				</ImageView>
+				<HBox prefHeight="55.0" prefWidth="150.0"
+					style="-fx-alignment: center;">
+					<children>
+						<FontAwesomeIcon glyphName="MONEY"
+							selectionFill="BLACK" size="20"
+							wrappingWidth="26.785715103149414">
+							<font>
+								<Font size="16.0" />
+							</font>
+						</FontAwesomeIcon>
+						<Button mnemonicParsing="false" onAction="#setKhoanPhi"
+							prefHeight="56.0" prefWidth="130.0"
+							style="-fx-background-color: white; -fx-font-weight: bold;"
+							text="Khoản phí" />
+					</children>
+				</HBox>
+				<HBox prefHeight="55.0" prefWidth="150.0"
+					style="-fx-alignment: center;">
+					<children>
+						<FontAwesomeIcon glyphName="HOME"
+							selectionFill="BLACK" size="20" text="" />
+						<Button mnemonicParsing="false" onAction="#setHoKhau"
+							prefHeight="61.0" prefWidth="130.0"
+							style="-fx-background-color: white; -fx-font-weight: bold;"
+							text="Hộ khẩu" />
+					</children>
+				</HBox>
+				<HBox prefHeight="55.0" prefWidth="150.0"
+					style="-fx-alignment: center;">
+					<children>
+						<FontAwesomeIcon glyphName="USER"
+							selectionFill="BLACK" size="20" />
+						<Button mnemonicParsing="false" onAction="#setNhanKhau"
+							prefHeight="57.0" prefWidth="130.0"
+							style="-fx-background-color: white; -fx-font-weight: bold;"
+							text="Nhân khẩu" />
+					</children>
+				</HBox>
+				<HBox prefHeight="55.0" prefWidth="150.0"
+					style="-fx-alignment: center;">
+					<children>
+						<FontAwesomeIcon glyphName="BAR_CHART"
+							selectionFill="BLACK" size="20" />
+						<Button mnemonicParsing="false" onAction="#setTKho"
+							prefHeight="55.0" prefWidth="130.0"
+							style="-fx-background-color: white; -fx-font-weight: bold;"
+							text="Thống kê theo hộ" />
+					</children>
+				</HBox>
+				<HBox prefHeight="55.0" prefWidth="150.0"
+					style="-fx-alignment: center;">
+					<children>
+						<FontAwesomeIcon glyphName="PIE_CHART"
+							selectionFill="BLACK" size="20" text="" />
+						<Button mnemonicParsing="false" onAction="#setTKkhoanphi"
+							prefHeight="59.0" prefWidth="130.0"
+							style="-fx-background-color: white; -fx-font-weight: bold;"
+							text="Thống kê khoản phí" />
+					</children>
+				</HBox>
+				<Separator prefWidth="200.0" />
+				<HBox prefHeight="55.0" prefWidth="150.0"
+					style="-fx-alignment: center;">
+					<children>
+						<FontAwesomeIcon glyphName="USER"
+							selectionFill="BLACK" size="20" />
+						<Button mnemonicParsing="false" onAction="#update"
+							prefHeight="56.0" prefWidth="130.0"
+							style="-fx-background-color: white; -fx-font-weight: bold;"
+							text="Cập nhật thông tin" />
+					</children>
+				</HBox>
+				<HBox prefHeight="55.0" prefWidth="150.0"
+					style="-fx-alignment: center;">
+					<children>
+						<FontAwesomeIcon glyphName="POWER_OFF"
+							selectionFill="BLACK" size="20" />
+						<Button mnemonicParsing="false" onAction="#logout"
+							prefHeight="55.0" prefWidth="136.0"
+							style="-fx-background-color: white; -fx-font-weight: bold;"
+							text="Đăng xuất" />
+					</children>
+				</HBox>
+			</children>
+		</VBox>
+	</left>
+	<center>
+		<AnchorPane prefHeight="200.0" prefWidth="200.0"
+			style="-fx-background-color: #f5f6fa;" BorderPane.alignment="CENTER">
+			<children>
+				<AnchorPane layoutX="193.0" layoutY="12.0"
+					prefHeight="579.0" prefWidth="393.0"
+					style="-fx-background-color: white;">
+					<children>
+						<Label layoutX="76.0" layoutY="20.0" text="Thêm khoản thu">
+							<font>
+								<Font name="System Bold" size="25.0" />
+							</font>
+						</Label>
+						<Label layoutX="35.0" layoutY="100.0" text="Tên khoản thu" />
+						<ComboBox fx:id="cbMaKhoanThu" layoutX="35.0"
+							layoutY="120.0" prefHeight="30.0" prefWidth="323.0"
+							style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<Label layoutX="35.0" layoutY="170.0" text="Số tiền" />
+						<TextField fx:id="tfSoTien" layoutX="35.0"
+							layoutY="190.0" prefHeight="30.0" prefWidth="323.0"
+							style="-fx-background-color: #f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<Label layoutX="35.0" layoutY="240.0"
+							text="Ngày bắt đầu thu" />
+						<DatePicker fx:id="dpNgayBatDau" layoutX="35.0"
+							layoutY="260.0" prefHeight="30.0" prefWidth="323.0"
+							style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<Label layoutX="35.0" layoutY="310.0" text="Ngày hết hạn" />
+						<DatePicker fx:id="dpNgayKetThuc" layoutX="35.0"
+							layoutY="330.0" prefHeight="30.0" prefWidth="323.0"
+							style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<Label layoutX="35.0" layoutY="370.0" text="Mã Hộ" />
+						<TextField fx:id="tfMaHo" layoutX="35.0"
+							layoutY="390.0" prefHeight="30.0" prefWidth="323.0"
+							style="-fx-background-color: #f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<Button layoutX="129.0" layoutY="506.0"
+							mnemonicParsing="false" onAction="#addKhoanThu"
+							style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
+							text="Thêm khoản thu" textFill="WHITE">
+							<font>
+								<Font name="System Bold" size="15.0" />
+							</font>
+						</Button>
+					</children>
+				</AnchorPane>
+			</children>
+		</AnchorPane>
+	</center>
+</BorderPane>

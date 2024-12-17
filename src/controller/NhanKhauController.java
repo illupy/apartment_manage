@@ -39,7 +39,7 @@ import services.ChuHoService;
 import services.NhanKhauService;
 import services.QuanHeService;
 
-public class NhanKhauController implements Initializable{
+public class NhanKhauController extends HomeController implements Initializable{
 	@FXML
 	private TableColumn<NhanKhauModel, String> colMaNhanKhau;
 	@FXML
@@ -317,13 +317,8 @@ public class NhanKhauController implements Initializable{
 	}
 
 
-	public void addNhanKhau(ActionEvent event) throws IOException, ClassNotFoundException, SQLException {
-		Parent home = FXMLLoader.load(getClass().getResource("/views/nhankhau/AddNhanKhau.fxml"));
-        Stage stage = new Stage();
-        stage.setScene(new Scene(home,800,600));
-        stage.setResizable(false);
-        stage.showAndWait();
-        showNhanKhau();
+	public void addNhanKhau(ActionEvent event) throws IOException {
+		switchScene(event, "/views/nhankhau/addnhankhau.fxml");
 	}
 	
 	// con truong hop neu xoa chu ho chua xet

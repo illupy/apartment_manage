@@ -1,74 +1,212 @@
 package controller.khoanthu;
 
+import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import models.KhoanThuModel;
+import models.LoaiKhoanThuModel;
 import services.KhoanThuService;
 
-public class UpdateKhoanThu {
+public class UpdateKhoanThu extends controller.HomeController implements Initializable {
 	@FXML
-	private TextField tfMaKhoanThu;
-	@FXML
-	private TextField tfTenKhoanThu;
-	@FXML
-	private TextField tfLoaiKhoanThu;
+	private ComboBox<KhoanThuItem> cbMaKhoanThu;
 	@FXML
 	private TextField tfSoTien;
-
-	private KhoanThuModel khoanThuModel;
-
-	public void setKhoanThuModel(KhoanThuModel khoanThuModel) {
-		this.khoanThuModel = khoanThuModel;
-
-		tfTenKhoanThu.setText(khoanThuModel.getTenKhoanThu());
-		tfMaKhoanThu.setText(Integer.toString(khoanThuModel.getMaKhoanThu()));
-		if (khoanThuModel.getLoaiKhoanThu() == 1) {
-			tfLoaiKhoanThu.setText("Bắt buộc");
-		} else {
-			tfLoaiKhoanThu.setText("Tự nguyện");
-		}
-		tfSoTien.setText(Double.toString(khoanThuModel.getSoTien()));
+	@FXML
+	private DatePicker dpNgayBatDau;
+	@FXML
+	private DatePicker dpNgayKetThuc;
+	@FXML
+	private TextField tfMaHo;
+	
+	private int idKhoanThu;
+	
+	public int getIdKhoanThu() {
+		return idKhoanThu;
 	}
+
+	public void setIdKhoanThu(int idKhoanThu) {
+		this.idKhoanThu = idKhoanThu;
+	}
+
+	public class KhoanThuItem {
+        private int maKhoanThu;
+        private String tenKhoanThu;
+
+        public KhoanThuItem(int maKhoanThu, String tenKhoanThu) {
+            this.maKhoanThu = maKhoanThu;
+            this.tenKhoanThu = tenKhoanThu;
+        }
+
+        public int getMaKhoanThu() {
+            return maKhoanThu;
+        }
+
+        public String getTenKhoanThu() {
+            return tenKhoanThu;
+        }
+
+        @Override
+        public String toString() {
+            return maKhoanThu + " - " + tenKhoanThu;
+        }
+    }
 
 	public void updateKhoanThu(ActionEvent event) throws ClassNotFoundException, SQLException {
 		Pattern pattern;
-		
-		// kiem tra ten nhap vao
-		// ten nhap vao la chuoi tu 1 toi 50 ki tu
-		if (tfTenKhoanThu.getText().length() >= 50 || tfTenKhoanThu.getText().length() <= 1) {
-			Alert alert = new Alert(AlertType.WARNING, "Hãy nhập vào 1 tên khoản thu hợp lệ!", ButtonType.OK);
-			alert.setHeaderText(null);
-			alert.showAndWait();
-			return;
-		}
 
 		// kiem tra soTien nhap vao
 		// so tien nhap vao phai la so va nho hon 11 chu so
-		pattern = Pattern.compile("\\d{1,11}");
-		if (!pattern.matcher(tfSoTien.getText()).matches()) {
+		pattern = Pattern.compile("^[1-9]\\d*(\\.\\d+)?$");
+		if (!pattern.matcher(getTfSoTien().getText()).matches()) {
 			Alert alert = new Alert(AlertType.WARNING, "Hãy nhập vào số tiền hợp lệ!", ButtonType.OK);
 			alert.setHeaderText(null);
 			alert.showAndWait();
 			return;
 		}
+
+		// Kiểm tra xem đã chọn khoản thu chưa
+        KhoanThuItem selectedKhoanThu = getCbMaKhoanThu().getValue();
+        if (selectedKhoanThu == null) {
+            Alert alert = new Alert(AlertType.WARNING, "Vui lòng chọn khoản thu!", ButtonType.OK);
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
+        
+     // Kiểm tra ngày bắt đầu
+        if (getDpNgayBatDau().getValue() == null) {
+            Alert alert = new Alert(AlertType.WARNING, "Vui lòng chọn ngày bắt đầu!", ButtonType.OK);
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
+
+        // Kiểm tra ngày kết thúc
+        if (getDpNgayKetThuc().getValue() == null) {
+            Alert alert = new Alert(AlertType.WARNING, "Vui lòng chọn ngày kết thúc!", ButtonType.OK);
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
+
+        // Kiểm tra ngày kết thúc phải sau ngày bắt đầu
+        if (getDpNgayKetThuc().getValue().isBefore(getDpNgayBatDau().getValue())) {
+            Alert alert = new Alert(AlertType.WARNING, "Ngày kết thúc phải sau ngày bắt đầu!", ButtonType.OK);
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
+
+        // Lấy thông tin từ item đã chọn
+        int maKhoanThu = selectedKhoanThu.getMaKhoanThu();
+        double soTienDouble = Double.parseDouble(getTfSoTien().getText());
+        int maHo = Integer.parseInt(getTfMaHo().getText());
+        
+        KhoanThuModel newKhoanThu = new KhoanThuModel();
+        newKhoanThu.setIDKhoanThu(idKhoanThu);
+        newKhoanThu.setMaKhoanThu(maKhoanThu);
+        newKhoanThu.setSoTien(soTienDouble);
+        newKhoanThu.setNgayBatDau(java.sql.Date.valueOf(getDpNgayBatDau().getValue()));
+        newKhoanThu.setNgayKetThuc(java.sql.Date.valueOf(getDpNgayKetThuc().getValue()));
+        newKhoanThu.setMaHo(maHo);
+
+		new KhoanThuService().update(newKhoanThu);
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// Thiết lập giới hạn ngày cho DatePicker
+	    getDpNgayBatDau().setPromptText("Chọn ngày bắt đầu");
+	    getDpNgayKetThuc().setPromptText("Chọn ngày kết thúc");
+	    
+	    // Giới hạn ngày kết thúc không được trước ngày bắt đầu
+	    getDpNgayBatDau().valueProperty().addListener((observable, oldValue, newValue) -> {
+	        if (newValue != null) {
+	            getDpNgayKetThuc().setDayCellFactory(picker -> new DateCell() {
+	                @Override
+	                public void updateItem(LocalDate date, boolean empty) {
+	                    super.updateItem(date, empty);
+	                    setDisable(empty || date.isBefore(newValue));
+	                }
+	            });
+	        }
+	    });
+
+		// thiet lap gia tri cho loai khoan thu
+		List<LoaiKhoanThuModel> listLoaiKhoanThu = null;
 		
-		// ghi nhan cac gia tri sau khi da kiem tra hop le
-		int maKhoanThuInt = khoanThuModel.getMaKhoanThu();
-		String tenKhoanThuString = tfTenKhoanThu.getText();
-		int loaiKhoanThuInt = khoanThuModel.getLoaiKhoanThu();
-		double soTienDouble = Double.parseDouble(tfSoTien.getText());
+		try {
+			listLoaiKhoanThu = new KhoanThuService().getLoaiKhoanThu();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ObservableList<KhoanThuItem> items = FXCollections.observableArrayList();
 		
-		new KhoanThuService().update(maKhoanThuInt, tenKhoanThuString, soTienDouble, loaiKhoanThuInt);
-		Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+		for (LoaiKhoanThuModel loaiKhoanThu : listLoaiKhoanThu) {
+            items.add(new KhoanThuItem(loaiKhoanThu.getMaKhoanThu(), loaiKhoanThu.getTenKhoanThu()));
+        }
+		
+		getCbMaKhoanThu().setItems(items);
+	}
+
+	public DatePicker getDpNgayBatDau() {
+		return dpNgayBatDau;
+	}
+
+	public void setDpNgayBatDau(DatePicker dpNgayBatDau) {
+		this.dpNgayBatDau = dpNgayBatDau;
+	}
+
+	public DatePicker getDpNgayKetThuc() {
+		return dpNgayKetThuc;
+	}
+
+	public void setDpNgayKetThuc(DatePicker dpNgayKetThuc) {
+		this.dpNgayKetThuc = dpNgayKetThuc;
+	}
+
+	public TextField getTfSoTien() {
+		return tfSoTien;
+	}
+
+	public void setTfSoTien(TextField tfSoTien) {
+		this.tfSoTien = tfSoTien;
+	}
+
+	public TextField getTfMaHo() {
+		return tfMaHo;
+	}
+
+	public void setTfMaHo(TextField tfMaHo) {
+		this.tfMaHo = tfMaHo;
+	}
+
+	public ComboBox<KhoanThuItem> getCbMaKhoanThu() {
+		return cbMaKhoanThu;
+	}
+
+	public void setCbMaKhoanThu(ComboBox<KhoanThuItem> cbMaKhoanThu) {
+		this.cbMaKhoanThu = cbMaKhoanThu;
 	}
 }

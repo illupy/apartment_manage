@@ -2,7 +2,7 @@
 
 .pane {
 	-fx-background-color : #ffffff;
-	-fx-background-radius : 8px;
+	-fx-background-radius : 10px;
 }
 
   
@@ -24,18 +24,19 @@
 
 .button2
 {
--fx-background-color :  #5809d6;
--fx-background-radius :  20;
+-fx-background-color :  #5c998b;
+-fx-background-radius :  5px;
 }
 .button2:hover
 {
--fx-background-color : #524A7B ;
--fx-background-radius :  20;
+-fx-background-color : #847d7d;
+-fx-background-radius :  5px;
+-fx-cursor: HAND; 
 }
 .button2:pressed
 {
--fx-background-color : #2F2B43 ;
--fx-background-radius :  20;
+-fx-background-color : #847d7d;
+-fx-background-radius :  5px;
 }
 
 .button3
@@ -78,3 +79,23 @@
     -fx-background-insets: 1 1 1 1, 1 1 1 1, 1 1 1 1;
 }
 
+.leftForm{
+	-fx-background-color:linear-gradient(to bottom right, #2d658c, #2ca772);
+}
+
+
+.loginBTN
+{
+    -fx-background-color :linear-gradient(to top left, #41951C, #D4CEE3);
+    -fx-background-radius :  30 30 30 30;
+}
+.loginBTN:hover
+{
+    -fx-background-color :linear-gradient(to top left, #D4CEE3, #41951C);
+    -fx-background-radius :  30 30 30 30;
+}
+.loginBTN:pressed
+{
+    -fx-background-color :linear-gradient(to top left, #41951C, #D4CEE3);
+    -fx-background-radius :  30 30 30 30;
+}
