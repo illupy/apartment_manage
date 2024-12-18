@@ -42,7 +42,7 @@ import services.HoKhauService;
 import services.NhanKhauService;
 import services.QuanHeService;
 
-public class HoKhauController extends HomeController implements Initializable{
+public class HoKhauController extends HomeController implements Initializable {
 	@FXML
 	TableColumn<HoKhauModel, String> colMaHoKhau;
 	@FXML
@@ -55,37 +55,62 @@ public class HoKhauController extends HomeController implements Initializable{
 	TableView<HoKhauModel> tvHoKhau;
 	@FXML
 	TextField tfSearch;
-	
+
 	@FXML
 	ComboBox<String> cbChooseSearch;
-	
+
 	ObservableList<HoKhauModel> listValueTableView;
 	private List<HoKhauModel> listHoKhau;
-	
+
 	// Hien thi thong tin ho khau
-	public void showHoKhau() throws ClassNotFoundException, SQLException{
+	public void showHoKhau() throws ClassNotFoundException, SQLException {
 		listHoKhau = new HoKhauService().getListHoKhau();
 		listValueTableView = FXCollections.observableArrayList(listHoKhau);
 		List<NhanKhauModel> listNhanKhau = new NhanKhauService().getListNhanKhau(null);
 		List<ChuHoModel> listChuHo = new ChuHoService().getListChuHo();
-		
+
+		// Khởi tạo map
 		Map<Integer, String> mapIdToTen = new HashMap<>();
-		listNhanKhau.forEach(nhankhau ->{
-			mapIdToTen.put(nhankhau.getId(), nhankhau.getTen());
-		});
-		
-		
+		if (listNhanKhau != null) {
+			listNhanKhau.forEach(nhankhau -> {
+				mapIdToTen.put(nhankhau.getId(), nhankhau.getTen());
+			});
+		} else {
+			System.out.println("Danh sách nhân khẩu rỗng hoặc null!");
+		}
+
 		Map<Integer, Integer> mapMahoToId = new HashMap<>();
-		listChuHo.forEach(chuho ->{
-			mapMahoToId.put(chuho.getMaHo(), chuho.getIdChuHo());
-		});
-		
-		
+		if (listChuHo != null) {
+			listChuHo.forEach(chuho -> {
+				mapMahoToId.put(chuho.getMaHo(), chuho.getIdChuHo());
+			});
+		} else {
+			System.out.println("Danh sách chủ hộ rỗng hoặc null!");
+		}
+
+		// Đặt giá trị cho các cột
 		colMaHoKhau.setCellValueFactory(new PropertyValueFactory<HoKhauModel, String>("maHo"));
-		colMaChuHo.setCellValueFactory((CellDataFeatures<HoKhauModel, String> p) -> new ReadOnlyStringWrapper(
-				mapIdToTen.get(mapMahoToId.get(p.getValue().getMaHo())).toString()));
+
+		colMaChuHo.setCellValueFactory((CellDataFeatures<HoKhauModel, String> p) -> {
+			Integer idChuHo = mapMahoToId.get(p.getValue().getMaHo());
+			if (idChuHo == null) {
+				System.out.println("Không tìm thấy MaHo: " + p.getValue().getMaHo());
+				return new ReadOnlyStringWrapper("Không xác định");
+			}
+
+			String tenChuHo = mapIdToTen.get(idChuHo);
+			if (tenChuHo == null) {
+				System.out.println("Không tìm thấy idChuHo: " + idChuHo);
+				return new ReadOnlyStringWrapper("Không xác định");
+			}
+
+			return new ReadOnlyStringWrapper(tenChuHo);
+		});
+
 		colSoThanhVien.setCellValueFactory(new PropertyValueFactory<HoKhauModel, String>("soThanhvien"));
 		colDiaChi.setCellValueFactory(new PropertyValueFactory<HoKhauModel, String>("diaChi"));
+
+		// Cập nhật dữ liệu cho bảng
 		tvHoKhau.setItems(listValueTableView);
 
 		// Thiet lap Combo box
@@ -93,32 +118,32 @@ public class HoKhauController extends HomeController implements Initializable{
 		cbChooseSearch.setValue("Mã hộ");
 		cbChooseSearch.setItems(listComboBox);
 	}
-	
-    public void viewDetailHoKhau() throws IOException {
-        HoKhauModel selectedHoKhau = tvHoKhau.getSelectionModel().getSelectedItem();
-        if (selectedHoKhau == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Hãy chọn hộ khẩu để xem chi tiết!", ButtonType.OK);
-            alert.setHeaderText(null);
-            alert.showAndWait();
-            return;
-        }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/hokhau/ChiTietHoKhau.fxml"));
-        Parent root = loader.load();
+	public void viewDetailHoKhau() throws IOException {
+		HoKhauModel selectedHoKhau = tvHoKhau.getSelectionModel().getSelectedItem();
+		if (selectedHoKhau == null) {
+			Alert alert = new Alert(Alert.AlertType.WARNING, "Hãy chọn hộ khẩu để xem chi tiết!", ButtonType.OK);
+			alert.setHeaderText(null);
+			alert.showAndWait();
+			return;
+		}
 
-        ChiTietHoKhauController chiTietController = loader.getController();
-        chiTietController.setHoKhauModel(selectedHoKhau);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/hokhau/ChiTietHoKhau.fxml"));
+		Parent root = loader.load();
 
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Chi Tiết Hộ Khẩu");
-        stage.show();
-    }
-	
-    public void addHoKhau(ActionEvent event) throws IOException {
+		ChiTietHoKhauController chiTietController = loader.getController();
+		chiTietController.setHoKhauModel(selectedHoKhau);
+
+		Stage stage = new Stage();
+		stage.setScene(new Scene(root));
+		stage.setTitle("Chi Tiết Hộ Khẩu");
+		stage.show();
+	}
+
+	public void addHoKhau(ActionEvent event) throws IOException {
 		switchScene(event, "/views/hokhau/addhokhau.fxml");
 	}
-	
+
 	public void delHoKhau() throws ClassNotFoundException, SQLException {
 		HoKhauModel hoKhauModel = tvHoKhau.getSelectionModel().getSelectedItem();
 
@@ -162,26 +187,26 @@ public class HoKhauController extends HomeController implements Initializable{
 
 		showHoKhau();
 	}
-	
-	public void searchHoKhau() throws ClassNotFoundException, SQLException{
+
+	public void searchHoKhau() throws ClassNotFoundException, SQLException {
 		ObservableList<HoKhauModel> listValueTableView_tmp = null;
 		String keySearch = tfSearch.getText();
-		
+
 		// lay lua chon tim kiem cua khach hang
 		SingleSelectionModel<String> typeSearch = cbChooseSearch.getSelectionModel();
 		String typeSearchString = tfSearch.getText();
-		
+
 		// tim kiem thong tin theo lua chon da lay ra
 		switch (typeSearchString) {
-		case "Ten chu ho":{
-			if(keySearch.length()==0) {
+		case "Ten chu ho": {
+			if (keySearch.length() == 0) {
 				tvHoKhau.setItems(listValueTableView);
 				Alert alert = new Alert(AlertType.WARNING, "Hay nhap thong tin tim kiem", ButtonType.OK);
 				alert.setHeaderText(null);
 				alert.showAndWait();
 				break;
 			}
-			
+
 			Map<Integer, Integer> mapMahoToId = new HashMap<>();
 			List<ChuHoModel> listChuHo = new ChuHoService().getListChuHo();
 			listChuHo.stream().forEach(chuho -> {
@@ -192,10 +217,10 @@ public class HoKhauController extends HomeController implements Initializable{
 			listNhanKhau.stream().forEach(nhankhau -> {
 				mapIdToTen.put(nhankhau.getId(), nhankhau.getTen());
 			});
-			
+
 			int index = 0;
 			List<HoKhauModel> listHoKhauModelsSearch = new ArrayList<>();
-			for(HoKhauModel hoKhauModel : listHoKhau) {
+			for (HoKhauModel hoKhauModel : listHoKhau) {
 				if (mapIdToTen.get(mapMahoToId.get(hoKhauModel.getMaHo())).contains(keySearch)) {
 					listHoKhauModelsSearch.add(hoKhauModel);
 					index++;
@@ -279,7 +304,7 @@ public class HoKhauController extends HomeController implements Initializable{
 		}
 		}
 	}
-	
+
 	public void updateHoKhau() throws ClassNotFoundException, SQLException, IOException {
 		// lay ra nhan khau can update
 		HoKhauModel hoKhauModel = tvHoKhau.getSelectionModel().getSelectedItem();

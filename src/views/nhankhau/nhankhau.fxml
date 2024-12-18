@@ -21,7 +21,7 @@
          <children>
             <ImageView fitHeight="189.0" fitWidth="205.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../img/bluemoon.jpg" />
+                  <Image url="@../../../img/bluemoon.jpg" />
                </image>
             </ImageView>
             <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">

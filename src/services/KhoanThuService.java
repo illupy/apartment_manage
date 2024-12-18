@@ -47,8 +47,6 @@ public class KhoanThuService {
 			preparedStatement.setDate(4, (Date) khoanThuModel.getNgayKetThuc());
 			preparedStatement.setInt(5, khoanThuModel.getMaHo());
 			preparedStatement.setInt(6, khoanThuModel.getIdKhoanThu());
-			
-			System.out.println(preparedStatement);
 
 			preparedStatement.executeUpdate();
 		}
