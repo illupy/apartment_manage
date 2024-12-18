@@ -69,15 +69,17 @@ public class HoKhauController extends HomeController implements Initializable{
 		List<NhanKhauModel> listNhanKhau = new NhanKhauService().getListNhanKhau(null);
 		List<ChuHoModel> listChuHo = new ChuHoService().getListChuHo();
 		
+		Map<Integer, String> mapIdToTen = new HashMap<>();
+		listNhanKhau.forEach(nhankhau ->{
+			mapIdToTen.put(nhankhau.getId(), nhankhau.getTen());
+		});
+		
+		
 		Map<Integer, Integer> mapMahoToId = new HashMap<>();
 		listChuHo.forEach(chuho ->{
 			mapMahoToId.put(chuho.getMaHo(), chuho.getIdChuHo());
 		});
 		
-		Map<Integer, String> mapIdToTen = new HashMap<>();
-		listNhanKhau.forEach(nhankhau ->{
-			mapIdToTen.put(nhankhau.getId(), nhankhau.getTen());
-		});
 		
 		colMaHoKhau.setCellValueFactory(new PropertyValueFactory<HoKhauModel, String>("maHo"));
 		colMaChuHo.setCellValueFactory((CellDataFeatures<HoKhauModel, String> p) -> new ReadOnlyStringWrapper(

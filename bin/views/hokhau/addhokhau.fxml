@@ -3,9 +3,9 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -19,7 +19,7 @@
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
 	prefWidth="970.0" xmlns="http://javafx.com/javafx/23"
 	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="controller.NhanKhauController">
+	fx:controller="controller.hokhau.AddHoKhau">
 	<left>
 		<VBox prefHeight="600.0" prefWidth="189.0"
 			style="-fx-background-color: white;" BorderPane.alignment="CENTER">
@@ -27,7 +27,7 @@
 				<ImageView fitHeight="189.0" fitWidth="205.0"
 					pickOnBounds="true" preserveRatio="true">
 					<image>
-						<Image url="@../../img/bluemoon.jpg" />
+						<Image url="@../../../img/bluemoon.jpg" />
 					</image>
 				</ImageView>
 				<HBox prefHeight="55.0" prefWidth="150.0"
@@ -120,91 +120,60 @@
 		<AnchorPane prefHeight="200.0" prefWidth="200.0"
 			style="-fx-background-color: #f5f6fa;" BorderPane.alignment="CENTER">
 			<children>
-				<TableView fx:id="tvNhanKhau" layoutX="15.0"
-					layoutY="150.0" prefHeight="420.0" prefWidth="750.0"
-					style="-fx-border-color: white;">
-					<columns>
-						<TableColumn fx:id="colMaNhanKhau" prefWidth="76.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="ID" />
-						<TableColumn fx:id="colTen" prefWidth="180.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Họ và tên" />
-						<TableColumn fx:id="colGioiTinh" minWidth="0.0"
-							prefWidth="57.999908447265625"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Giới tính" />
-						<TableColumn fx:id="colNgaySinh"
-							prefWidth="89.33331298828125"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Ngày sinh" />
-						<TableColumn fx:id="colQuanHeChuHo" prefWidth="120.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Quan hệ chủ hộ" />
-						<TableColumn fx:id="colNgheNghiep" prefWidth="100.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Nghề nghiệp" />
-						<TableColumn fx:id="colQueQuan" prefWidth="120.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Quê quán" />
-						<TableColumn fx:id="colNoiThuongTru" prefWidth="140.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Nơi thường trú" />
-						<TableColumn fx:id="colCCCD"
-							prefWidth="120.66677856445312"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="CCCD" />
-						<TableColumn fx:id="colSDT"
-							prefWidth="95.333251953125"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Số điện thoại" />
-						<TableColumn fx:id="colMaHo" prefWidth="56.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Mã hộ" />
-						<TableColumn prefWidth="69.3333740234375"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Chức năng" />
-					</columns>
-				</TableView>
-
-				<TextField fx:id="tfSearch" layoutX="7.0" layoutY="49.0"
-					prefHeight="40.0" prefWidth="310.0" AnchorPane.bottomAnchor="510.0"
-					AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="300.0"
-					AnchorPane.topAnchor="50.0" />
-				<ComboBox fx:id="cbChooseSearch" layoutX="333.0"
-					layoutY="49.0" prefHeight="40.0" prefWidth="170.0"
-					AnchorPane.bottomAnchor="510.0" AnchorPane.leftAnchor="330.0"
-					AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="50.0" />
-				<Button layoutX="514.0" layoutY="49.0"
-					mnemonicParsing="false" onAction="#searchNhanKhau"
-					prefHeight="40.0" prefWidth="110.0" styleClass="button3"
-					stylesheets="@../source/Main.css" text="Tìm kiếm"
-					AnchorPane.bottomAnchor="510.0" AnchorPane.leftAnchor="505.0"
-					AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
-				<Button layoutX="535.0" layoutY="80.0"
-					mnemonicParsing="false" onAction="#addNhanKhau"
-					style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
-					text="Thêm nhân khẩu" textFill="WHITE">
-					<font>
-						<Font name="System Bold" size="15.0" />
-					</font>
-				</Button>
-				<Button layoutX="220.0" layoutY="5.0" mnemonicParsing="false"
-					onAction="#delNhanKhau" prefHeight="40.0" prefWidth="195.0"
-					styleClass="button1" stylesheets="@../source/Main.css"
-					text="Xóa nhân khẩu" textAlignment="CENTER" textFill="#2e088d"
-					wrapText="true" AnchorPane.bottomAnchor="555.0"
-					AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="215.0"
-					AnchorPane.topAnchor="5.0" />
-				<Button layoutX="387.0" layoutY="2.0" mnemonicParsing="false"
-					onAction="#updateNhanKhau" prefHeight="40.0" prefWidth="200.0"
-					styleClass="button1" stylesheets="@../source/Main.css"
-					text="Cập nhật nhân khẩu" textAlignment="CENTER" textFill="#2e088d"
-					wrapText="true" AnchorPane.bottomAnchor="555.0"
-					AnchorPane.leftAnchor="415.0" AnchorPane.rightAnchor="10.0"
-					AnchorPane.topAnchor="5.0" />
+				<AnchorPane layoutX="193.0" layoutY="12.0"
+					prefHeight="579.0" prefWidth="393.0"
+					style="-fx-background-color: white;">
+					<children>
+						<Label layoutX="94.0" layoutY="14.0"
+							text="Thông tin hộ khẩu">
+							<font>
+								<Font name="System Bold" size="25.0" />
+							</font>
+						</Label>
+						<Label layoutX="40.0" layoutY="64.0" text="Mã hộ khẩu" />
+						<Label layoutX="196.0" layoutY="252.0" />
+						<TextField layoutX="40.0" layoutY="139.0"
+							prefHeight="30.0" prefWidth="323.0"
+							style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<Label layoutX="40.0" layoutY="124.0" text="Mã chủ hộ" />
+						<TextField layoutX="40.0" layoutY="79.0"
+							prefHeight="30.0" prefWidth="323.0"
+							style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<Label layoutX="40.0" layoutY="184.0" text="Họ tên chủ hộ" />
+						<TextField layoutX="40.0" layoutY="199.0"
+							prefHeight="30.0" prefWidth="323.0"
+							style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<ComboBox layoutX="40.0" layoutY="259.0"
+							prefHeight="30.0" prefWidth="323.0"
+							style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<Label layoutX="40.0" layoutY="244.0" text="Giới tính" />
+						<Label layoutX="40.0" layoutY="304.0" text="Ngày sinh" />
+						<DatePicker layoutX="40.0" layoutY="319.0"
+							prefHeight="30.0" prefWidth="323.0"
+							style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<Button layoutX="144.0" layoutY="540.0"
+							mnemonicParsing="false" onAction="#addHoKhau"
+							style="-fx-background-color: #4480ff; -fx-background-radius: 10; -fx-border-radius: 10;"
+							text="Thêm hộ khẩu" textFill="WHITE">
+							<font>
+								<Font size="15.0" />
+							</font>
+						</Button>
+						<TextField layoutX="40.0" layoutY="379.0"
+							prefHeight="30.0" prefWidth="323.0"
+							style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<Label layoutX="40.0" layoutY="364.0" text="Địa chỉ" />
+						<TextField layoutX="40.0" layoutY="439.0"
+							prefHeight="30.0" prefWidth="323.0"
+							style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<TextField layoutX="40.0" layoutY="499.0"
+							prefHeight="30.0" prefWidth="323.0"
+							style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<Label layoutX="40.0" layoutY="484.0" text="Số điện thoại" />
+						<Label layoutX="40.0" layoutY="424.0" text="CCCD" />
+					</children>
+				</AnchorPane>
 			</children>
 		</AnchorPane>
 	</center>
 </BorderPane>
-

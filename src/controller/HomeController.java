@@ -73,12 +73,12 @@ public class HomeController {
 
 	@FXML
 	public void setNhanKhau(ActionEvent event) throws IOException {
-		switchScene(event, "/views/NhanKhau.fxml");
+		switchScene(event, "/views/nhankhau/nhankhau.fxml");
 	}
 
 	@FXML
 	public void setHoKhau(ActionEvent event) throws IOException {
-		switchScene(event, "/views/HoKhau.fxml");
+		switchScene(event, "/views/hokhau/hoKhau.fxml");
 	}
 
 	@FXML

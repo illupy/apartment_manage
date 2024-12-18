@@ -54,14 +54,14 @@ public class NhanKhauController extends HomeController implements Initializable{
 	private TableColumn<NhanKhauModel, String> colGioiTinh;
 	@FXML
 	private TableColumn<NhanKhauModel, String> colNgaySinh;
-	@FXML
-	private TableColumn<NhanKhauModel, String> colQuanHeChuHo;
-	@FXML
-	private TableColumn<NhanKhauModel, String> colNgheNghiep;
-	@FXML
-	private TableColumn<NhanKhauModel, String> colQueQuan;
-	@FXML
-	private TableColumn<NhanKhauModel, String> colNoiThuongTru;
+//	@FXML
+//	private TableColumn<NhanKhauModel, String> colQuanHeChuHo;
+//	@FXML
+//	private TableColumn<NhanKhauModel, String> colNgheNghiep;
+//	@FXML
+//	private TableColumn<NhanKhauModel, String> colQueQuan;
+//	@FXML
+//	private TableColumn<NhanKhauModel, String> colNoiThuongTru;
 
 	@FXML
 	private TableView<NhanKhauModel> tvNhanKhau;
@@ -80,6 +80,7 @@ public class NhanKhauController extends HomeController implements Initializable{
 	public void setTvNhanKhau(TableView<NhanKhauModel> tvNhanKhau) {
 		this.tvNhanKhau = tvNhanKhau;
 	}
+	
 	
 	// hien thi thong tin nhan khau
 	public void showNhanKhau() throws ClassNotFoundException, SQLException {
@@ -102,10 +103,10 @@ public class NhanKhauController extends HomeController implements Initializable{
 			    )
 			);
 		colGioiTinh.setCellValueFactory(new PropertyValueFactory<>("gioiTinh"));
-		colQuanHeChuHo.setCellValueFactory(new PropertyValueFactory<>("quanHeChuHo"));
-		colNgheNghiep.setCellValueFactory(new PropertyValueFactory<>("ngheNghiep"));
-		colQueQuan.setCellValueFactory(new PropertyValueFactory<>("queQuan"));
-		colNoiThuongTru.setCellValueFactory(new PropertyValueFactory<>("noiThuongTru"));
+//		colQuanHeChuHo.setCellValueFactory(new PropertyValueFactory<>("quanHeChuHo"));
+//		colNgheNghiep.setCellValueFactory(new PropertyValueFactory<>("ngheNghiep"));
+//		colQueQuan.setCellValueFactory(new PropertyValueFactory<>("queQuan"));
+//		colNoiThuongTru.setCellValueFactory(new PropertyValueFactory<>("noiThuongTru"));
 		colCCCD.setCellValueFactory(new PropertyValueFactory<NhanKhauModel, String>("cccd"));
 		colSDT.setCellValueFactory(new PropertyValueFactory<NhanKhauModel, String>("sdt"));
 		try {
