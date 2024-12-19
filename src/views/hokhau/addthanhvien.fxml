@@ -34,8 +34,8 @@
 				</HBox>
 				<HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center; -fx-background-color: #4480ff; -fx-background-radius: 8;">
 					<children>
-						<FontAwesomeIcon glyphName="HOME" selectionFill="BLACK" size="20" text="" />
-						<Button mnemonicParsing="false" onAction="#setHoKhau" prefHeight="61.0" prefWidth="130.0" style="-fx-background-color: #4480ff; -fx-font-weight: bold;" text="Hộ khẩu" />
+						<FontAwesomeIcon fill="WHITE" glyphName="HOME" selectionFill="BLACK" size="20" text="" />
+						<Button mnemonicParsing="false" onAction="#setHoKhau" prefHeight="61.0" prefWidth="130.0" style="-fx-background-color: #4480ff; -fx-font-weight: bold;" text="Hộ khẩu" textFill="WHITE" />
 					</children>
 				</HBox>
 				<HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">

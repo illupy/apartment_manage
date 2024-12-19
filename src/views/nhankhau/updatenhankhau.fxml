@@ -77,32 +77,26 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="563.0" prefWidth="728.0" style="-fx-background-color: white;">
+            <AnchorPane layoutX="193.0" layoutY="26.0" prefHeight="495.0" prefWidth="393.0" style="-fx-background-color: white;">
                <children>
-                  <Label layoutX="265.0" layoutY="26.0" text="Thông tin nhân khẩu">
+                  <Label layoutX="108.0" layoutY="14.0" text="Thông tin nhân khẩu">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="4.0" layoutY="120.0" text="Họ và tên" />
-                  <Label layoutX="4.0" layoutY="200.0" text="Ngày sinh" />
-                  <Label layoutX="4.0" layoutY="360.0" text="Nghề nghiệp" />
-                  <Label layoutX="4.0" layoutY="280.0" text="Số CCCD/CMND" />
-                  <TextField layoutX="4.0" layoutY="140.0" prefHeight="30.0" prefWidth="350.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
-                  <TextField layoutX="4.0" layoutY="300.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
-                  <TextField layoutX="4.0" layoutY="380.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
-                  <Label layoutX="304.0" layoutY="200.0" text="Quê quán" />
-                  <Label layoutX="304.0" layoutY="280.0" text="Nơi thường trú" />
-                  <Label layoutX="304.0" layoutY="360.0" text="Nơi làm việc" />
-                  <TextField layoutX="304.0" layoutY="380.0" prefHeight="30.0" prefWidth="420.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
-                  <TextField layoutX="304.0" layoutY="300.0" prefHeight="30.0" prefWidth="420.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
-                  <TextField layoutX="304.0" layoutY="220.0" prefHeight="30.0" prefWidth="420.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
-                  <DatePicker layoutX="4.0" layoutY="220.0" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
-                  <Label layoutX="404.0" layoutY="120.0" text="Giới tính" />
-                  <Label layoutX="554.0" layoutY="120.0" text="Số điện thoại" />
-                  <TextField layoutX="554.0" layoutY="140.0" prefHeight="30.0" prefWidth="170.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
-                  <ComboBox layoutX="404.0" layoutY="140.0" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
-                  <Button layoutX="273.0" layoutY="480.0" mnemonicParsing="false" onAction="#nhankhau" style="-fx-background-color: #4480ff; -fx-background-radius: 10;" text="Cập nhật nhân khẩu" textFill="WHITE">
+                  <Label layoutX="40.0" layoutY="76.0" text="Họ và tên" />
+                  <Label layoutX="40.0" layoutY="286.0" text="Ngày sinh" />
+                  <Label layoutX="40.0" layoutY="216.0" text="Số CCCD/CMND" />
+                  <TextField layoutX="40.0" layoutY="96.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+                  <TextField layoutX="40.0" layoutY="236.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+                  <Label layoutX="40.0" layoutY="356.0" text="Quê quán" />
+                  <TextField layoutX="40.0" layoutY="376.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+                  <DatePicker layoutX="40.0" layoutY="306.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+                  <Label layoutX="40.0" layoutY="146.0" text="Giới tính" />
+                  <Label layoutX="40.0" layoutY="426.0" text="Số điện thoại" />
+                  <TextField layoutX="40.0" layoutY="446.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+                  <ComboBox layoutX="40.0" layoutY="166.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+                  <Button layoutX="116.0" layoutY="503.0" mnemonicParsing="false" onAction="#nhankhau" style="-fx-background-color: #4480ff; -fx-background-radius: 10;" text="Cập nhật nhân khẩu" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
