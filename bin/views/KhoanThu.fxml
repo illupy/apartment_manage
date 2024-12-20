@@ -124,8 +124,8 @@
 					prefWidth="750.0" spacing="10">
 					<children>
 						<Button mnemonicParsing="false" onAction="#addKhoanThu"
-							style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
-							text="Thêm khoản thu" textFill="WHITE">
+							style="-fx-background-color: white; -fx-border-radius: #4480ff; -fx-background-radius: 10;"
+							text="Thêm khoản thu" textFill="#4480ff">
 							<font>
 								<Font name="System Bold" size="15.0" />
 							</font>
@@ -140,6 +140,13 @@
 						<Button mnemonicParsing="false" onAction="#updateKhoanThu"
 							style="-fx-background-color: white; -fx-border-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
 							text="Sửa khoản thu" textFill="#4480ff">
+							<font>
+								<Font name="System Bold" size="15.0" />
+							</font>
+						</Button>
+						<Button mnemonicParsing="false" onAction="#updateKhoanThu"
+							style="-fx-background-color: white; -fx-border-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
+							text="Nộp tiền" textFill="#4480ff">
 							<font>
 								<Font name="System Bold" size="15.0" />
 							</font>
@@ -169,25 +176,21 @@
 					layoutY="150.0" prefHeight="420.0" prefWidth="750.0"
 					style="-fx-border-color: white;">
 					<columns>
-						<TableColumn fx:id="colIDKhoanThu" prefWidth="76.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="ID khoản thu" />
-						<TableColumn fx:id="colTenKhoanThu" prefWidth="180.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
+						<TableColumn fx:id="colIDKhoanThu" prefWidth="50.0"
+							text="ID" />
+						<TableColumn fx:id="colTenKhoanThu" prefWidth="160.0"
 							text="Tên khoản thu" />
+						<TableColumn fx:id="colMaHo" prefWidth="50.0"
+							text="Mã hộ" />
 						<TableColumn fx:id="colSoTien" minWidth="0.0"
-							prefWidth="115.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Số tiền" />
-						<TableColumn fx:id="colLoaiKhoanThu" prefWidth="130.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
+							prefWidth="120.0" text="Số tiền" />
+						<TableColumn fx:id="colLoaiKhoanThu" prefWidth="90.0"
 							text="Loại khoản thu" />
-						<TableColumn fx:id="colNgayBatDau" prefWidth="135.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
+						<TableColumn fx:id="colNgayBatDau" prefWidth="105.0"
 							text="Ngày bắt đầu thu" />
-						<TableColumn fx:id="colNgayKetThuc" prefWidth="110.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
+						<TableColumn fx:id="colNgayKetThuc" prefWidth="105.0"
 							text="Ngày hết hạn" />
+						<TableColumn prefWidth="63.0" text="Nộp tiền" />
 					</columns>
 				</TableView>
 			</children>

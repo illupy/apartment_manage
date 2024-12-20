@@ -47,6 +47,8 @@ public class KhoanThuController extends controller.HomeController implements Ini
 	@FXML
 	private TableColumn<KhoanThuModel, String> colTenKhoanThu;
 	@FXML
+	private TableColumn<KhoanThuModel, String> colMaHo;
+	@FXML
 	private TableColumn<KhoanThuModel, String> colSoTien;
 	@FXML
 	private TableColumn<KhoanThuModel, String> colLoaiKhoanThu;
@@ -54,6 +56,8 @@ public class KhoanThuController extends controller.HomeController implements Ini
 	private TableColumn<KhoanThuModel, String> colNgayBatDau;
 	@FXML
 	private TableColumn<KhoanThuModel, String> colNgayKetThuc;
+	@FXML
+	private TableColumn<KhoanThuModel, Void> colAction;
 	@FXML
 	private TextField tfSearch;
 	@FXML
@@ -68,6 +72,7 @@ public class KhoanThuController extends controller.HomeController implements Ini
 		// thiet lap cac cot cho table views
 		colIDKhoanThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("idKhoanThu"));
 		colTenKhoanThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("tenKhoanThu"));
+		colMaHo.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("maHo"));
 		colSoTien.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("soTien"));
 		colLoaiKhoanThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("loaiKhoanThu"));
 		colNgayBatDau.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("ngayBatDau"));
@@ -77,27 +82,19 @@ public class KhoanThuController extends controller.HomeController implements Ini
 //		colAction.setCellFactory(param -> new TableCell<KhoanThuModel, Void>() {
 //	        
 //			    private final HBox container = new HBox(8);
-//			    private final Button deleteButton = new Button("Xóa");
-//			    private final Button editButton = new Button("Sửa");
+//			    private final Button daNopButton = new Button("Đã Nộp");
 //
 //			    {
-//			        deleteButton.setOnAction(event -> {
-//			            try {
-//			            	delKhoanThu();
-//			            } catch (ClassNotFoundException | SQLException e) {
-//			                e.printStackTrace();
-//			            }
-//			        });
+////			        daNopButton.setOnAction(event -> {
+////			            try {
+////			            	setDaNop();
+////			            } catch (ClassNotFoundException | SQLException e) {
+////			                e.printStackTrace();
+////			            }
+////			        });
 //
-//			        editButton.setOnAction(event -> {
-//			            try {
-//			            	updateKhoanThu();
-//			            } catch (IOException | ClassNotFoundException | SQLException e) {
-//			                e.printStackTrace();
-//			            }
-//			        });
 //			        container.setAlignment(Pos.CENTER);
-//			        container.getChildren().addAll(editButton, deleteButton);
+//			        container.getChildren().addAll(daNopButton);
 //			    }
 //
 //			    @Override
@@ -111,7 +108,7 @@ public class KhoanThuController extends controller.HomeController implements Ini
 //			        }
 //			    }
 //			});
-		
+//		
 		Map<Integer, String> mapLoaiKhoanThu = new TreeMap<>();
 		mapLoaiKhoanThu.put(1, "Bắt buộc");
 		mapLoaiKhoanThu.put(0, "Tự nguyện");
@@ -258,6 +255,11 @@ public class KhoanThuController extends controller.HomeController implements Ini
 			}
 			
 		}
+	}
+	
+	@FXML
+	void nopTien(ActionEvent event) throws IOException {
+		switchScene(event, "/views/noptien/AddNopTien.fxml");
 	}
 
 	@Override
