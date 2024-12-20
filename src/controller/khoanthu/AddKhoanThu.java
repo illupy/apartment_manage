@@ -25,7 +25,7 @@ import services.KhoanThuService;
 
 public class AddKhoanThu extends controller.HomeController implements Initializable {
 	@FXML
-	private ComboBox<KhoanThuItem> cbMaKhoanThu;
+	private ComboBox<LoaiKhoanThuModel> cbMaKhoanThu;
 	@FXML
 	private TextField tfSoTien;
 	@FXML
@@ -72,7 +72,7 @@ public class AddKhoanThu extends controller.HomeController implements Initializa
 		}
 
 		// Kiểm tra xem đã chọn khoản thu chưa
-        KhoanThuItem selectedKhoanThu = cbMaKhoanThu.getValue();
+        LoaiKhoanThuModel selectedKhoanThu = cbMaKhoanThu.getValue();
         if (selectedKhoanThu == null) {
             Alert alert = new Alert(AlertType.WARNING, "Vui lòng chọn khoản thu!", ButtonType.OK);
             alert.setHeaderText(null);
@@ -116,7 +116,18 @@ public class AddKhoanThu extends controller.HomeController implements Initializa
         newKhoanThu.setNgayKetThuc(java.sql.Date.valueOf(dpNgayKetThuc.getValue()));
         newKhoanThu.setMaHo(maHo);
 
-		new KhoanThuService().add(newKhoanThu);
+		if (new KhoanThuService().add(newKhoanThu)) {
+			Alert alert = new Alert(AlertType.INFORMATION, "Thêm khoản thu thành công", ButtonType.OK);
+			alert.setHeaderText(null);
+			alert.showAndWait();
+			
+			//Clear form
+			tfSoTien.clear();
+			tfMaHo.clear();
+			cbMaKhoanThu.getSelectionModel().clearSelection();
+			dpNgayBatDau.setValue(null);
+			dpNgayKetThuc.setValue(null);
+		};
 	}
 
 	@Override
@@ -150,10 +161,10 @@ public class AddKhoanThu extends controller.HomeController implements Initializa
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ObservableList<KhoanThuItem> items = FXCollections.observableArrayList();
+		ObservableList<LoaiKhoanThuModel> items = FXCollections.observableArrayList();
 		
 		for (LoaiKhoanThuModel loaiKhoanThu : listLoaiKhoanThu) {
-            items.add(new KhoanThuItem(loaiKhoanThu.getMaKhoanThu(), loaiKhoanThu.getTenKhoanThu()));
+            items.add(loaiKhoanThu);
         }
 		
 		cbMaKhoanThu.setItems(items);

@@ -20,7 +20,7 @@
          <children>
             <ImageView fitHeight="189.0" fitWidth="205.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/bluemoon.jpg" />
+                  <Image url="@../../../img/bluemoon.jpg" />
                </image>
             </ImageView>
             <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
@@ -76,18 +76,28 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f5f6fa;" BorderPane.alignment="CENTER">
          <children>
-            <TableView layoutX="15.0" layoutY="150.0" prefHeight="420.0" prefWidth="750.0" style="-fx-border-color: white;">
+            <TableView layoutX="164.0" layoutY="149.0" prefHeight="357.0" prefWidth="472.0">
                <columns>
-                  <TableColumn prefWidth="76.0" style="-fx-background-color: white; -fx-border-color: #d5d5d5;" text="ID" />
-                  <TableColumn prefWidth="259.99999237060547" style="-fx-background-color: white; -fx-border-color: #d5d5d5;" text="Họ và tên" />
-                  <TableColumn prefWidth="410.6666564941406" style="-fx-background-color: white; -fx-border-color: #d5d5d5;" text="Quan hệ với chủ hộ" />
+                  <TableColumn prefWidth="70.0" text="ID" />
+                  <TableColumn prefWidth="250.0" text="Họ và tên" />
+                  <TableColumn prefWidth="150.0" text="Quan hệ với chủ hộ" />
                </columns>
             </TableView>
-            <Label layoutX="280.0" layoutY="61.0" text="Thông tin chi tiết hộ khẩu">
+            <Label layoutX="280.0" layoutY="28.0" text="Thông tin chi tiết hộ khẩu">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
+            <Button layoutX="400.0" layoutY="80.0" mnemonicParsing="false" style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Thêm thành viên" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button layoutX="580.0" layoutY="80.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: #d5d5d5; -fx-border-radius: 10; -fx-background-radius: 10;" text="Xóa thành viên" textFill="#ea0234">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </center>

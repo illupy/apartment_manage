@@ -16,7 +16,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import controller.khoanthu.UpdateKhoanThu;
-import controller.khoanthu.UpdateKhoanThu.KhoanThuItem;
 
 public class HomeController {
 	@FXML
@@ -39,27 +38,26 @@ public class HomeController {
 		    Parent root = loader.load();
 
 		    // Lấy controller của màn hình đích
-		    UpdateKhoanThu controller = loader.getController();
+		    UpdateKhoanThu updateController = loader.getController();
 		    LoaiKhoanThuModel loaiKhoanThu = new LoaiKhoanThuModel(khoanThu.getMaKhoanThu(), khoanThu.getTenKhoanThu());
 
 		    // Thiết lập dữ liệu cho controller
 		    if (khoanThu != null) {
 		        // Điền thông tin vào các trường của controller
-		        controller.getTfSoTien().setText(String.valueOf(khoanThu.getSoTien()));
-		        controller.getTfMaHo().setText(String.valueOf(khoanThu.getMaHo()));
-		        controller.setIdKhoanThu(khoanThu.getIdKhoanThu());
-		        System.out.println(String.valueOf(khoanThu.getMaHo()));
-		  
-		        
+		        updateController.getTfSoTien().setText(String.valueOf(khoanThu.getSoTien()));
+		        updateController.getTfMaHo().setText(String.valueOf(khoanThu.getMaHo()));
+		        updateController.getCbMaKhoanThu().setValue(loaiKhoanThu);
+		        updateController.setIdKhoanThu(khoanThu.getIdKhoanThu());
+		       
 		        // Chuyển đổi java.sql.Date sang LocalDate
 		        if (khoanThu.getNgayBatDau() != null) {
-		            controller.getDpNgayBatDau().setValue(
+		            updateController.getDpNgayBatDau().setValue(
 		            		((java.sql.Date) khoanThu.getNgayBatDau()).toLocalDate()
 		            );
 		        }
 		        
 		        if (khoanThu.getNgayKetThuc() != null) {
-		            controller.getDpNgayKetThuc().setValue(
+		            updateController.getDpNgayKetThuc().setValue(
 		            		((java.sql.Date) khoanThu.getNgayKetThuc()).toLocalDate()
 		            );
 		        }

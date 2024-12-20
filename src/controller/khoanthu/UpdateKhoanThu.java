@@ -1,5 +1,6 @@
 package controller.khoanthu;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ import services.KhoanThuService;
 
 public class UpdateKhoanThu extends controller.HomeController implements Initializable {
 	@FXML
-	private ComboBox<KhoanThuItem> cbMaKhoanThu;
+	private ComboBox<LoaiKhoanThuModel> cbMaKhoanThu;
 	@FXML
 	private TextField tfSoTien;
 	@FXML
@@ -45,29 +46,6 @@ public class UpdateKhoanThu extends controller.HomeController implements Initial
 		this.idKhoanThu = idKhoanThu;
 	}
 
-	public class KhoanThuItem {
-        private int maKhoanThu;
-        private String tenKhoanThu;
-
-        public KhoanThuItem(int maKhoanThu, String tenKhoanThu) {
-            this.maKhoanThu = maKhoanThu;
-            this.tenKhoanThu = tenKhoanThu;
-        }
-
-        public int getMaKhoanThu() {
-            return maKhoanThu;
-        }
-
-        public String getTenKhoanThu() {
-            return tenKhoanThu;
-        }
-
-        @Override
-        public String toString() {
-            return maKhoanThu + " - " + tenKhoanThu;
-        }
-    }
-
 	public void updateKhoanThu(ActionEvent event) throws ClassNotFoundException, SQLException {
 		Pattern pattern;
 
@@ -82,7 +60,7 @@ public class UpdateKhoanThu extends controller.HomeController implements Initial
 		}
 
 		// Kiểm tra xem đã chọn khoản thu chưa
-        KhoanThuItem selectedKhoanThu = getCbMaKhoanThu().getValue();
+        LoaiKhoanThuModel selectedKhoanThu = getCbMaKhoanThu().getValue();
         if (selectedKhoanThu == null) {
             Alert alert = new Alert(AlertType.WARNING, "Vui lòng chọn khoản thu!", ButtonType.OK);
             alert.setHeaderText(null);
@@ -127,7 +105,22 @@ public class UpdateKhoanThu extends controller.HomeController implements Initial
         newKhoanThu.setNgayKetThuc(java.sql.Date.valueOf(getDpNgayKetThuc().getValue()));
         newKhoanThu.setMaHo(maHo);
 
-		new KhoanThuService().update(newKhoanThu);
+        if (new KhoanThuService().update(newKhoanThu)) {
+            Alert alert = new Alert(AlertType.INFORMATION, "Sửa khoản thu thành công!", ButtonType.OK);
+            alert.setHeaderText(null);
+            
+            // Đợi người dùng bấm OK trên alert rồi mới chuyển scene
+            alert.showAndWait().ifPresent(response -> {
+                try {
+                    switchScene(event, "/views/KhoanThu.fxml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Alert errorAlert = new Alert(AlertType.ERROR, "Có lỗi xảy ra: " + e.getMessage(), ButtonType.OK);
+                    errorAlert.setHeaderText(null);
+                    errorAlert.showAndWait();
+                }
+            });
+        }
 	}
 
 	@Override
@@ -161,10 +154,10 @@ public class UpdateKhoanThu extends controller.HomeController implements Initial
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ObservableList<KhoanThuItem> items = FXCollections.observableArrayList();
+		ObservableList<LoaiKhoanThuModel> items = FXCollections.observableArrayList();
 		
 		for (LoaiKhoanThuModel loaiKhoanThu : listLoaiKhoanThu) {
-            items.add(new KhoanThuItem(loaiKhoanThu.getMaKhoanThu(), loaiKhoanThu.getTenKhoanThu()));
+            items.add(loaiKhoanThu);
         }
 		
 		getCbMaKhoanThu().setItems(items);
@@ -202,11 +195,11 @@ public class UpdateKhoanThu extends controller.HomeController implements Initial
 		this.tfMaHo = tfMaHo;
 	}
 
-	public ComboBox<KhoanThuItem> getCbMaKhoanThu() {
+	public ComboBox<LoaiKhoanThuModel> getCbMaKhoanThu() {
 		return cbMaKhoanThu;
 	}
 
-	public void setCbMaKhoanThu(ComboBox<KhoanThuItem> cbMaKhoanThu) {
+	public void setCbMaKhoanThu(ComboBox<LoaiKhoanThuModel> cbMaKhoanThu) {
 		this.cbMaKhoanThu = cbMaKhoanThu;
 	}
 }

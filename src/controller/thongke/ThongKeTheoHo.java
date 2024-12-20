@@ -1,5 +1,6 @@
 package controller.thongke;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -7,9 +8,12 @@ import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -106,6 +110,19 @@ public class ThongKeTheoHo extends controller.HomeController implements Initiali
 		colTienDaDong.setCellValueFactory(new PropertyValueFactory<HoKhauModel, Double>("tienDaDong"));
 
 		tvThongKeTheoHo.setItems(listValueTableView_tmp);
+	}
+	
+	@FXML
+	void xemChiTietTheoHo(ActionEvent event) throws IOException {
+		HoKhauModel hoKhau = tvThongKeTheoHo.getSelectionModel().getSelectedItem();
+		
+		if (hoKhau == null) {
+			Alert alert = new Alert(AlertType.WARNING, "Chọn hộ mmuốn xem thống kê chi tiết", ButtonType.OK);
+			alert.setHeaderText(null);
+			alert.showAndWait();
+		} else {
+			switchScene(event, "views/");
+		}
 	}
 
 	@Override

@@ -3,8 +3,7 @@ package models;
 public class LoaiKhoanThuModel {
     private int maKhoanThu;
     private String tenKhoanThu;
-    
-
+   
     public LoaiKhoanThuModel() {
 		super();
 	}

@@ -123,4 +123,20 @@ public class KhoanThuService {
 		return list;
 	}
 
+	public boolean addLoaiKhoanThu(String tenKhoanThu, int BatBuoc) throws ClassNotFoundException, SQLException {
+		try (Connection connection = MysqlConnection.getMysqlConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(
+						"INSERT INTO loai_khoan_thu(TenKhoanThu, BatBuoc) "
+								+ "VALUES (?, ?);",
+						Statement.RETURN_GENERATED_KEYS)) {
+
+			preparedStatement.setString(1, tenKhoanThu);
+			preparedStatement.setInt(2, BatBuoc);
+
+			preparedStatement.executeUpdate();
+		}
+
+		return true;
+	}
+
 }

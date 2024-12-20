@@ -31,9 +31,9 @@
 					</image>
 				</ImageView>
 				<HBox prefHeight="55.0" prefWidth="150.0"
-					style="-fx-alignment: center;">
+					style="-fx-alignment: center; -fx-background-color: #4480ff; -fx-background-radius: 8;">
 					<children>
-						<FontAwesomeIcon glyphName="MONEY"
+						<FontAwesomeIcon fill="WHITE" glyphName="MONEY"
 							selectionFill="BLACK" size="20"
 							wrappingWidth="26.785715103149414">
 							<font>
@@ -42,8 +42,8 @@
 						</FontAwesomeIcon>
 						<Button mnemonicParsing="false" onAction="#setKhoanPhi"
 							prefHeight="56.0" prefWidth="130.0"
-							style="-fx-background-color: white; -fx-font-weight: bold;"
-							text="Khoản phí" />
+							style="-fx-background-color: #4480ff; -fx-font-weight: bold;"
+							text="Khoản phí" textFill="WHITE" />
 					</children>
 				</HBox>
 				<HBox prefHeight="55.0" prefWidth="150.0"
@@ -121,57 +121,7 @@
 			style="-fx-background-color: #f5f6fa;">
 			<children>
 				<HBox layoutX="15.0" layoutY="14.0" prefHeight="40.0"
-					prefWidth="750.0" spacing="10">
-					<children>
-						<Button mnemonicParsing="false" onAction="#addKhoanThu"
-							style="-fx-background-color: white; -fx-border-radius: #4480ff; -fx-background-radius: 10;"
-							text="Thêm khoản thu" textFill="#4480ff">
-							<font>
-								<Font name="System Bold" size="15.0" />
-							</font>
-						</Button>
-						<Button mnemonicParsing="false" onAction="#delKhoanThu"
-							style="-fx-background-color: white; -fx-border-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
-							text="Xóa khoản thu" textFill="#4480ff">
-							<font>
-								<Font name="System Bold" size="15.0" />
-							</font>
-						</Button>
-						<Button mnemonicParsing="false" onAction="#updateKhoanThu"
-							style="-fx-background-color: white; -fx-border-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
-							text="Sửa khoản thu" textFill="#4480ff">
-							<font>
-								<Font name="System Bold" size="15.0" />
-							</font>
-						</Button>
-						<Button mnemonicParsing="false" onAction="#updateKhoanThu"
-							style="-fx-background-color: white; -fx-border-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
-							text="Nộp tiền" textFill="#4480ff">
-							<font>
-								<Font name="System Bold" size="15.0" />
-							</font>
-						</Button>
-					</children>
-				</HBox>
-				<HBox layoutX="15.0" layoutY="80.0" prefHeight="25.0"
-					prefWidth="750.0" spacing="10">
-					<children>
-						<TextField fx:id="tfSearch" prefHeight="25.0"
-							prefWidth="350.0" promptText="Tìm kiếm"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5; -fx-border-radius: 8; -fx-background-radius: 8;" />
-						<ComboBox fx:id="cbChooseSearch" prefHeight="25.0"
-							prefWidth="180.0" promptText="Tìm kiếm theo"
-							style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-border-radius: 8; -fx-background-radius: 8;" />
-						<Button mnemonicParsing="false" onAction="#searchKhoanThu"
-							prefHeight="25.0" prefWidth="100.0"
-							style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
-							text="Tìm kiếm" textFill="WHITE">
-							<font>
-								<Font name="System Bold" size="15.0" />
-							</font>
-						</Button>
-					</children>
-				</HBox>
+					prefWidth="750.0" spacing="10" />
 				<TableView fx:id="tvKhoanPhi" layoutX="15.0"
 					layoutY="150.0" prefHeight="420.0" prefWidth="750.0"
 					style="-fx-border-color: white;">
@@ -190,9 +140,61 @@
 							text="Ngày bắt đầu thu" />
 						<TableColumn fx:id="colNgayKetThuc" prefWidth="105.0"
 							text="Ngày hết hạn" />
-						<TableColumn prefWidth="63.0" text="Nộp tiền" />
+						<TableColumn fx:id="colAction" prefWidth="63.0" text="Nộp tiền" />
 					</columns>
 				</TableView>
+				<ComboBox fx:id="cbChooseSearch" layoutX="410.0"
+					layoutY="14.0" prefHeight="25.0" prefWidth="118.0"
+					promptText="Tìm kiếm theo"
+					style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-border-radius: 8; -fx-background-radius: 8;" />
+				<HBox layoutX="528.0" layoutY="15.0" prefHeight="25.0"
+					prefWidth="200.0"
+					style="-fx-background-color: white; -fx-alignment: center;">
+					<children>
+						<TextField fx:id="tfSearch" prefHeight="25.0"
+							prefWidth="173.0" promptText="Tìm kiếm"
+							style="-fx-background-color: white;" />
+						<Button mnemonicParsing="false" prefHeight="24.0"
+							prefWidth="30.0" style="-fx-background-color: white;">
+							<graphic>
+								<FontAwesomeIcon glyphName="SEARCH"
+									onDragDetected="#searchKhoanThu" size="14" />
+							</graphic>
+						</Button>
+					</children>
+				</HBox>
+				<Button layoutX="61.0" layoutY="80.0" mnemonicParsing="false"
+					onAction="#addKhoanThu"
+					style="-fx-background-color: white; -fx-border-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
+					text="Thêm khoản thu" textFill="#4480ff">
+					<font>
+						<Font name="System Bold" size="15.0" />
+					</font>
+				</Button>
+				<Button layoutX="221.0" layoutY="80.0"
+					mnemonicParsing="false" onAction="#updateKhoanThu"
+					style="-fx-background-color: white; -fx-border-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
+					text="Sửa khoản thu" textFill="#4480ff">
+					<font>
+						<Font name="System Bold" size="15.0" />
+					</font>
+				</Button>
+				<Button layoutX="372.0" layoutY="80.0"
+					mnemonicParsing="false" onAction="#delKhoanThu"
+					style="-fx-background-color: white; -fx-border-color: #D5D5d5; -fx-border-radius: 10; -fx-background-radius: 10;"
+					text="Xóa khoản thu" textFill="#ea0234">
+					<font>
+						<Font name="System Bold" size="15.0" />
+					</font>
+				</Button>
+				<Button layoutX="560.0" layoutY="81.0"
+					mnemonicParsing="false" onAction="#addLoaiKhoanThu"
+					style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
+					text="Thêm loại khoản thu" textFill="WHITE">
+					<font>
+						<Font name="System Bold" size="15.0" />
+					</font>
+				</Button>
 			</children>
 		</AnchorPane>
 	</center>

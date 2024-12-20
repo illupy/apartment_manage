@@ -79,36 +79,36 @@ public class KhoanThuController extends controller.HomeController implements Ini
 		colNgayKetThuc.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("ngayKetThuc"));
 		
 		
-//		colAction.setCellFactory(param -> new TableCell<KhoanThuModel, Void>() {
-//	        
-//			    private final HBox container = new HBox(8);
-//			    private final Button daNopButton = new Button("Đã Nộp");
-//
-//			    {
-////			        daNopButton.setOnAction(event -> {
-////			            try {
-////			            	setDaNop();
-////			            } catch (ClassNotFoundException | SQLException e) {
-////			                e.printStackTrace();
-////			            }
-////			        });
-//
-//			        container.setAlignment(Pos.CENTER);
-//			        container.getChildren().addAll(daNopButton);
-//			    }
-//
-//			    @Override
-//			    protected void updateItem(Void item, boolean empty) {
-//			        super.updateItem(item, empty);
-//
-//			        if (empty) {
-//			            setGraphic(null);
-//			        } else {
-//			            setGraphic(container);
-//			        }
-//			    }
-//			});
-//		
+		colAction.setCellFactory(param -> new TableCell<KhoanThuModel, Void>() {
+	        
+			    private final HBox container = new HBox(8);
+			    private final Button daNopButton = new Button("Đã Nộp");
+
+			    {
+//			        daNopButton.setOnAction(event -> {
+//			            try {
+//			            	setDaNop();
+//			            } catch (ClassNotFoundException | SQLException e) {
+//			                e.printStackTrace();
+//			            }
+//			        });
+
+			        container.setAlignment(Pos.CENTER);
+			        container.getChildren().addAll(daNopButton);
+			    }
+
+			    @Override
+			    protected void updateItem(Void item, boolean empty) {
+			        super.updateItem(item, empty);
+
+			        if (empty) {
+			            setGraphic(null);
+			        } else {
+			            setGraphic(container);
+			        }
+			    }
+			});
+		
 		Map<Integer, String> mapLoaiKhoanThu = new TreeMap<>();
 		mapLoaiKhoanThu.put(1, "Bắt buộc");
 		mapLoaiKhoanThu.put(0, "Tự nguyện");
@@ -260,6 +260,11 @@ public class KhoanThuController extends controller.HomeController implements Ini
 	@FXML
 	void nopTien(ActionEvent event) throws IOException {
 		switchScene(event, "/views/noptien/AddNopTien.fxml");
+	}
+	
+	@FXML
+	void addLoaiKhoanThu(ActionEvent event) throws IOException {
+		switchScene(event, "/views/khoanthu/AddLoaiKhoanThu.fxml");
 	}
 
 	@Override

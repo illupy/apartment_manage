@@ -15,173 +15,106 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-	prefWidth="970.0" xmlns="http://javafx.com/javafx/23"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="controller.NhanKhauController">
-	<left>
-		<VBox prefHeight="600.0" prefWidth="189.0"
-			style="-fx-background-color: white;" BorderPane.alignment="CENTER">
-			<children>
-				<ImageView fitHeight="189.0" fitWidth="205.0"
-					pickOnBounds="true" preserveRatio="true">
-					<image>
-						<Image url="@../../../img/bluemoon.jpg" />
-					</image>
-				</ImageView>
-				<HBox prefHeight="55.0" prefWidth="150.0"
-					style="-fx-alignment: center;">
-					<children>
-						<FontAwesomeIcon glyphName="MONEY"
-							selectionFill="BLACK" size="20"
-							wrappingWidth="26.785715103149414">
-							<font>
-								<Font size="16.0" />
-							</font>
-						</FontAwesomeIcon>
-						<Button mnemonicParsing="false" onAction="#setKhoanPhi"
-							prefHeight="56.0" prefWidth="130.0"
-							style="-fx-background-color: white; -fx-font-weight: bold;"
-							text="Khoản phí" />
-					</children>
-				</HBox>
-				<HBox prefHeight="55.0" prefWidth="150.0"
-					style="-fx-alignment: center;">
-					<children>
-						<FontAwesomeIcon glyphName="HOME"
-							selectionFill="BLACK" size="20" text="" />
-						<Button mnemonicParsing="false" onAction="#setHoKhau"
-							prefHeight="61.0" prefWidth="130.0"
-							style="-fx-background-color: white; -fx-font-weight: bold;"
-							text="Hộ khẩu" />
-					</children>
-				</HBox>
-				<HBox prefHeight="55.0" prefWidth="150.0"
-					style="-fx-alignment: center; -fx-background-color: #4480ff; -fx-background-radius: 8;">
-					<children>
-						<FontAwesomeIcon fill="WHITE" glyphName="USER"
-							selectionFill="BLACK" size="20" />
-						<Button mnemonicParsing="false" onAction="#setNhanKhau"
-							prefHeight="57.0" prefWidth="130.0"
-							style="-fx-background-color: #4480ff; -fx-font-weight: bold;"
-							text="Nhân khẩu" textFill="WHITE" />
-					</children>
-				</HBox>
-				<HBox prefHeight="55.0" prefWidth="150.0"
-					style="-fx-alignment: center;">
-					<children>
-						<FontAwesomeIcon glyphName="BAR_CHART"
-							selectionFill="BLACK" size="20" />
-						<Button mnemonicParsing="false" onAction="#setTKho"
-							prefHeight="55.0" prefWidth="130.0"
-							style="-fx-background-color: white; -fx-font-weight: bold;"
-							text="Thống kê theo hộ" />
-					</children>
-				</HBox>
-				<HBox prefHeight="55.0" prefWidth="150.0"
-					style="-fx-alignment: center;">
-					<children>
-						<FontAwesomeIcon glyphName="PIE_CHART"
-							selectionFill="BLACK" size="20" text="" />
-						<Button mnemonicParsing="false" onAction="#setTKkhoanphi"
-							prefHeight="59.0" prefWidth="130.0"
-							style="-fx-background-color: white; -fx-font-weight: bold;"
-							text="Thống kê khoản phí" />
-					</children>
-				</HBox>
-				<Separator prefWidth="200.0" />
-				<HBox prefHeight="55.0" prefWidth="150.0"
-					style="-fx-alignment: center;">
-					<children>
-						<FontAwesomeIcon glyphName="USER"
-							selectionFill="BLACK" size="20" />
-						<Button mnemonicParsing="false" onAction="#update"
-							prefHeight="56.0" prefWidth="130.0"
-							style="-fx-background-color: white; -fx-font-weight: bold;"
-							text="Cập nhật thông tin" />
-					</children>
-				</HBox>
-				<HBox prefHeight="55.0" prefWidth="150.0"
-					style="-fx-alignment: center;">
-					<children>
-						<FontAwesomeIcon glyphName="POWER_OFF"
-							selectionFill="BLACK" size="20" />
-						<Button mnemonicParsing="false" onAction="#logout"
-							prefHeight="55.0" prefWidth="136.0"
-							style="-fx-background-color: white; -fx-font-weight: bold;"
-							text="Đăng xuất" />
-					</children>
-				</HBox>
-			</children>
-		</VBox>
-	</left>
-	<center>
-		<AnchorPane prefHeight="200.0" prefWidth="200.0"
-			style="-fx-background-color: #f5f6fa;" BorderPane.alignment="CENTER">
-			<children>
-				<TableView fx:id="tvNhanKhau" layoutX="15.0"
-					layoutY="150.0" prefHeight="420.0" prefWidth="750.0"
-					style="-fx-border-color: white;">
-					<columns>
-						<TableColumn fx:id="colMaNhanKhau" prefWidth="76.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="ID" />
-						<TableColumn fx:id="colTen" prefWidth="180.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Họ và tên" />
-						<TableColumn fx:id="colGioiTinh" minWidth="0.0"
-							prefWidth="57.999908447265625"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Giới tính" />
-						<TableColumn fx:id="colNgaySinh"
-							prefWidth="89.33331298828125"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Ngày sinh" />
-						<TableColumn fx:id="colCCCD"
-							prefWidth="120.66677856445312"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="CCCD" />
-						<TableColumn fx:id="colSDT"
-							prefWidth="95.333251953125"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Số điện thoại" />
-						<TableColumn fx:id="colMaHo" prefWidth="56.0"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Mã hộ" />
-						<TableColumn prefWidth="69.3333740234375"
-							style="-fx-background-color: white; -fx-border-color: #d5d5d5;"
-							text="Chức năng" />
-					</columns>
-				</TableView>
-				<ComboBox fx:id="cbChooseSearch" layoutX="410.0"
-					layoutY="14.0" prefHeight="25.0" prefWidth="118.0"
-					promptText="Tìm kiếm theo"
-					style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-border-radius: 8; -fx-background-radius: 8;" />
-				<Button layoutX="535.0" layoutY="80.0"
-					mnemonicParsing="false" onAction="#addNhanKhau"
-					style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
-					text="Thêm nhân khẩu" textFill="WHITE">
-					<font>
-						<Font name="System Bold" size="15.0" />
-					</font>
-				</Button>
-				<HBox layoutX="528.0" layoutY="15.0" prefHeight="25.0"
-					prefWidth="200.0"
-					style="-fx-background-color: white; -fx-alignment: center;">
-					<children>
-						<TextField fx:id="tfSearch" prefHeight="25.0"
-							prefWidth="173.0" promptText="Tìm kiếm"
-							style="-fx-background-color: white;" />
-						<Button mnemonicParsing="false" prefHeight="24.0"
-							prefWidth="30.0" style="-fx-background-color: white;">
-							<graphic>
-								<FontAwesomeIcon glyphName="SEARCH" size="14" />
-							</graphic>
-						</Button>
-					</children>
-				</HBox>
-			</children>
-		</AnchorPane>
-	</center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NhanKhauController">
+   <left>
+      <VBox prefHeight="600.0" prefWidth="189.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="189.0" fitWidth="205.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../img/bluemoon.jpg" />
+               </image>
+            </ImageView>
+            <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
+               <children>
+                  <FontAwesomeIcon glyphName="MONEY" size="20" wrappingWidth="26.785715103149414">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </FontAwesomeIcon>
+                  <Button mnemonicParsing="false" onAction="#setKhoanPhi" prefHeight="56.0" prefWidth="130.0" style="-fx-background-color: white; -fx-font-weight: bold;" text="Khoản phí" />
+               </children>
+            </HBox>
+            <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
+               <children>
+                  <FontAwesomeIcon glyphName="HOME" selectionFill="BLACK" size="20" text="" />
+                  <Button mnemonicParsing="false" onAction="#setHoKhau" prefHeight="61.0" prefWidth="130.0" style="-fx-background-color: white; -fx-font-weight: bold;" text="Hộ khẩu" />
+               </children>
+            </HBox>
+            <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center; -fx-background-color: #4480ff; -fx-background-radius: 8;">
+               <children>
+                  <FontAwesomeIcon fill="WHITE" glyphName="USER" selectionFill="BLACK" size="20" />
+                  <Button mnemonicParsing="false" onAction="#setNhanKhau" prefHeight="57.0" prefWidth="130.0" style="-fx-background-color: #4480ff; -fx-font-weight: bold;" text="Nhân khẩu" textFill="WHITE" />
+               </children>
+            </HBox>
+            <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
+               <children>
+                  <FontAwesomeIcon glyphName="BAR_CHART" selectionFill="BLACK" size="20" />
+                  <Button mnemonicParsing="false" onAction="#setTKho" prefHeight="55.0" prefWidth="130.0" style="-fx-background-color: white; -fx-font-weight: bold;" text="Thống kê theo hộ" />
+               </children>
+            </HBox>
+            <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
+               <children>
+                  <FontAwesomeIcon glyphName="PIE_CHART" selectionFill="BLACK" size="20" text="" />
+                  <Button mnemonicParsing="false" onAction="#setTKkhoanphi" prefHeight="59.0" prefWidth="130.0" style="-fx-background-color: white; -fx-font-weight: bold;" text="Thống kê khoản phí" />
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
+               <children>
+                  <FontAwesomeIcon glyphName="USER" selectionFill="BLACK" size="20" />
+                  <Button mnemonicParsing="false" onAction="#update" prefHeight="56.0" prefWidth="130.0" style="-fx-background-color: white; -fx-font-weight: bold;" text="Cập nhật thông tin" />
+               </children>
+            </HBox>
+            <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
+               <children>
+                  <FontAwesomeIcon glyphName="POWER_OFF" selectionFill="BLACK" size="20" />
+                  <Button mnemonicParsing="false" onAction="#logout" prefHeight="55.0" prefWidth="136.0" style="-fx-background-color: white; -fx-font-weight: bold;" text="Đăng xuất" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f5f6fa;" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="tvNhanKhau" layoutX="15.0" layoutY="150.0" prefHeight="420.0" prefWidth="750.0">
+               <columns>
+                  <TableColumn fx:id="colMaNhanKhau" prefWidth="50.0" text="ID" />
+                  <TableColumn fx:id="colTen" prefWidth="150.0" text="Họ và tên" />
+                  <TableColumn fx:id="colGioiTinh" minWidth="0.0" prefWidth="70.0" text="Giới tính" />
+                  <TableColumn fx:id="colNgaySinh" prefWidth="100.0" text="Ngày sinh" />
+                  <TableColumn fx:id="colCCCD" prefWidth="110.0" text="CCCD" />
+                  <TableColumn fx:id="colSDT" prefWidth="110.0" text="Số điện thoại" />
+                  <TableColumn prefWidth="157.0" text="Quê quán" />
+               </columns>
+            </TableView>
+            <ComboBox fx:id="cbChooseSearch" layoutX="410.0" layoutY="14.0" prefHeight="25.0" prefWidth="118.0" promptText="Tìm kiếm theo" style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-border-radius: 8; -fx-background-radius: 8;" />
+            <Button layoutX="620.0" layoutY="80.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: d5d5d5; -fx-border-radius: 10; -fx-background-radius: 10;" text="Xóa nhân khẩu" textFill="#ea0234">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <HBox layoutX="528.0" layoutY="15.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: white; -fx-alignment: center;">
+               <children>
+                  <TextField fx:id="tfSearch" prefHeight="25.0" prefWidth="173.0" promptText="Tìm kiếm" style="-fx-background-color: white;" />
+                  <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="30.0" style="-fx-background-color: white;">
+                     <graphic>
+                        <FontAwesomeIcon glyphName="SEARCH" size="14" />
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <Button layoutX="460.0" layoutY="80.0" mnemonicParsing="false" onAction="#updateNhanKhau" style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Sửa nhân khẩu" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button layoutX="300.0" layoutY="80.0" mnemonicParsing="false" onAction="#addNhanKhau" style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Thêm nhân khẩu" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>
