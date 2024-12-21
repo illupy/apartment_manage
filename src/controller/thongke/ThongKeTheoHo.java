@@ -121,7 +121,7 @@ public class ThongKeTheoHo extends controller.HomeController implements Initiali
 			alert.setHeaderText(null);
 			alert.showAndWait();
 		} else {
-			switchScene(event, "views/");
+			switchScene(event, "/views/thongke/ThongKeChiTietTheoHo.fxml");
 		}
 	}
 
