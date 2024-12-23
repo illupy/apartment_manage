@@ -100,6 +100,13 @@ public class HomeController {
 	public void update(ActionEvent event) throws IOException {
 		switchScene(event, "/views/Main.fxml");
 	}
+	
+	@FXML
+	public void addNhanKhau(ActionEvent event) throws IOException {
+		switchScene(event, "/views/nhankhau/addnhankhau.fxml");
+	}
+	
+
 
 	@FXML
 	public void logout(ActionEvent event) throws IOException {

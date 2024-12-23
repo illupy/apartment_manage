@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,7 +30,11 @@ public class AddHoKhau extends controller.HomeController implements Initializabl
 	@FXML
 	private TextField tfMaHoKhau;
 	@FXML
-	private TextField tfDiaChi;
+	private TextField tfSoPhong;
+	@FXML
+	private TextField tfSoOto;
+	@FXML
+	private TextField tfSoXeMay;
 	@FXML
 	private TextField tfMaChuHo;
 	@FXML
@@ -49,7 +52,12 @@ public class AddHoKhau extends controller.HomeController implements Initializabl
 	public void addHoKhau(ActionEvent event) throws ClassNotFoundException, SQLException{
 		if(validateInput()) {
 			int maHo = Integer.parseInt(tfMaHoKhau.getText());
-			String diaChi = tfDiaChi.getText();
+			String soPhong = tfSoPhong.getText();
+			
+			
+			Integer soOto = tfSoOto.getText().isEmpty() ? null : Integer.parseInt(tfSoOto.getText());
+			Integer soXeMay = tfSoXeMay.getText().isEmpty() ? null : Integer.parseInt(tfSoXeMay.getText());
+			
 			int maChuHo = Integer.parseInt(tfMaChuHo.getText());
 			String tenChuHo = tfTenChuHo.getText();
 			String gioiTinhChuHo = tfGioiTinhChuHo.getSelectionModel().getSelectedItem().trim();
@@ -57,7 +65,7 @@ public class AddHoKhau extends controller.HomeController implements Initializabl
 			String cccdChuHo = tfCCCD.getText();
 			String sdtChuHo = tfSoDienThoai.getText();
 			
-			HoKhauModel hoKhauModel = new HoKhauModel(maHo, 0, diaChi);
+			HoKhauModel hoKhauModel = new HoKhauModel(maHo, soPhong, soOto, soXeMay);
 			NhanKhauModel nhanKhauModel = new NhanKhauModel(maChuHo, cccdChuHo, tenChuHo, gioiTinhChuHo, ngaySinhDate, sdtChuHo);
 			
 			addHoKhauToDatabase(hoKhauModel, nhanKhauModel);
@@ -65,29 +73,69 @@ public class AddHoKhau extends controller.HomeController implements Initializabl
 		}
 	}
 	
-	private boolean validateInput() throws ClassNotFoundException, SQLException{
-		return validateMaHo() && validateDiaChi() && validateMaChuHo() && validateTenChuHo()
-				&& validateCCCD() && validateSDT();
-	}
-	
-	private boolean validateMaHo() throws ClassNotFoundException, SQLException{
-		Pattern pattern = Pattern.compile("\\d{1, 11}");
-		if(!pattern.matcher(tfMaHoKhau.getText()).matches()) {
-			showAlert("Hãy nhập mã hộ khẩu hợp lệ!");
-			return false;
-		}
-		
-		List<HoKhauModel> listHoKhauModels = new HoKhauService().getListHoKhau();
-		for (HoKhauModel hokhau : listHoKhauModels) {
+	private boolean validateInput() throws ClassNotFoundException, SQLException {
+        return validateMaHo() && validateSoPhong() && validateSoOtoXeMay() && validateMaChuHo() && validateTenChuHo() && validateCCCD() && validateSDT();
+    }
+
+    private boolean validateMaHo() throws ClassNotFoundException, SQLException {
+        Pattern pattern = Pattern.compile("\\d{1,11}");
+        if (!pattern.matcher(tfMaHoKhau.getText()).matches()) {
+            showAlert("Hãy nhập mã hộ khẩu hợp lệ!");
+            return false;
+        }
+
+        List<HoKhauModel> listHoKhauModels = new HoKhauService().getListHoKhau();
+        for (HoKhauModel hokhau : listHoKhauModels) {
             if (hokhau.getMaHo() == Integer.parseInt(tfMaHoKhau.getText())) {
                 showAlert("Mã hộ khẩu bị trùng!");
                 return false;
             }
         }
-		return true;
-	}
-	
-	private boolean validateMaChuHo() throws ClassNotFoundException, SQLException {
+        return true;
+    }
+
+    private boolean validateSoPhong() throws SQLException {
+        if (tfSoPhong.getText().isEmpty() || tfSoPhong.getText().length() > 50) {
+            showAlert("Hãy nhập số phòng hợp lệ!");
+            return false;
+        }
+
+        // Kiểm tra số phòng trong bảng Phòng của database
+//        String query = "SELECT COUNT(*) FROM Phong WHERE soPhong = ?";
+//        try (var connection = DatabaseUtils.getConnection();
+//             var preparedStatement = connection.prepareStatement(query)) {
+//            preparedStatement.setString(1, tfSoPhong.getText());
+//            var resultSet = preparedStatement.executeQuery();
+//            if (resultSet.next() && resultSet.getInt(1) == 0) {
+//                showAlert("Số phòng không tồn tại trong hệ thống!");
+//                return false;
+//            }
+//        }
+        return true;
+    }
+
+    private boolean validateSoOtoXeMay() {
+        if (!tfSoOto.getText().isEmpty()) {
+            try {
+                Integer.parseInt(tfSoOto.getText());
+            } catch (NumberFormatException e) {
+                showAlert("Số ô tô phải là một số nguyên hợp lệ hoặc để trống!");
+                return false;
+            }
+        }
+
+        if (!tfSoXeMay.getText().isEmpty()) {
+            try {
+                Integer.parseInt(tfSoXeMay.getText());
+            } catch (NumberFormatException e) {
+                showAlert("Số xe máy phải là một số nguyên hợp lệ hoặc để trống!");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean validateMaChuHo() throws ClassNotFoundException, SQLException {
         Pattern pattern = Pattern.compile("\\d{1,11}");
         if (!pattern.matcher(tfMaChuHo.getText()).matches()) {
             showAlert("Hãy nhập mã nhân khẩu hợp lệ!");
@@ -103,61 +151,53 @@ public class AddHoKhau extends controller.HomeController implements Initializabl
         }
         return true;
     }
-	
-	 private boolean validateDiaChi() {
-	        if (tfDiaChi.getText().length() >= 50 || tfDiaChi.getText().length() <= 1) {
-	            showAlert("Hãy nhập địa chỉ hợp lệ!");
-	            return false;
-	        }
-	        return true;
-	    }
-	 
-	 private boolean validateTenChuHo() {
-	        if (tfTenChuHo.getText().length() >= 50 || tfTenChuHo.getText().length() <= 1) {
-	            showAlert("Hãy nhập vào tên hợp lệ!");
-	            return false;
-	        }
-	        return true;
-	    }
 
-	    private boolean validateCCCD() {
-	        Pattern pattern = Pattern.compile("\\d{1,20}");
-	        if (!pattern.matcher(tfCCCD.getText()).matches()) {
-	            showAlert("Hãy nhập vào CCCD hợp lệ!");
-	            return false;
-	        }
-	        return true;
-	    }
+    private boolean validateTenChuHo() {
+        if (tfTenChuHo.getText().length() >= 50 || tfTenChuHo.getText().length() <= 1) {
+            showAlert("Hãy nhập vào tên hợp lệ!");
+            return false;
+        }
+        return true;
+    }
 
-	    private boolean validateSDT() {
-	        Pattern pattern = Pattern.compile("^\\d{10}$");
-	        if (!pattern.matcher(tfSoDienThoai.getText()).matches()) {
-	            showAlert("Hãy nhập vào số điện thoại hợp lệ!");
-	            return false;
-	        }
-	        return true;
-	    }
+    private boolean validateCCCD() {
+        Pattern pattern = Pattern.compile("\\d{1,20}");
+        if (!pattern.matcher(tfCCCD.getText()).matches()) {
+            showAlert("Hãy nhập vào CCCD hợp lệ!");
+            return false;
+        }
+        return true;
+    }
 
-	    private void showAlert(String message) {
-	        Alert alert = new Alert(Alert.AlertType.WARNING, message, ButtonType.OK);
-	        alert.setHeaderText(null);
-	        alert.showAndWait();
-	    }
-	    
-	    private void addHoKhauToDatabase(HoKhauModel hoKhauModel, NhanKhauModel nhanKhauModel) throws ClassNotFoundException, SQLException {
-	        new HoKhauService().add(hoKhauModel);
-	        new NhanKhauService().addnk(nhanKhauModel);
-	        new QuanHeService().add(new QuanHeModel(hoKhauModel.getMaHo(), nhanKhauModel.getId(), "Là chủ hộ"));
-	        new ChuHoService().add(new ChuHoModel(hoKhauModel.getMaHo(), nhanKhauModel.getId()));
-	    }
+    private boolean validateSDT() {
+        Pattern pattern = Pattern.compile("^\\d{10}$");
+        if (!pattern.matcher(tfSoDienThoai.getText()).matches()) {
+            showAlert("Hãy nhập vào số điện thoại hợp lệ!");
+            return false;
+        }
+        return true;
+    }
 
-	    private void closeStage(ActionEvent event) {
-	        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	        stage.close();
-	    }
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, message, ButtonType.OK);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
 
-	    @Override
-	    public void initialize(URL url, ResourceBundle resourceBundle) {
-	        //tfGioiTinhChuHo.setItems(FXCollections.observableArrayList("Nam", "Nữ"));
-	    }
+    private void addHoKhauToDatabase(HoKhauModel hoKhauModel, NhanKhauModel nhanKhauModel) throws ClassNotFoundException, SQLException {
+        new HoKhauService().add(hoKhauModel);
+        new NhanKhauService().addNhanKhau(nhanKhauModel);
+        new QuanHeService().add(new QuanHeModel(hoKhauModel.getMaHo(), nhanKhauModel.getId(), "Là chủ hộ"));
+        new ChuHoService().add(new ChuHoModel(hoKhauModel.getMaHo(), nhanKhauModel.getId()));
+    }
+
+    private void closeStage(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // tfGioiTinhChuHo.setItems(FXCollections.observableArrayList("Nam", "Nữ"));
+    }
 }

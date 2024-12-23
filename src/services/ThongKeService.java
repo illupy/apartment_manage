@@ -33,9 +33,9 @@ public class ThongKeService {
 					while (resultSet.next()) {
 						HoKhauModel hoKhau = new HoKhauModel();
 						hoKhau.setMaHo(resultSet.getInt("MaHo"));
-//						hoKhau.setTenChuHo(resultSet.getString("Ten"));
+						hoKhau.setTenChuHo(resultSet.getString("Ten"));
 						hoKhau.setSoThanhvien(resultSet.getInt("SoThanhVien"));
-						hoKhau.setDiaChi(resultSet.getString("DiaChi"));
+		//				hoKhau.setDiaChi(resultSet.getString("DiaChi"));
 						list.add(hoKhau);
 					}
 				}
@@ -62,9 +62,9 @@ public class ThongKeService {
 					while (resultSet.next()) {
 						HoKhauModel hoKhau = new HoKhauModel();
 						hoKhau.setMaHo(resultSet.getInt("MaHo"));
-//						hoKhau.setTenChuHo(resultSet.getString("Ten"));
+						hoKhau.setTenChuHo(resultSet.getString("Ten"));
 						hoKhau.setSoThanhvien(resultSet.getInt("SoThanhVien"));
-						hoKhau.setDiaChi(resultSet.getString("DiaChi"));
+//						hoKhau.setDiaChi(resultSet.getString("DiaChi"));
 						list.add(hoKhau);
 					}
 				}

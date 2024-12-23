@@ -77,7 +77,7 @@
 			<children>
 				<AnchorPane layoutX="190.0" layoutY="125.0" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: white;">
 					<children>
-						<Label layoutX="116.0" layoutY="8.0" text="Thêm hộ khẩu">
+						<Label layoutX="101.0" layoutY="14.0" text="Thêm thành viên">
 							<font>
 								<Font name="System Bold" size="25.0" />
 							</font>
@@ -85,14 +85,14 @@
 						<Label layoutX="40.0" layoutY="64.0" />
 						<Label layoutX="196.0" layoutY="252.0" />
 						<TextField layoutX="35.0" layoutY="120.0" prefHeight="30.0" prefWidth="323.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
-						<Label layoutX="35.0" layoutY="100.0" text="CCCD chủ hộ" />
-						<Button layoutX="139.0" layoutY="296.0" mnemonicParsing="false" onAction="#addHoKhau" style="-fx-background-color: #4480ff; -fx-background-radius: 10; -fx-border-radius: 10;" text="Thêm hộ khẩu" textFill="WHITE">
+						<Label layoutX="35.0" layoutY="100.0" text="ID" />
+						<Button layoutX="127.0" layoutY="290.0" mnemonicParsing="false" onAction="#addThanhVien" style="-fx-background-color: #4480ff; -fx-background-radius: 10; -fx-border-radius: 10;" text="Thêm thành viên" textFill="WHITE">
 							<font>
 								<Font name="System Bold" size="15.0" />
 							</font>
 						</Button>
 						<TextField layoutX="35.0" layoutY="190.0" prefHeight="30.0" prefWidth="323.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
-						<Label layoutX="35.0" layoutY="170.0" text="Số phòng" />
+						<Label layoutX="35.0" layoutY="170.0" text="Quan hệ với chủ hộ" />
 					</children>
 				</AnchorPane>
 			</children>

@@ -39,10 +39,6 @@ public class UpdateNhanKhau implements Initializable{
 	@FXML
 	private TextField tfSoCCCD;
 	@FXML
-	private TextField tfNoiThuongTru;
-	@FXML
-	private TextField tfNgheNghiep;
-	@FXML
 	private TextField tfQueQuan;
 
 	private NhanKhauModel nhanKhauModel;
@@ -66,8 +62,6 @@ public class UpdateNhanKhau implements Initializable{
 		tfGioiTinh.setValue(nhanKhauModel.getGioiTinh());
 		tfSoDienThoai.setText(nhanKhauModel.getSdt());
 		tfSoCCCD.setText(nhanKhauModel.getCccd());
-		tfNoiThuongTru.setText(nhanKhauModel.getNoiThuongTru());
-		tfNgheNghiep.setText(nhanKhauModel.getNgheNghiep());
 		tfQueQuan.setText(nhanKhauModel.getQueQuan());
 
 	}
@@ -86,11 +80,9 @@ public class UpdateNhanKhau implements Initializable{
 		String gioiTinhString = tfGioiTinh.getSelectionModel().getSelectedItem().trim();
 		String sdtString = tfSoDienThoai.getText();
 		String quequanString = tfQueQuan.getText();
-		String noithuongtruString = tfNoiThuongTru.getText();
-		String nghenghiepString = tfNgheNghiep.getText();
 
 		// Update the existing NhanKhau
-		NhanKhauModel nhanKhauModel = new NhanKhauModel(maNhanKhau, cccdString, tenString, gioiTinhString, ngaySinhDate, sdtString, nghenghiepString, quequanString, noithuongtruString);
+		NhanKhauModel nhanKhauModel = new NhanKhauModel(maNhanKhau, cccdString, tenString, gioiTinhString, ngaySinhDate, sdtString, quequanString);
 		new NhanKhauService().updateNhanKhau(nhanKhauModel);
 
 		// Display success message
@@ -102,38 +94,64 @@ public class UpdateNhanKhau implements Initializable{
 	}
 
 	private boolean validateFields() {
-		// Example validation for ID
+		return validateMaNhanKhau() && validateTenNhanKhau() && validateCCCD() && validateSoDienThoai() && validateNgaySinh() && validateQueQuan();
+	}
+
+	private boolean validateMaNhanKhau() {
 		Pattern idPattern = Pattern.compile("\\d{1,11}");
 		if (!idPattern.matcher(tfMaNhanKhau.getText()).matches()) {
-			showAlert("Mã nhân khẩu không hợp lệ!");
+			showAlert("Mã nhân khẩu không hợp lệ! Phải là số nguyên từ 1 đến 11 chữ số.");
 			return false;
 		}
-
-		// Example validation for name
-		if (tfTenNhanKhau.getText().length() >= 50 || tfTenNhanKhau.getText().length() <= 1) {
-			showAlert("Tên không hợp lệ!");
-			return false;
-		}
-
-		// Example validation for CCCD
-		Pattern cccdPattern = Pattern.compile("\\d{1,20}");
-		if (!cccdPattern.matcher(tfSoCCCD.getText()).matches()) {
-			showAlert("CCCD không hợp lệ!");
-			return false;
-		}
-
-		// Example validation for phone number
-		Pattern phonePattern = Pattern.compile("\\d{1,15}");
-		if (!phonePattern.matcher(tfSoDienThoai.getText()).matches()) {
-			showAlert("Số điện thoại không hợp lệ!");
-			return false;
-		}
-
-		// Other validations...
-
 		return true;
 	}
 
+	private boolean validateTenNhanKhau() {
+		if (tfTenNhanKhau.getText().length() >= 50 || tfTenNhanKhau.getText().length() <= 1) {
+			showAlert("Tên không hợp lệ! Phải có độ dài từ 2 đến 50 ký tự.");
+			return false;
+		}
+		return true;
+	}
+
+	private boolean validateCCCD() {
+		Pattern cccdPattern = Pattern.compile("\\d{1,20}");
+		if (!cccdPattern.matcher(tfSoCCCD.getText()).matches()) {
+			showAlert("CCCD không hợp lệ! Phải là số nguyên từ 1 đến 20 chữ số.");
+			return false;
+		}
+		return true;
+	}
+
+	private boolean validateSoDienThoai() {
+		Pattern phonePattern = Pattern.compile("\\d{1,15}");
+		if (!phonePattern.matcher(tfSoDienThoai.getText()).matches()) {
+			showAlert("Số điện thoại không hợp lệ! Phải là số nguyên từ 1 đến 15 chữ số.");
+			return false;
+		}
+		return true;
+	}
+
+	private boolean validateNgaySinh() {
+		if (dpNgaySinh.getValue() == null) {
+			showAlert("Ngày sinh không được để trống!");
+			return false;
+		}
+		LocalDate ngaySinh = dpNgaySinh.getValue();
+		if (ngaySinh.isAfter(LocalDate.now())) {
+			showAlert("Ngày sinh không được lớn hơn ngày hiện tại!");
+			return false;
+		}
+		return true;
+	}
+
+	private boolean validateQueQuan() {
+		if (tfQueQuan.getText().isEmpty() || tfQueQuan.getText().length() > 100) {
+			showAlert("Quê quán không hợp lệ! Độ dài tối đa là 100 ký tự.");
+			return false;
+		}
+		return true;
+	}
 
 	private void showAlert(String message) {
 		// Display alert messages
@@ -141,9 +159,11 @@ public class UpdateNhanKhau implements Initializable{
 		alert.setHeaderText(null);
 		alert.showAndWait();
 	}
+
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		tfGioiTinh.setItems(FXCollections.observableArrayList("Nam", "Nữ"));
 	}
 
 }
+

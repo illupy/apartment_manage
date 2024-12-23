@@ -77,17 +77,18 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f5f6fa;" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tvHoKhau" layoutX="15.0" layoutY="150.0" prefHeight="420.0" prefWidth="750.0" style="-fx-border-color: white;">
+            <TableView fx:id="tvHoKhau" layoutX="15.0" layoutY="150.0" prefHeight="420.0" prefWidth="750.0">
                <columns>
-                  <TableColumn fx:id="colMaHoKhau" prefWidth="76.0" style="-fx-background-color: white; -fx-border-color: #d5d5d5;" text="ID" />
-                  <TableColumn fx:id="colMaChuHo" prefWidth="180.0" style="-fx-background-color: white; -fx-border-color: #d5d5d5;" text="Tên chủ hộ" />
-                  <TableColumn fx:id="colSoThanhVien" minWidth="0.0" prefWidth="115.0" style="-fx-background-color: white; -fx-border-color: #d5d5d5;" text="Số lượng" />
-                  <TableColumn fx:id="colDiaChi" prefWidth="265.0" style="-fx-background-color: white; -fx-border-color: #d5d5d5;" text="Địa chỉ thường trú" />
-                  <TableColumn prefWidth="110.0" style="-fx-background-color: white; -fx-border-color: #d5d5d5;" text="Chức năng" />
+                  <TableColumn fx:id="colMaHoKhau" prefWidth="70.0" text="ID" />
+                  <TableColumn fx:id="colMaChuHo" prefWidth="277.0" text="Tên chủ hộ" />
+                  <TableColumn fx:id="colSoThanhVien" minWidth="0.0" prefWidth="100.0" text="Số thành viên" />
+                  <TableColumn fx:id="colSoPhong" prefWidth="100.0" text="Số phòng" />
+                  <TableColumn fx:id="colSoOto"	prefWidth="100.0" text="Ô tô" />
+                  <TableColumn fx:id="colSoXeMay" prefWidth="100.0" text="Xe máy" />
                </columns>
             </TableView>
             <ComboBox fx:id="cbChooseSearch" layoutX="410.0" layoutY="14.0" prefHeight="25.0" prefWidth="118.0" promptText="Tìm kiếm theo" style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-border-radius: 8; -fx-background-radius: 8;" />
-            <Button layoutX="535.0" layoutY="80.0" mnemonicParsing="false" onAction="#addHoKhau" style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Thêm hộ khẩu" textFill="WHITE">
+            <Button layoutX="319.0" layoutY="81.0" mnemonicParsing="false" onAction="#addHoKhau" style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Thêm hộ khẩu" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -102,6 +103,21 @@
                   </Button>
                </children>
             </HBox>
+            <Button layoutX="483.0" layoutY="81.0" mnemonicParsing="false" onAction="#updateHoKhau" style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Sửa hộ khẩu" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button layoutX="620.0" layoutY="81.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: #d5d5d5; -fx-border-radius: 10; -fx-background-radius: 10;" text="Xóa hộ khẩu" textFill="#ea0234">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button layoutX="150.0" layoutY="81.0" mnemonicParsing="false" onAction="#chiTietHoKhau" style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Chi tiết hộ khẩu" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </center>
