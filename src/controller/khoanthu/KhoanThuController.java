@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,11 +16,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -35,9 +31,9 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import models.KhoanThuModel;
 import services.KhoanThuService;
+import services.NopTienService;
 
 public class KhoanThuController extends controller.HomeController implements Initializable {
 	@FXML
@@ -123,7 +119,7 @@ public class KhoanThuController extends controller.HomeController implements Ini
 		tvKhoanPhi.setItems(listValueTableView);
 
 		// thiet lap gia tri cho combobox
-		ObservableList<String> listComboBox = FXCollections.observableArrayList("Tên khoản thu", "Mã khoản thu");
+		ObservableList<String> listComboBox = FXCollections.observableArrayList("Tên khoản thu", "Mã khoản thu", "Mã hộ");
 		cbChooseSearch.setValue("Tên khoản thu");
 		cbChooseSearch.setItems(listComboBox);
 	}
@@ -149,26 +145,59 @@ public class KhoanThuController extends controller.HomeController implements Ini
 				break;
 			}
 
-			int index = 0;
-			List<KhoanThuModel> listKhoanThuModelsSearch = new ArrayList<>();
+			List<KhoanThuModel> listKhoanThuTheoTen = new ArrayList<>();
 			for (KhoanThuModel khoanThuModel : listKhoanThu) {
 				if (khoanThuModel.getTenKhoanThu().contains(keySearch)) {
-					listKhoanThuModelsSearch.add(khoanThuModel);
-					index++;
+					listKhoanThuTheoTen.add(khoanThuModel);
 				}
 			}
-			listValueTableView_tmp = FXCollections.observableArrayList(listKhoanThuModelsSearch);
+			listValueTableView_tmp = FXCollections.observableArrayList(listKhoanThuTheoTen);
 			tvKhoanPhi.setItems(listValueTableView_tmp);
 
 			// neu khong tim thay thong tin can tim kiem -> thong bao toi nguoi dung khong
-			// tim thay
-			if (index == 0) {
+			if (listKhoanThuTheoTen.isEmpty()) {
 				tvKhoanPhi.setItems(listValueTableView); // hien thi toan bo thong tin
 				Alert alert = new Alert(AlertType.INFORMATION, "Không tìm thấy thông tin!", ButtonType.OK);
 				alert.setHeaderText(null);
 				alert.showAndWait();
 			}
 			break;
+		}
+		case "Mã hộ": {
+		    if (keySearch.length() == 0) {
+		        tvKhoanPhi.setItems(listValueTableView);
+		        Alert alert = new Alert(AlertType.WARNING, "Hãy nhập vào mã hộ cần tìm kiếm!", ButtonType.OK);
+		        alert.setHeaderText(null);
+		        alert.showAndWait();
+		        break;
+		    }
+
+		    try {
+		        int maHoSearch = Integer.parseInt(keySearch);
+		        List<KhoanThuModel> listKhoanThuTheoMaHo = new ArrayList<>();
+		        
+		        for (KhoanThuModel khoanThu : listKhoanThu) {
+		            if (khoanThu.getMaHo() == maHoSearch) {
+		                listKhoanThuTheoMaHo.add(khoanThu);
+		            }
+		        }
+		        
+		        listValueTableView_tmp = FXCollections.observableArrayList(listKhoanThuTheoMaHo);
+		        tvKhoanPhi.setItems(listValueTableView_tmp);
+
+		        if (listKhoanThuTheoMaHo.isEmpty()) {
+		            tvKhoanPhi.setItems(listValueTableView);
+		            Alert alert = new Alert(AlertType.INFORMATION, "Không tìm thấy thông tin!", ButtonType.OK);
+		            alert.setHeaderText(null);
+		            alert.showAndWait();
+		        }
+		    } catch (NumberFormatException e) {
+		        Alert alert = new Alert(AlertType.ERROR, "Mã hộ phải là số!", ButtonType.OK);
+		        alert.setHeaderText(null);
+		        alert.showAndWait();
+		        tvKhoanPhi.setItems(listValueTableView);
+		    }
+		    break;
 		}
 		default: { // truong hop con lai : tim theo ma khoan thu
 			// neu khong nhap gi -> thong bao loi

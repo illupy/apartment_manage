@@ -140,7 +140,8 @@
 							text="Ngày bắt đầu thu" />
 						<TableColumn fx:id="colNgayKetThuc" prefWidth="105.0"
 							text="Ngày hết hạn" />
-						<TableColumn fx:id="colAction" prefWidth="63.0" text="Nộp tiền" />
+						<TableColumn fx:id="colAction" prefWidth="63.0"
+							text="Nộp tiền" />
 					</columns>
 				</TableView>
 				<ComboBox fx:id="cbChooseSearch" layoutX="410.0"
@@ -155,7 +156,8 @@
 							prefWidth="173.0" promptText="Tìm kiếm"
 							style="-fx-background-color: white;" />
 						<Button mnemonicParsing="false" prefHeight="24.0"
-							prefWidth="30.0" style="-fx-background-color: white;">
+							onAction="#searchKhoanThu" prefWidth="30.0"
+							style="-fx-background-color: white;">
 							<graphic>
 								<FontAwesomeIcon glyphName="SEARCH"
 									onDragDetected="#searchKhoanThu" size="14" />

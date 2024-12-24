@@ -121,7 +121,7 @@
 		<AnchorPane prefHeight="200.0" prefWidth="200.0"
 			style="-fx-background-color: #F5F6FA;" BorderPane.alignment="CENTER">
 			<children>
-				<HBox alignment="CENTER" layoutX="247.0" layoutY="32.0"
+				<HBox alignment="CENTER" layoutX="61.0" layoutY="32.0"
 					spacing="10.0" prefHeight="40.0" prefWidth="400.0">
 					<ComboBox fx:id="cbMonth" promptText="Tháng"
 						prefHeight="35.0" prefWidth="120.0"
@@ -147,6 +147,27 @@
 								fill="#666666" />
 						</graphic>
 					</Button>
+				</HBox>
+				<ComboBox fx:id="cbChooseSearch" layoutX="410.0"
+					layoutY="14.0" prefHeight="25.0" prefWidth="118.0"
+					promptText="Tìm kiếm theo"
+					style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-border-radius: 8; -fx-background-radius: 8;" />
+				<HBox layoutX="492.0" layoutY="32.0" prefHeight="34.0"
+					prefWidth="230.0" style="-fx-alignment: center;">
+					<children>
+						<TextField prefHeight="25.0" prefWidth="173.0"
+							fx:id="tfSearch" promptText="Search"
+							style="-fx-background-color: white; -fx-background-radius: 0;" />
+						<Button mnemonicParsing="false" prefHeight="24.0"
+							onAction="#search" prefWidth="30.0"
+							style="-fx-background-color: white; -fx-background-radius: 0; -fx-alignment: center;">
+							<graphic>
+								<FontAwesomeIcon glyphName="SEARCH"
+									selectionStart="0" size="14" text="" translateY="-1.0"
+									wrappingWidth="13.928571701049805" />
+							</graphic>
+						</Button>
+					</children>
 				</HBox>
 				<Button layoutX="61.0" layoutY="80.0" mnemonicParsing="false"
 					onAction="#xemChiTietTheoHo"

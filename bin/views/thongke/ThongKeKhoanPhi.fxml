@@ -140,27 +140,13 @@
 					layoutY="162.0" prefHeight="317.0" prefWidth="649.0">
 					<columns>
 						<TableColumn fx:id="colTenPhi" prefWidth="450.0"
-							text="Tên loại phí" />
+							text="Tên loại khoản phí" />
 						<TableColumn fx:id="colTongSoTien" prefWidth="200.0"
 							text="Tổng số tiền " />
 						<TableColumn fx:id="colAction" prefWidth="295.0"
 							text="Chức năng" />
 					</columns>
 				</TableView>
-				<Label layoutX="20.0" layoutY="14.0"
-					text="Thống kê các khoản phí" AnchorPane.leftAnchor="54.0">
-					<font>
-						<Font name="Arial Bold" size="27.0" />
-					</font>
-				</Label>
-				<Button layoutX="794.0" layoutY="59.0"
-					mnemonicParsing="false" onAction="#goThongKe2" prefHeight="30.0"
-					prefWidth="1.0" style="-fx-background-color: transparent;"
-					stylesheets="@/source/nhankhau.css" textFill="#298ab1">
-					<font>
-						<Font name="System Bold" size="15.0" />
-					</font>
-				</Button>
 			</children>
 		</AnchorPane>
 	</center>

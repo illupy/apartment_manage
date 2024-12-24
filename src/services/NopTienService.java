@@ -1,6 +1,7 @@
 package services;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,8 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.HoKhauModel;
-import models.KhoanThuModel;
 import models.NopTienModel;
 
 public class NopTienService {
@@ -18,13 +17,13 @@ public class NopTienService {
     public boolean add(NopTienModel nopTienModel) throws ClassNotFoundException, SQLException {
         try (Connection connection = MysqlConnection.getMysqlConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
-                     "INSERT INTO nop_tien(IDNopTien, MaKhoanThu, SoTien, NgayThu) VALUES (?, ?, ?, NOW())",
+                     "INSERT INTO nop_tien(SoTien, NgayThu, MaHo, IDKhoanThu) VALUES (?, ?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS)) {
 
-            preparedStatement.setInt(1, nopTienModel.getIdNopTien());
-            preparedStatement.setInt(2, nopTienModel.getMaKhoanThu());
-            preparedStatement.setDouble(3, nopTienModel.getSoTien());
-            preparedStatement.executeUpdate();
+        	preparedStatement.setDouble(1, nopTienModel.getSoTien());
+            preparedStatement.setDate(2, (Date) nopTienModel.getNgayThu());
+            preparedStatement.setInt(3, nopTienModel.getMaHo());
+            preparedStatement.setInt(4, nopTienModel.getIdKhoanThu());
 
         } // Auto-closes connection and preparedStatement
 

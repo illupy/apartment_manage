@@ -7,6 +7,8 @@ public class NopTienModel {
 	private int maKhoanThu;
 	private double soTien;
 	private Date ngayThu;
+	private int idKhoanThu;
+	private int maHo;
 	
 	public NopTienModel() {}
 	
@@ -47,6 +49,22 @@ public class NopTienModel {
 
 	public void setSoTien(double soTien) {
 		this.soTien = soTien;
+	}
+
+	public int getIdKhoanThu() {
+		return idKhoanThu;
+	}
+
+	public void setIdKhoanThu(int idKhoanThu) {
+		this.idKhoanThu = idKhoanThu;
+	}
+
+	public int getMaHo() {
+		return maHo;
+	}
+
+	public void setMaHo(int maHo) {
+		this.maHo = maHo;
 	}
 
 }

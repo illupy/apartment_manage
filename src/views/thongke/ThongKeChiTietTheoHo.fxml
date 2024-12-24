@@ -147,6 +147,16 @@
 						</graphic>
 					</Button>
 				</HBox>
+				<HBox layoutX="492.0" layoutY="32.0" prefHeight="34.0" prefWidth="230.0" style="-fx-alignment: center;">
+               <children>
+                  <TextField prefHeight="25.0" prefWidth="173.0" promptText="Search" style="-fx-background-color: white; -fx-background-radius: 0;" />
+                  <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="30.0" style="-fx-background-color: white; -fx-background-radius: 0; -fx-alignment: center;">
+                     <graphic>
+                        <FontAwesomeIcon glyphName="SEARCH" selectionStart="0" size="14" text="" translateY="-1.0" wrappingWidth="13.928571701049805" />
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
 				<TableView layoutX="112.0" layoutY="173.0"
 					prefHeight="200.0" prefWidth="558.0">
 					<columns>

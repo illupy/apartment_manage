@@ -78,7 +78,7 @@ public class ThongKeService {
 		String query = "select hk.MaHo, nk.Ten, " + "COALESCE(sum(kt.SoTien), 0) as 'Tiền cần đóng', "
 				+ "COALESCE(sum(nt.SoTien), 0) as 'Tiền đã đóng' " + "from ho_khau hk "
 				+ "inner join chu_ho ch on ch.MaHo = hk.MaHo " + "inner join nhan_khau nk on ch.IDChuHo = nk.ID "
-				+ "left join khoan_thu kt on kt.MaHo = hk.MaHo " + "left join nop_tien nt on nt.MaHo = hk.MaHo "
+				+ "left join khoan_thu kt on kt.MaHo = hk.MaHo " + "left join nop_tien nt on nt.IDKhoanThu = kt.IDKhoanThu "
 				+ "group by hk.MaHo, nk.Ten";
 
 		try (Connection connection = MysqlConnection.getMysqlConnection();
@@ -107,7 +107,7 @@ public class ThongKeService {
 		String query = "select hk.MaHo, nk.Ten, COALESCE(sum(kt.SoTien), 0) as 'Tiền cần đóng', COALESCE(sum(nt.SoTien), 0) as 'Tiền đã đóng' "
 				+ "from ho_khau hk " + "inner join chu_ho ch on ch.MaHo = hk.MaHo "
 				+ "inner join nhan_khau nk on ch.IDChuHo = nk.ID " + "left join khoan_thu kt on kt.MaHo = hk.MaHo "
-				+ "left join nop_tien nt on nt.MaHo = hk.MaHo "
+				+ "left join nop_tien nt on nt.IDKhoanThu = kt.IDKhoanThu "
 				+ "where month(kt.NgayBatDauThu) = ? and year(kt.NgayKetThucThu) = ? "
 				+ "group by hk.MaHo, nk.Ten";
 
