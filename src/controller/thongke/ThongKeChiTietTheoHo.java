@@ -9,10 +9,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import models.HoKhauModel;
 import models.KhoanThuModel;
 import services.ThongKeService;
@@ -20,48 +22,85 @@ import services.ThongKeService;
 public class ThongKeChiTietTheoHo extends controller.HomeController implements Initializable {
 
 	@FXML
-	private TableColumn<HoKhauModel, Integer> colMaHo;
+	private Text title;
 	@FXML
-	private TableColumn<HoKhauModel, String> colTenChuHo;
+	private TableColumn<KhoanThuModel, Integer> colMaKhoanThu;
 	@FXML
-	private TableColumn<HoKhauModel, Integer> colSoThanhVien;
+	private TableColumn<KhoanThuModel, String> colTenKhoanThu;
 	@FXML
-	private TableColumn<HoKhauModel, String> colDiaChi;
+	private TableColumn<KhoanThuModel, Double> colTongTien;
 	@FXML
-	private TableView<HoKhauModel> tvThongKe;
+	private TableView<KhoanThuModel> tvThongKeChiTietTheoHo;
 	@FXML
 	ComboBox<String> cbMonth;
 	@FXML
 	ComboBox<String> cbYear;
+	
+	private List<KhoanThuModel> listThongKeChiTietTheoHo;
+	private ObservableList<KhoanThuModel> listValueTableView;
 
-	private ObservableList<HoKhauModel> listValueTableView;
-
-	private KhoanThuModel selectedKhoanThu;
-
-	// Default constructor
-	public ThongKeChiTietTheoHo() {
+	private HoKhauModel hoKhauSelected = new HoKhauModel();	
+	
+	public HoKhauModel getHoKhauSelected() {
+		return hoKhauSelected;
 	}
 
-	// Method to set the selected KhoanThuModel
-	public void setKhoanThuModel(KhoanThuModel khoanThuModel) {
-		this.selectedKhoanThu = khoanThuModel;
+	public void setHoKhauSelected(HoKhauModel hoKhau) {
+		this.hoKhauSelected = hoKhau;
+		title.setText("CHI TIẾT HỘ GIA ĐÌNH " + hoKhauSelected.getMaHo());
+	}
+
+	public Text getTitle() {
+		return title;
+	}
+
+	public void setTitle(Text title) {
+		this.title = title;
+	}
+	
+	public void importTableData() throws ClassNotFoundException, SQLException {
+		listThongKeChiTietTheoHo = new ThongKeService().getHouseholdDetailStats(hoKhauSelected.getMaHo());
+		listValueTableView = FXCollections.observableArrayList(listThongKeChiTietTheoHo);
+		
+		if (listThongKeChiTietTheoHo.isEmpty()) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Thông báo");
+			alert.setHeaderText(null);
+			alert.setContentText("Không có dữ liệu thống kê.");
+			alert.showAndWait();
+			return;
+		}
+		
+		colMaKhoanThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, Integer>("maKhoanThu"));
+		colTenKhoanThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("tenKhoanThu"));
+		colTongTien.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, Double>("soTien"));
+	
+		tvThongKeChiTietTheoHo.setItems(listValueTableView);
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// Thêm danh sách tháng (1 đến 12) vào cbMonth
-		ObservableList<String> months = FXCollections.observableArrayList();
-		for (int i = 1; i <= 12; i++) {
-			months.add(String.valueOf(i));
-		}
-		cbMonth.setItems(months);
+		try {
+			
+			importTableData();
 
-		// Thêm danh sách năm (ví dụ: từ 2000 đến 2030) vào cbYear
-		ObservableList<String> years = FXCollections.observableArrayList();
-		for (int i = 2000; i <= 2030; i++) {
-			years.add(String.valueOf(i));
+			// Thêm danh sách tháng (1 đến 12) vào cbMonth
+			ObservableList<String> months = FXCollections.observableArrayList();
+			for (int i = 1; i <= 12; i++) {
+				months.add(String.valueOf(i));
+			}
+			cbMonth.setItems(months);
+
+			// Thêm danh sách năm (ví dụ: từ 2000 đến 2030) vào cbYear
+			ObservableList<String> years = FXCollections.observableArrayList();
+			for (int i = 2000; i <= 2030; i++) {
+				years.add(String.valueOf(i));
+			}
+			cbYear.setItems(years);
+
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		cbYear.setItems(years);
 	}
-
 }

@@ -11,7 +11,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -21,8 +25,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import models.HoKhauModel;
-import models.KhoanThuModel;
 import services.ThongKeService;
 
 public class ThongKeTheoHo extends controller.HomeController implements Initializable {
@@ -122,14 +126,35 @@ public class ThongKeTheoHo extends controller.HomeController implements Initiali
 	@FXML
 	void xemChiTietTheoHo(ActionEvent event) throws IOException {
 		HoKhauModel hoKhau = tvThongKeTheoHo.getSelectionModel().getSelectedItem();
-
+		
 		if (hoKhau == null) {
 			Alert alert = new Alert(AlertType.WARNING, "Chọn hộ mmuốn xem thống kê chi tiết", ButtonType.OK);
 			alert.setHeaderText(null);
 			alert.showAndWait();
-		} else {
-			switchScene(event, "/views/thongke/ThongKeChiTietTheoHo.fxml");
+			return;
 		}
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/thongke/ThongKeChiTietTheoHo.fxml"));
+		Parent root = loader.load();
+
+		ThongKeChiTietTheoHo detailHomeController = loader.getController();
+		detailHomeController.setHoKhauSelected(hoKhau);
+		
+		try {
+	        // Call importTableData after setting the selected household
+	        detailHomeController.importTableData();
+	    } catch (ClassNotFoundException | SQLException e) {
+	        Alert alert = new Alert(AlertType.ERROR, "Có lỗi xảy ra khi tải dữ liệu: " + e.getMessage(), ButtonType.OK);
+	        alert.setHeaderText(null);
+	        alert.showAndWait();
+	        e.printStackTrace();
+	        return;
+	    }
+		
+		// Chuyển cảnh
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		stage.setScene(new Scene(root));
+		stage.show();
 	}
 
 	// Tim kiem
@@ -181,7 +206,7 @@ public class ThongKeTheoHo extends controller.HomeController implements Initiali
 				int maHoSearch = Integer.parseInt(keySearch);
 				List<HoKhauModel> listHoKhauTheoMaHo = new ArrayList<>();
 
-				for (HoKhauModel hoKhau: listThongKeTheoHo) {
+				for (HoKhauModel hoKhau : listThongKeTheoHo) {
 					if (hoKhau.getMaHo() == maHoSearch) {
 						listHoKhauTheoMaHo.add(hoKhau);
 					}
