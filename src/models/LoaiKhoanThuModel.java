@@ -3,8 +3,26 @@ package models;
 public class LoaiKhoanThuModel {
     private int maKhoanThu;
     private String tenKhoanThu;
+    private Double tongSoTienCanThu;
+    private Double tongSoTienDaThu;
    
-    public LoaiKhoanThuModel() {
+    public Double getTongSoTienCanThu() {
+		return tongSoTienCanThu;
+	}
+
+	public void setTongSoTienCanThu(Double tongSoTienCanThu) {
+		this.tongSoTienCanThu = tongSoTienCanThu;
+	}
+
+	public Double getTongSoTienDaThu() {
+		return tongSoTienDaThu;
+	}
+
+	public void setTongSoTienDaThu(Double tongSoTienDaThu) {
+		this.tongSoTienDaThu = tongSoTienDaThu;
+	}
+
+	public LoaiKhoanThuModel() {
 		super();
 	}
 

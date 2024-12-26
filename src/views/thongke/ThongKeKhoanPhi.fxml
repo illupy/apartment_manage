@@ -122,31 +122,47 @@
 		<AnchorPane prefHeight="200.0" prefWidth="200.0"
 			style="-fx-background-color: #F5F6FA;" BorderPane.alignment="CENTER">
 			<children>
-				<ComboBox fx:id="cbChooseSearch" layoutX="55.0"
-					layoutY="114.0" prefHeight="31.0" prefWidth="186.0"
-					promptText="Chọn hình thức thống kê"
-					style="-fx-background-color: transparent;" styleClass="choose"
-					stylesheets="@/source/khoanthu.css" AnchorPane.topAnchor="114.0" />
-				<Button layoutX="262.0" layoutY="114.0"
-					mnemonicParsing="false" onAction="#loc" prefHeight="30.0"
-					prefWidth="200.0" style="-fx-background-color: transparent;"
-					styleClass="btnSearch" stylesheets="@/source/nhankhau.css"
-					text="Thống kê" AnchorPane.topAnchor="114.0">
-					<font>
-						<Font name="System Bold" size="15.0" />
-					</font>
-				</Button>
-				<TableView fx:id="tvThongKe" layoutX="66.0"
-					layoutY="162.0" prefHeight="317.0" prefWidth="649.0">
+				<TableView fx:id="tvThongKe" layoutX="66.0" layoutY="162.0"
+					prefHeight="317.0" prefWidth="649.0">
 					<columns>
-						<TableColumn fx:id="colTenPhi" prefWidth="450.0"
-							text="Tên loại khoản phí" />
-						<TableColumn fx:id="colTongSoTien" prefWidth="200.0"
-							text="Tổng số tiền " />
-						<TableColumn fx:id="colAction" prefWidth="295.0"
-							text="Chức năng" />
+						<TableColumn fx:id="colMaKhoanThu" prefWidth="97.0"
+							text="Mã khoản phí" />
+						<TableColumn fx:id="colTenKhoanThu" prefWidth="143.0"
+							text="Tên khoản phí" />
+						<TableColumn fx:id="colTongSoTienCanThu"
+							prefWidth="152.0" text="Tổng số tiền cần thu" />
+						<TableColumn fx:id="colTongSoTienDaThu"
+							prefWidth="153.0" text="Tổng số tiền đã thu" />
+						<TableColumn prefWidth="103.0" text="Chi tiết" />
 					</columns>
 				</TableView>
+				<ComboBox fx:id="cbMonth" layoutX="247.0" layoutY="36.0" prefHeight="27.0"
+					prefWidth="100.0" promptText="Tháng"
+					style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-border-radius: 8;" />
+				<ComboBox fx:id="cbYear" layoutX="380.0" layoutY="36.0" prefHeight="25.0"
+					prefWidth="100.0" promptText="Năm"
+					style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-border-radius: 8;" />
+				<HBox layoutX="492.0" layoutY="32.0" prefHeight="34.0"
+					prefWidth="230.0" style="-fx-alignment: center;">
+					<children>
+						<Button onAction="#thongKeTheoThangNam" mnemonicParsing="false" prefHeight="24.0"
+							prefWidth="30.0"
+							style="-fx-background-color: white; -fx-background-radius: 0; -fx-alignment: center;">
+							<graphic>
+								<FontAwesomeIcon glyphName="FILTER"
+									selectionStart="0" size="14" text="" translateY="-1.0"
+									wrappingWidth="13.928571701049805" />
+							</graphic>
+						</Button>
+					</children>
+				</HBox>
+				<Text layoutX="241.0" layoutY="137.0" strokeType="OUTSIDE"
+					strokeWidth="0.0" style="-fx-font-weight: BOLD;"
+					text="THỐNG KÊ THEO KHOẢN PHÍ">
+					<font>
+						<Font size="20.0" />
+					</font>
+				</Text>
 			</children>
 		</AnchorPane>
 	</center>

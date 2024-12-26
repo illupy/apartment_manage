@@ -4,14 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
 import models.HoKhauModel;
 import models.KhoanThuModel;
+import models.LoaiKhoanThuModel;
 
 public class ThongKeService {
 
@@ -106,20 +104,52 @@ public class ThongKeService {
 		return list;
 	}
 
-	public List<KhoanThuModel> getFeeStats() throws ClassNotFoundException, SQLException {
-		List<KhoanThuModel> list = new ArrayList<>();
+	public List<LoaiKhoanThuModel> getFeeStats() throws ClassNotFoundException, SQLException {
+		List<LoaiKhoanThuModel> list = new ArrayList<>();
 		try (Connection connection = MysqlConnection.getMysqlConnection()) {
-			String query = "select lkt.TenKhoanThu, sum(kt.SoTien) as 'Tổng số tiền' " + "from khoan_thu kt "
-					+ "join loai_khoan_thu lkt on lkt.MaKhoanThu = kt.MaKhoanThu " + "group by kt.MaKhoanThu;";
+			String query = "select lkt.MaKhoanThu, lkt.TenKhoanThu, COALESCE(sum(kt.SoTien), 0) as TongSoTienCanThu, COALESCE(sum(nt.SoTien), 0) as TongSoTienDaThu "
+					+ "from loai_khoan_thu lkt "
+					+ "inner join khoan_thu kt on kt.MaKhoanThu = lkt.MaKhoanThu "
+					+ "left join nop_tien nt on nt.IDKhoanThu = kt.IDKhoanThu "
+					+ "group by lkt.MaKhoanThu, lkt.TenKhoanThu;";
 
 			PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement(query);
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				KhoanThuModel khoanthu = new KhoanThuModel();
-				khoanthu.setTenKhoanThu(rs.getString("TenKhoanThu"));
-				khoanthu.setSoTien(rs.getDouble("Tổng số tiền"));
-				list.add(khoanthu);
+				LoaiKhoanThuModel loaiKhoanThu = new LoaiKhoanThuModel();
+				loaiKhoanThu.setMaKhoanThu(rs.getInt("MaKhoanThu"));
+				loaiKhoanThu.setTenKhoanThu(rs.getString("TenKhoanThu"));
+				loaiKhoanThu.setTongSoTienCanThu(rs.getDouble("TongSoTienCanThu"));
+				loaiKhoanThu.setTongSoTienDaThu(rs.getDouble("TongSoTienDaThu"));
+				list.add(loaiKhoanThu);
+			}
+		}
+		return list;
+	}
+	
+	public List<LoaiKhoanThuModel> getFeeStatsByMonthYear(int month, int year) throws ClassNotFoundException, SQLException {
+		List<LoaiKhoanThuModel> list = new ArrayList<>();
+		try (Connection connection = MysqlConnection.getMysqlConnection()) {
+			String query = "select lkt.MaKhoanThu, lkt.TenKhoanThu, COALESCE(sum(kt.SoTien), 0) as TongSoTienCanThu, COALESCE(sum(nt.SoTien), 0) as TongSoTienDaThu "
+					+ "from loai_khoan_thu lkt "
+					+ "inner join khoan_thu kt on kt.MaKhoanThu = lkt.MaKhoanThu "
+					+ "left join nop_tien nt on nt.IDKhoanThu = kt.IDKhoanThu "
+					+ "where month(kt.NgayKetThucThu) = ? and year(kt.NgayKetThucThu) = ? "
+					+ "group by lkt.MaKhoanThu, lkt.TenKhoanThu;";
+
+			PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement(query);
+			preparedStatement.setInt(1, month);
+			preparedStatement.setInt(2, year);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				LoaiKhoanThuModel loaiKhoanThu = new LoaiKhoanThuModel();
+				loaiKhoanThu.setMaKhoanThu(rs.getInt("MaKhoanThu"));
+				loaiKhoanThu.setTenKhoanThu(rs.getString("TenKhoanThu"));
+				loaiKhoanThu.setTongSoTienCanThu(rs.getDouble("TongSoTienCanThu"));
+				loaiKhoanThu.setTongSoTienDaThu(rs.getDouble("TongSoTienDaThu"));
+				list.add(loaiKhoanThu);
 			}
 		}
 		return list;

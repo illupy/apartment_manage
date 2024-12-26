@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,6 +33,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import models.KhoanThuModel;
+import models.NopTienModel;
 import services.KhoanThuService;
 import services.NopTienService;
 
@@ -73,38 +75,45 @@ public class KhoanThuController extends controller.HomeController implements Ini
 		colLoaiKhoanThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("loaiKhoanThu"));
 		colNgayBatDau.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("ngayBatDau"));
 		colNgayKetThuc.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("ngayKetThuc"));
-		
-		
+
 		colAction.setCellFactory(param -> new TableCell<KhoanThuModel, Void>() {
-	        
-			    private final HBox container = new HBox(8);
-			    private final Button daNopButton = new Button("Đã Nộp");
+			private final HBox container = new HBox(8);
+			private final Button daNopButton = new Button("Đã Nộp");
 
-			    {
-//			        daNopButton.setOnAction(event -> {
-//			            try {
-//			            	setDaNop();
-//			            } catch (ClassNotFoundException | SQLException e) {
-//			                e.printStackTrace();
-//			            }
-//			        });
+			{
+				daNopButton.setOnAction(event -> {
+					// Get the current row item
+					KhoanThuModel khoanThu = getTableView().getItems().get(getIndex());
 
-			        container.setAlignment(Pos.CENTER);
-			        container.getChildren().addAll(daNopButton);
-			    }
+					try {
+						// Now you can use the khoanThu object to handle the "Đã Nộp" action
+						setDaNop(khoanThu);
+					} catch (ClassNotFoundException | SQLException e) {
+						Alert alert = new Alert(Alert.AlertType.ERROR);
+						alert.setTitle("Lỗi");
+						alert.setHeaderText(null);
+						alert.setContentText("Có lỗi xảy ra: " + e.getMessage());
+						alert.showAndWait();
+						e.printStackTrace();
+					}
+				});
 
-			    @Override
-			    protected void updateItem(Void item, boolean empty) {
-			        super.updateItem(item, empty);
+				container.setAlignment(Pos.CENTER);
+				container.getChildren().addAll(daNopButton);
+			}
 
-			        if (empty) {
-			            setGraphic(null);
-			        } else {
-			            setGraphic(container);
-			        }
-			    }
-			});
-		
+			@Override
+			protected void updateItem(Void item, boolean empty) {
+				super.updateItem(item, empty);
+
+				if (empty) {
+					setGraphic(null);
+				} else {
+					setGraphic(container);
+				}
+			}
+		});
+
 		Map<Integer, String> mapLoaiKhoanThu = new TreeMap<>();
 		mapLoaiKhoanThu.put(1, "Bắt buộc");
 		mapLoaiKhoanThu.put(0, "Tự nguyện");
@@ -119,7 +128,8 @@ public class KhoanThuController extends controller.HomeController implements Ini
 		tvKhoanPhi.setItems(listValueTableView);
 
 		// thiet lap gia tri cho combobox
-		ObservableList<String> listComboBox = FXCollections.observableArrayList("Tên khoản thu", "Mã khoản thu", "Mã hộ");
+		ObservableList<String> listComboBox = FXCollections.observableArrayList("Tên khoản thu", "Mã khoản thu",
+				"Mã hộ");
 		cbChooseSearch.setValue("Tên khoản thu");
 		cbChooseSearch.setItems(listComboBox);
 	}
@@ -164,40 +174,40 @@ public class KhoanThuController extends controller.HomeController implements Ini
 			break;
 		}
 		case "Mã hộ": {
-		    if (keySearch.length() == 0) {
-		        tvKhoanPhi.setItems(listValueTableView);
-		        Alert alert = new Alert(AlertType.WARNING, "Hãy nhập vào mã hộ cần tìm kiếm!", ButtonType.OK);
-		        alert.setHeaderText(null);
-		        alert.showAndWait();
-		        break;
-		    }
+			if (keySearch.length() == 0) {
+				tvKhoanPhi.setItems(listValueTableView);
+				Alert alert = new Alert(AlertType.WARNING, "Hãy nhập vào mã hộ cần tìm kiếm!", ButtonType.OK);
+				alert.setHeaderText(null);
+				alert.showAndWait();
+				break;
+			}
 
-		    try {
-		        int maHoSearch = Integer.parseInt(keySearch);
-		        List<KhoanThuModel> listKhoanThuTheoMaHo = new ArrayList<>();
-		        
-		        for (KhoanThuModel khoanThu : listKhoanThu) {
-		            if (khoanThu.getMaHo() == maHoSearch) {
-		                listKhoanThuTheoMaHo.add(khoanThu);
-		            }
-		        }
-		        
-		        listValueTableView_tmp = FXCollections.observableArrayList(listKhoanThuTheoMaHo);
-		        tvKhoanPhi.setItems(listValueTableView_tmp);
+			try {
+				int maHoSearch = Integer.parseInt(keySearch);
+				List<KhoanThuModel> listKhoanThuTheoMaHo = new ArrayList<>();
 
-		        if (listKhoanThuTheoMaHo.isEmpty()) {
-		            tvKhoanPhi.setItems(listValueTableView);
-		            Alert alert = new Alert(AlertType.INFORMATION, "Không tìm thấy thông tin!", ButtonType.OK);
-		            alert.setHeaderText(null);
-		            alert.showAndWait();
-		        }
-		    } catch (NumberFormatException e) {
-		        Alert alert = new Alert(AlertType.ERROR, "Mã hộ phải là số!", ButtonType.OK);
-		        alert.setHeaderText(null);
-		        alert.showAndWait();
-		        tvKhoanPhi.setItems(listValueTableView);
-		    }
-		    break;
+				for (KhoanThuModel khoanThu : listKhoanThu) {
+					if (khoanThu.getMaHo() == maHoSearch) {
+						listKhoanThuTheoMaHo.add(khoanThu);
+					}
+				}
+
+				listValueTableView_tmp = FXCollections.observableArrayList(listKhoanThuTheoMaHo);
+				tvKhoanPhi.setItems(listValueTableView_tmp);
+
+				if (listKhoanThuTheoMaHo.isEmpty()) {
+					tvKhoanPhi.setItems(listValueTableView);
+					Alert alert = new Alert(AlertType.INFORMATION, "Không tìm thấy thông tin!", ButtonType.OK);
+					alert.setHeaderText(null);
+					alert.showAndWait();
+				}
+			} catch (NumberFormatException e) {
+				Alert alert = new Alert(AlertType.ERROR, "Mã hộ phải là số!", ButtonType.OK);
+				alert.setHeaderText(null);
+				alert.showAndWait();
+				tvKhoanPhi.setItems(listValueTableView);
+			}
+			break;
 		}
 		default: { // truong hop con lai : tim theo ma khoan thu
 			// neu khong nhap gi -> thong bao loi
@@ -236,9 +246,9 @@ public class KhoanThuController extends controller.HomeController implements Ini
 	}
 
 	@FXML
-    void addKhoanThu(ActionEvent event) throws IOException {
-        switchScene(event, "/views/khoanthu/AddKhoanThu.fxml");
-    }
+	void addKhoanThu(ActionEvent event) throws IOException {
+		switchScene(event, "/views/khoanthu/AddKhoanThu.fxml");
+	}
 
 	public void delKhoanThu() throws ClassNotFoundException, SQLException {
 		KhoanThuModel khoanThuModel = tvKhoanPhi.getSelectionModel().getSelectedItem();
@@ -256,7 +266,11 @@ public class KhoanThuController extends controller.HomeController implements Ini
 			if (result.get() == ButtonType.NO) {
 				return;
 			} else {
-				new KhoanThuService().del(khoanThuModel.getIdKhoanThu());
+				if (new KhoanThuService().del(khoanThuModel.getIdKhoanThu())) {
+					Alert alert_success = new Alert(AlertType.INFORMATION, "Đã xóa khoản thu", ButtonType.OK);
+					alert_success.setHeaderText(null);
+					alert_success.showAndWait();
+				};
 			}
 		}
 
@@ -266,7 +280,7 @@ public class KhoanThuController extends controller.HomeController implements Ini
 	@FXML
 	void updateKhoanThu(ActionEvent event) throws IOException {
 		KhoanThuModel khoanThu = tvKhoanPhi.getSelectionModel().getSelectedItem();
-		
+
 		if (khoanThu == null) {
 			Alert alert = new Alert(AlertType.WARNING, "Chọn khoản thu muốn sửa!", ButtonType.OK);
 			alert.setHeaderText(null);
@@ -276,21 +290,36 @@ public class KhoanThuController extends controller.HomeController implements Ini
 					ButtonType.NO);
 			alert.setHeaderText(null);
 			Optional<ButtonType> result = alert.showAndWait();
-			
+
 			if (result.get() == ButtonType.NO) {
 				return;
 			} else {
 				switchSceneWithKhoanThuData(event, "/views/khoanthu/UpdateKhoanThu.fxml", khoanThu);
 			}
-			
+
 		}
 	}
-	
+
 	@FXML
 	void nopTien(ActionEvent event) throws IOException {
 		switchScene(event, "/views/noptien/AddNopTien.fxml");
 	}
-	
+
+	void setDaNop(KhoanThuModel khoanThu) throws ClassNotFoundException, SQLException {
+		NopTienModel nopTien = new NopTienModel();
+		Date today = new Date();
+		nopTien.setSoTien(khoanThu.getSoTien());
+		nopTien.setNgayThu(today);
+		nopTien.setMaHo(khoanThu.getMaHo());
+		nopTien.setIdKhoanThu(khoanThu.getIdKhoanThu());
+
+		if (new NopTienService().add(nopTien)) {
+			Alert alert = new Alert(AlertType.INFORMATION, "Đặt khoản thu là đã nộp thành công!", ButtonType.OK);
+			alert.setHeaderText(null);
+			alert.showAndWait();
+		}
+	}
+
 	@FXML
 	void addLoaiKhoanThu(ActionEvent event) throws IOException {
 		switchScene(event, "/views/khoanthu/AddLoaiKhoanThu.fxml");

@@ -58,11 +58,11 @@ public class KhoanThuService {
 	public boolean del(int idKhoanThu) throws ClassNotFoundException, SQLException {
 		try (Connection connection = MysqlConnection.getMysqlConnection();
 				PreparedStatement checkStatement = connection
-						.prepareStatement("SELECT * FROM nop_tien WHERE MaKhoanThu = ?");
+						.prepareStatement("SELECT * FROM nop_tien WHERE IDKhoanThu = ?");
 				PreparedStatement deleteStatement = connection
-						.prepareStatement("DELETE FROM nop_tien WHERE MaKhoanThu = ?");
+						.prepareStatement("DELETE FROM nop_tien WHERE IDKhoanThu = ?");
 				PreparedStatement mainDeleteStatement = connection
-						.prepareStatement("DELETE FROM khoan_thu WHERE MaKhoanThu = ?")) {
+						.prepareStatement("DELETE FROM khoan_thu WHERE IDKhoanThu = ?")) {
 
 			checkStatement.setInt(1, idKhoanThu);
 			ResultSet rs = checkStatement.executeQuery();

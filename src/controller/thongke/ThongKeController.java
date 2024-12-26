@@ -11,86 +11,125 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import models.HoKhauModel;
 import models.KhoanThuModel;
+import models.LoaiKhoanThuModel;
 import services.ThongKeService;
 
 public class ThongKeController extends controller.HomeController implements Initializable {
 	@FXML
-	TableColumn<KhoanThuModel, String> colTenPhi;
+	TableColumn<LoaiKhoanThuModel, Integer> colMaKhoanThu;
 	@FXML
-	TableColumn<KhoanThuModel, String> colTongSoTien;
+	TableColumn<LoaiKhoanThuModel, String> colTenKhoanThu;
 	@FXML
-	TableView<KhoanThuModel> tvThongKe;
+	TableColumn<LoaiKhoanThuModel, Double> colTongSoTienCanThu;
+	@FXML
+	TableColumn<LoaiKhoanThuModel, Double> colTongSoTienDaThu;
+	@FXML
+	TableView<LoaiKhoanThuModel> tvThongKe;
+	@FXML
+	ComboBox<Integer> cbMonth;
+	@FXML
+	ComboBox<Integer> cbYear;
 	@FXML
 	ComboBox<String> cbChooseSearch;
 	@FXML
 	private TableColumn<KhoanThuModel, Void> colAction;
 
-	private ObservableList<KhoanThuModel> listValueTableView;
-	private List<KhoanThuModel> listKhoanThu;
+	private ObservableList<LoaiKhoanThuModel> listValueTableView;
+	private List<LoaiKhoanThuModel> listLoaiKhoanThu;
+	private List<LoaiKhoanThuModel> listFeeStatsByMonthYear;
 
 	public void showThongKe() throws ClassNotFoundException, SQLException {
-		listKhoanThu = new ThongKeService().getFeeStats();
-		listValueTableView = FXCollections.observableArrayList(listKhoanThu);
+		listLoaiKhoanThu = new ThongKeService().getFeeStats();
+		listValueTableView = FXCollections.observableArrayList(listLoaiKhoanThu);
+		
+		if (listValueTableView.isEmpty()) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Thông báo");
+			alert.setHeaderText(null);
+			alert.setContentText("Không có dữ liệu thống kê.");
+			alert.showAndWait();
+			return;
+		}
 
-		colTenPhi.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("tenKhoanThu"));
-		colTongSoTien.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("soTien"));
+		colMaKhoanThu.setCellValueFactory(new PropertyValueFactory<LoaiKhoanThuModel, Integer>("maKhoanThu"));
+		colTenKhoanThu.setCellValueFactory(new PropertyValueFactory<LoaiKhoanThuModel, String>("tenKhoanThu"));
+		colTongSoTienCanThu
+				.setCellValueFactory(new PropertyValueFactory<LoaiKhoanThuModel, Double>("tongSoTienCanThu"));
+		colTongSoTienDaThu.setCellValueFactory(new PropertyValueFactory<LoaiKhoanThuModel, Double>("tongSoTienDaThu"));
 
 		tvThongKe.setItems(listValueTableView);
-		// thiet lap gia tri cho combobox
-		ObservableList<String> listComboBox = FXCollections.observableArrayList("Bắt buộc đóng", "Ủng hộ");
-		cbChooseSearch.setValue("Thống kê theo");
-		cbChooseSearch.setItems(listComboBox);
 	}
 
-	public void loc() {
-		ObservableList<KhoanThuModel> listValueTableView_tmp = null;
-
-		List<KhoanThuModel> listKhoanThuBatBuoc = new ArrayList<>();
-		List<KhoanThuModel> listKhoanThuTuNguyen = new ArrayList<>();
-		for (KhoanThuModel khoanThuModel : listKhoanThu) {
-			if (khoanThuModel.getLoaiKhoanThu() == 0) {
-				listKhoanThuTuNguyen.add(khoanThuModel);
-			} else {
-				listKhoanThuBatBuoc.add(khoanThuModel);
-			}
+	public void thongKeTheoThangNam() throws ClassNotFoundException, SQLException {
+		if (cbMonth.getValue() == null) {
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Thiếu thông tin");
+			alert.setHeaderText(null);
+			alert.setContentText("Vui lòng chọn tháng!");
+			alert.showAndWait();
+			return; 
 		}
 
-		// lay lua chon tim kiem cua khach hang
-		SingleSelectionModel<String> typeSearch = cbChooseSearch.getSelectionModel();
-		String typeSearchString = typeSearch.getSelectedItem();
-
-		switch (typeSearchString) {
-		case "Tất cả":
-			tvThongKe.setItems(listValueTableView);
-			break;
-		case "Bắt buộc đóng":
-			listValueTableView_tmp = FXCollections.observableArrayList(listKhoanThuBatBuoc);
-			tvThongKe.setItems(listValueTableView_tmp);
-			break;
-		case "Ủng hộ":
-			listValueTableView_tmp = FXCollections.observableArrayList(listKhoanThuTuNguyen);
-			tvThongKe.setItems(listValueTableView_tmp);
-			break;
-		default:
-			break;
+		// Kiểm tra ComboBox năm
+		if (cbYear.getValue() == null) {
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Thiếu thông tin");
+			alert.setHeaderText(null);
+			alert.setContentText("Vui lòng chọn năm!");
+			alert.showAndWait();
+			return;
 		}
-	}
+		int month = cbMonth.getValue();
+		int year = cbYear.getValue();
 
-	public KhoanThuModel thongkeKhoanThu() throws IOException, ClassNotFoundException, SQLException {
-		KhoanThuModel khoanThuModel = tvThongKe.getSelectionModel().getSelectedItem();
-		return khoanThuModel;
+		ObservableList<LoaiKhoanThuModel> listValueTableView_tmp = null;
+
+		listFeeStatsByMonthYear = new ThongKeService().getFeeStatsByMonthYear(month, year);
+		if (listFeeStatsByMonthYear.isEmpty()) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Thông báo");
+			alert.setHeaderText(null);
+			alert.setContentText("Không có dữ liệu thống kê.");
+			alert.showAndWait();
+			return;
+		}
+		listValueTableView_tmp = FXCollections.observableArrayList(listFeeStatsByMonthYear);
+
+		colMaKhoanThu.setCellValueFactory(new PropertyValueFactory<LoaiKhoanThuModel, Integer>("maKhoanThu"));
+		colTenKhoanThu.setCellValueFactory(new PropertyValueFactory<LoaiKhoanThuModel, String>("tenKhoanThu"));
+		colTongSoTienCanThu
+				.setCellValueFactory(new PropertyValueFactory<LoaiKhoanThuModel, Double>("tongSoTienCanThu"));
+		colTongSoTienDaThu.setCellValueFactory(new PropertyValueFactory<LoaiKhoanThuModel, Double>("tongSoTienDaThu"));
+
+		tvThongKe.setItems(listValueTableView_tmp);
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
 			showThongKe();
+
+			// Thêm danh sách tháng (1 đến 12) vào cbMonth
+			ObservableList<Integer> months = FXCollections.observableArrayList();
+			for (int i = 1; i <= 12; i++) {
+				months.add(i);
+			}
+			cbMonth.setItems(months);
+
+			// Thêm danh sách năm (ví dụ: từ 2000 đến 2030) vào cbYear
+			ObservableList<Integer> years = FXCollections.observableArrayList();
+			for (int i = 2000; i <= 2030; i++) {
+				years.add(i);
+			}
+			cbYear.setItems(years);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

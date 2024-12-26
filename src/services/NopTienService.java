@@ -19,11 +19,16 @@ public class NopTienService {
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "INSERT INTO nop_tien(SoTien, NgayThu, MaHo, IDKhoanThu) VALUES (?, ?, ?, ?)",
                      Statement.RETURN_GENERATED_KEYS)) {
+        	
 
         	preparedStatement.setDouble(1, nopTienModel.getSoTien());
-            preparedStatement.setDate(2, (Date) nopTienModel.getNgayThu());
-            preparedStatement.setInt(3, nopTienModel.getMaHo());
+        	java.util.Date utilDate = nopTienModel.getNgayThu();
+        	java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        	preparedStatement.setDate(2, sqlDate);
+        	preparedStatement.setInt(3, nopTienModel.getMaHo());
             preparedStatement.setInt(4, nopTienModel.getIdKhoanThu());
+            
+            preparedStatement.executeUpdate();
 
         } // Auto-closes connection and preparedStatement
 
