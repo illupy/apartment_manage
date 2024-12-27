@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,12 +13,12 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+import controller.hokhau.AddHoKhau;
 import controller.hokhau.ChiTietHoKhauController;
 import controller.hokhau.UpdateHoKhau;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,11 +38,10 @@ import javafx.stage.Stage;
 import models.ChuHoModel;
 import models.HoKhauModel;
 import models.NhanKhauModel;
-import models.QuanHeModel;
 import services.ChuHoService;
 import services.HoKhauService;
+import services.MysqlConnection;
 import services.NhanKhauService;
-import services.QuanHeService;
 
 public class HoKhauController extends HomeController implements Initializable{
 	@FXML
@@ -76,7 +77,7 @@ public class HoKhauController extends HomeController implements Initializable{
 		Map<Integer, String> mapIdToTen = new HashMap<>();
 		listNhanKhau.forEach(nhankhau -> {
 			mapIdToTen.put(nhankhau.getId(), nhankhau.getTen());
-		});
+		}); 
 
 		Map<Integer, Integer> mapMahoToId = new HashMap<>();
 		listChuHo.forEach(chuho -> {
@@ -129,53 +130,83 @@ public class HoKhauController extends HomeController implements Initializable{
 		stage.show();
 	}
 
-	public void addHoKhau(ActionEvent event) throws IOException {
-		switchScene(event, "/views/hokhau/addhokhau.fxml");
+	
+	public void addHoKhau() throws IOException, ClassNotFoundException, SQLException {
+	    // Load giao diện addnhankhau.fxml
+	    FXMLLoader loader = new FXMLLoader();
+	    loader.setLocation(getClass().getResource("/views/hokhau/addhokhau.fxml"));
+	    Parent home = loader.load();
+
+	    // Tạo stage để hiển thị cửa sổ thêm nhân khẩu
+	    Stage stage = new Stage();
+	    stage.setScene(new Scene(home, 800, 600));
+
+	    // Lấy controller của giao diện thêm nhân khẩu
+	    AddHoKhau addHoKhau = loader.getController();
+
+	    // Kiểm tra nếu controller null
+	    if (addHoKhau == null) return;
+
+	    stage.setResizable(false);
+	    stage.showAndWait();
+
+	    // Sau khi thêm, cập nhật lại danh sách nhân khẩu
+	    showHoKhau();
 	}
+
 
 	public void delHoKhau() throws ClassNotFoundException, SQLException {
-		HoKhauModel hoKhauModel = tvHoKhau.getSelectionModel().getSelectedItem();
+	    HoKhauModel hoKhauModel = tvHoKhau.getSelectionModel().getSelectedItem();
 
-		if (hoKhauModel == null) {
-			Alert alert = new Alert(AlertType.WARNING, "Hãy chọn hộ khẩu bạn muốn xóa!", ButtonType.OK);
-			alert.setHeaderText(null);
-			alert.showAndWait();
-		} else {
-			Alert alert = new Alert(AlertType.WARNING, "Khi xóa hộ khẩu, tất cả thành viên trong hộ đều sẽ bị xóa!",
-					ButtonType.YES, ButtonType.NO);
-			alert.setHeaderText("Bạn có chắc chắn muốn xóa hộ khẩu này");
-			Optional<ButtonType> result = alert.showAndWait();
+	    if (hoKhauModel == null) {
+	        Alert alert = new Alert(AlertType.WARNING, "Hãy chọn hộ khẩu bạn muốn xóa!", ButtonType.OK);
+	        alert.setHeaderText(null);
+	        alert.showAndWait();
+	    } else {
+	        Alert alert = new Alert(AlertType.WARNING, "Khi xóa hộ khẩu, tất cả quan hệ sẽ bị xóa nhưng thành viên không bị xóa!",
+	                ButtonType.YES, ButtonType.NO);
+	        alert.setHeaderText("Bạn có chắc chắn muốn xóa hộ khẩu này?");
+	        Optional<ButtonType> result = alert.showAndWait();
 
-			if (result.get() == ButtonType.NO) {
-				return;
-			} else {
-				/// tao map anh xa gia tri Id sang maHo
-				Map<Integer, Integer> mapIdToMaho = new HashMap<>();
-				List<QuanHeModel> listQuanHe = new QuanHeService().getListQuanHe();
-				listQuanHe.forEach(quanhe -> {
-					mapIdToMaho.put(quanhe.getIdThanhVien(), quanhe.getMaHo());
-				});
+	        if (result.get() == ButtonType.NO) {
+	            return;
+	        } else {
+	            // Lấy mã hộ khẩu cần xóa
+	            int idHoKhauDel = hoKhauModel.getMaHo();
 
-				// xoa toan bo nhan khau trong ho khau
-				int idHoKhauDel = hoKhauModel.getMaHo(); // lay ra ma ho de so sanh
-				List<NhanKhauModel> listNhanKhauModels = new NhanKhauService().getListNhanKhau(null);
-				listNhanKhauModels.stream().filter(nhankhau -> mapIdToMaho.get(nhankhau.getId()) == idHoKhauDel)
-				.forEach(nk -> {
-					try {
-						new NhanKhauService().deleteNhanKhau(nk.getId());
-					} catch (ClassNotFoundException | SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				});
+	            try (Connection connection = MysqlConnection.getMysqlConnection()) {
+	                // Bước 1: Xóa quan hệ trong bảng quan_he
+	                String deleteQuanHeQuery = "DELETE FROM quan_he WHERE MaHo = ?";
+	                try (PreparedStatement deleteQuanHeStmt = connection.prepareStatement(deleteQuanHeQuery)) {
+	                    deleteQuanHeStmt.setInt(1, idHoKhauDel);
+	                    deleteQuanHeStmt.executeUpdate();
+	                }
 
-				// xoa ho khau
-				new HoKhauService().delete(idHoKhauDel);
-			}
-		}
+	                // Bước 2: Xóa thông tin chủ hộ trong bảng chu_ho
+	                String deleteChuHoQuery = "DELETE FROM chu_ho WHERE MaHo = ?";
+	                try (PreparedStatement deleteChuHoStmt = connection.prepareStatement(deleteChuHoQuery)) {
+	                    deleteChuHoStmt.setInt(1, idHoKhauDel);
+	                    deleteChuHoStmt.executeUpdate();
+	                }
 
-		showHoKhau();
+	                // Bước 3: Xóa hộ khẩu khỏi bảng ho_khau
+	                String deleteHoKhauQuery = "DELETE FROM ho_khau WHERE MaHo = ?";
+	                try (PreparedStatement deleteHoKhauStmt = connection.prepareStatement(deleteHoKhauQuery)) {
+	                    deleteHoKhauStmt.setInt(1, idHoKhauDel);
+	                    deleteHoKhauStmt.executeUpdate();
+	                }
+
+	                // Sau khi xóa, cập nhật lại giao diện hiển thị hộ khẩu
+	                showHoKhau();
+	            } catch (SQLException e) {
+	                System.err.println("SQL Error: " + e.getMessage());
+	            } catch (ClassNotFoundException e) {
+	                System.err.println("Connection Error: " + e.getMessage());
+	            }
+	        }
+	    }
 	}
+
 
 	public void searchHoKhau() throws ClassNotFoundException, SQLException{
 		ObservableList<HoKhauModel> listValueTableView_tmp = null;
@@ -183,11 +214,11 @@ public class HoKhauController extends HomeController implements Initializable{
 
 		// lay lua chon tim kiem cua khach hang
 		SingleSelectionModel<String> typeSearch = cbChooseSearch.getSelectionModel();
-		String typeSearchString = tfSearch.getText();
+		 String typeSearchString = typeSearch.getSelectedItem();
 
 		// tim kiem thong tin theo lua chon da lay ra
 		switch (typeSearchString) {
-		case "Ten chu ho":{
+		case "Tên chủ hộ":{
 			if(keySearch.length()==0) {
 				tvHoKhau.setItems(listValueTableView);
 				Alert alert = new Alert(AlertType.WARNING, "Hay nhap thong tin tim kiem", ButtonType.OK);
@@ -210,10 +241,11 @@ public class HoKhauController extends HomeController implements Initializable{
 			int index = 0;
 			List<HoKhauModel> listHoKhauModelsSearch = new ArrayList<>();
 			for(HoKhauModel hoKhauModel : listHoKhau) {
-				if (mapIdToTen.get(mapMahoToId.get(hoKhauModel.getMaHo())).contains(keySearch)) {
-					listHoKhauModelsSearch.add(hoKhauModel);
-					index++;
-				}
+				if (mapIdToTen.get(mapMahoToId.get(hoKhauModel.getMaHo()))
+					    .toLowerCase().contains(keySearch.toLowerCase())) {
+					    listHoKhauModelsSearch.add(hoKhauModel);
+					    index++;
+					}
 			}
 			listValueTableView_tmp = FXCollections.observableArrayList(listHoKhauModelsSearch);
 			tvHoKhau.setItems(listValueTableView_tmp);
@@ -297,7 +329,7 @@ public class HoKhauController extends HomeController implements Initializable{
 		HoKhauModel hoKhauModel = tvHoKhau.getSelectionModel().getSelectedItem();
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/views/hokhau/UpdateHoKhau.fxml"));
+		loader.setLocation(getClass().getResource("/views/hokhau/updatehokhau.fxml"));
 		Parent home = loader.load();
 		Stage stage = new Stage();
 		stage.setScene(new Scene(home, 800, 600));

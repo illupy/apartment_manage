@@ -3,20 +3,19 @@ package controller;
 import java.io.IOException;
 import java.util.Optional;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import models.KhoanThuModel;
-import models.LoaiKhoanThuModel;
+import controller.khoanthu.UpdateKhoanThu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import controller.khoanthu.UpdateKhoanThu;
-import controller.khoanthu.UpdateKhoanThu.KhoanThuItem;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
+import models.KhoanThuModel;
+import models.LoaiKhoanThuModel;
 
 public class HomeController {
 	@FXML
@@ -98,12 +97,7 @@ public class HomeController {
 
 	@FXML
 	public void update(ActionEvent event) throws IOException {
-		switchScene(event, "/views/Main.fxml");
-	}
-	
-	@FXML
-	public void addNhanKhau(ActionEvent event) throws IOException {
-		switchScene(event, "/views/nhankhau/addnhankhau.fxml");
+		switchScene(event, "/views/updateinfo.fxml");
 	}
 	
 

@@ -84,14 +84,14 @@
 						</Label>
 						<Label layoutX="40.0" layoutY="64.0" />
 						<Label layoutX="196.0" layoutY="252.0" />
-						<TextField layoutX="35.0" layoutY="120.0" prefHeight="30.0" prefWidth="323.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
-						<Label layoutX="35.0" layoutY="100.0" text="CCCD chủ hộ" />
+						<TextField fx:id="tfIDChuHo" layoutX="35.0" layoutY="120.0" prefHeight="30.0" prefWidth="323.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<Label layoutX="35.0" layoutY="100.0" text="ID chủ hộ" />
 						<Button layoutX="139.0" layoutY="296.0" mnemonicParsing="false" onAction="#addHoKhau" style="-fx-background-color: #4480ff; -fx-background-radius: 10; -fx-border-radius: 10;" text="Thêm hộ khẩu" textFill="WHITE">
 							<font>
 								<Font name="System Bold" size="15.0" />
 							</font>
 						</Button>
-						<TextField layoutX="35.0" layoutY="190.0" prefHeight="30.0" prefWidth="323.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<TextField fx:id="tfSoPhong" layoutX="35.0" layoutY="190.0" prefHeight="30.0" prefWidth="323.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
 						<Label layoutX="35.0" layoutY="170.0" text="Số phòng" />
 					</children>
 				</AnchorPane>

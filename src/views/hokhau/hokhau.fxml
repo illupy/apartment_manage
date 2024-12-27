@@ -96,9 +96,9 @@
             <HBox layoutX="528.0" layoutY="15.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: white; -fx-alignment: center;">
                <children>
                   <TextField fx:id="tfSearch" prefHeight="25.0" prefWidth="173.0" promptText="Tìm kiếm" style="-fx-background-color: white;" />
-                  <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="30.0" style="-fx-background-color: white;">
+                  <Button onAction ="#searchHoKhau" mnemonicParsing="false" prefHeight="24.0" prefWidth="30.0" style="-fx-background-color: white;">
                      <graphic>
-                        <FontAwesomeIcon glyphName="SEARCH" size="14" />
+                        <FontAwesomeIcon glyphName="SEARCH"  size="14" />
                      </graphic>
                   </Button>
                </children>
@@ -108,7 +108,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Button layoutX="620.0" layoutY="81.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: #d5d5d5; -fx-border-radius: 10; -fx-background-radius: 10;" text="Xóa hộ khẩu" textFill="#ea0234">
+            <Button layoutX="620.0" layoutY="81.0" mnemonicParsing="false"  onAction="#delHoKhau" style="-fx-background-color: white; -fx-border-color: #d5d5d5; -fx-border-radius: 10; -fx-background-radius: 10;" text="Xóa hộ khẩu" textFill="#ea0234">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

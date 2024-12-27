@@ -23,11 +23,9 @@ import javafx.stage.Stage;
 import models.NhanKhauModel;
 import services.NhanKhauService;
 
-public class UpdateNhanKhau implements Initializable{
+public class UpdateNhanKhau extends controller.HomeController implements Initializable{
 	private int maNhanKhau;
 
-	@FXML
-	private TextField tfMaNhanKhau;
 	@FXML
 	private DatePicker dpNgaySinh;
 	@FXML
@@ -51,8 +49,6 @@ public class UpdateNhanKhau implements Initializable{
 		this.nhanKhauModel = nhanKhauModel;
 
 		maNhanKhau = nhanKhauModel.getId();
-		tfMaNhanKhau.setText(Integer.toString(maNhanKhau));
-		tfMaNhanKhau.setEditable(false);
 
 		java.util.Date ngaySinhUtilDate = new java.util.Date(nhanKhauModel.getNgaySinh().getTime());
 
@@ -65,7 +61,7 @@ public class UpdateNhanKhau implements Initializable{
 		tfQueQuan.setText(nhanKhauModel.getQueQuan());
 
 	}
-
+	
 	@FXML
 	public void updateNhanKhau(ActionEvent event) throws ClassNotFoundException, SQLException {
 		if (!validateFields()) {
@@ -94,16 +90,7 @@ public class UpdateNhanKhau implements Initializable{
 	}
 
 	private boolean validateFields() {
-		return validateMaNhanKhau() && validateTenNhanKhau() && validateCCCD() && validateSoDienThoai() && validateNgaySinh() && validateQueQuan();
-	}
-
-	private boolean validateMaNhanKhau() {
-		Pattern idPattern = Pattern.compile("\\d{1,11}");
-		if (!idPattern.matcher(tfMaNhanKhau.getText()).matches()) {
-			showAlert("Mã nhân khẩu không hợp lệ! Phải là số nguyên từ 1 đến 11 chữ số.");
-			return false;
-		}
-		return true;
+		return  validateTenNhanKhau() && validateCCCD() && validateSoDienThoai() && validateNgaySinh() && validateQueQuan();
 	}
 
 	private boolean validateTenNhanKhau() {

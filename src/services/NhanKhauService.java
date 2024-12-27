@@ -29,13 +29,6 @@ public class NhanKhauService {
             preparedStatement.setDate(4, new java.sql.Date(nhanKhauModel.getNgaySinh().getTime()));
             preparedStatement.setString(5, nhanKhauModel.getSdt());
             preparedStatement.setString(6, nhanKhauModel.getQueQuan());
-//            // Xử lý các giá trị có thể null
-//            if (nhanKhauModel.getMaHo() != null) {
-//                preparedStatement.setInt(6, nhanKhauModel.getMaHo());
-//            } else {
-//                preparedStatement.setNull(6, Types.INTEGER);
-//            }
-//            preparedStatement.setString(7, nhanKhauModel.getQuanHeChuHo());
 
             preparedStatement.executeUpdate();
         }
@@ -111,11 +104,11 @@ public class NhanKhauService {
     public List<NhanKhauModel> getNhanKhauByHoKhau(HoKhauModel hoKhauModel) throws ClassNotFoundException, SQLException {
         List<NhanKhauModel> nhanKhauList = new ArrayList<>();
         String sql = """
-            SELECT nk.*
-            FROM nhan_khau nk
-            INNER JOIN quan_he qh ON nk.ID = qh.IDThanhVien
-            WHERE qh.IDHoKhau = ?
-        """;
+        	    SELECT nk.ID, nk.Ten, qh.QuanHe
+        	    FROM nhan_khau nk
+        	    INNER JOIN quan_he qh ON nk.ID = qh.IDThanhVien
+        	    WHERE qh.MaHo = ?
+        	""";
 
         try (Connection connection = MysqlConnection.getMysqlConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -124,14 +117,10 @@ public class NhanKhauService {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    NhanKhauModel nhanKhauModel = new NhanKhauModel();
+                	NhanKhauModel nhanKhauModel = new NhanKhauModel();
                     nhanKhauModel.setId(resultSet.getInt("ID"));
-                    nhanKhauModel.setCccd(resultSet.getString("CCCD"));
                     nhanKhauModel.setTen(resultSet.getString("Ten"));
-                    nhanKhauModel.setGioiTinh(resultSet.getString("GioiTinh"));
-                    nhanKhauModel.setNgaySinh(resultSet.getDate("NgaySinh"));
-                    nhanKhauModel.setSdt(resultSet.getString("SDT"));
-                    nhanKhauModel.setQueQuan(resultSet.getString("QueQuan"));
+                    nhanKhauModel.setQuanHeChuHo(resultSet.getString("QuanHe")); // ánh xạ quan hệ
 
                     nhanKhauList.add(nhanKhauModel);
                 }

@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+import controller.nhankhau.AddNhanKhau;
 import controller.nhankhau.UpdateNhanKhau;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -22,14 +23,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.ChuHoModel;
@@ -100,7 +101,7 @@ public class NhanKhauController extends HomeController implements Initializable{
 			);
 		colGioiTinh.setCellValueFactory(new PropertyValueFactory<>("gioiTinh"));
 //		colQuanHeChuHo.setCellValueFactory(new PropertyValueFactory<>("quanHeChuHo"));
-		colQueQuan.setCellValueFactory(new PropertyValueFactory<>("queQuan"));
+		colQueQuan.setCellValueFactory(new PropertyValueFactory<NhanKhauModel, String>("queQuan"));
 		colCCCD.setCellValueFactory(new PropertyValueFactory<NhanKhauModel, String>("cccd"));
 		colSDT.setCellValueFactory(new PropertyValueFactory<NhanKhauModel, String>("sdt"));
 //		try {
@@ -315,10 +316,10 @@ public class NhanKhauController extends HomeController implements Initializable{
 	    }
 	}
 
+	
 
-	public void addNhanKhau(ActionEvent event) throws IOException {
-		switchScene(event, "/views/nhankhau/addnhankhau.fxml");
-	}
+	
+
 	
 	// con truong hop neu xoa chu ho chua xet
 	public void delNhanKhau() throws IOException, ClassNotFoundException, SQLException {
@@ -364,10 +365,31 @@ public class NhanKhauController extends HomeController implements Initializable{
 		showNhanKhau();
 	}
 	
-//	@FXML
-//	public void updateNhanKhau(ActionEvent event) throws IOException {
-//		switchScene(event, "/views/nhankhau/updatenhankhau.fxml");
-//	}
+
+	public void addNhanKhau() throws IOException, ClassNotFoundException, SQLException {
+	    // Load giao diện addnhankhau.fxml
+	    FXMLLoader loader = new FXMLLoader();
+	    loader.setLocation(getClass().getResource("/views/nhankhau/addnhankhau.fxml"));
+	    Parent home = loader.load();
+
+	    // Tạo stage để hiển thị cửa sổ thêm nhân khẩu
+	    Stage stage = new Stage();
+	    stage.setScene(new Scene(home, 800, 600));
+
+	    // Lấy controller của giao diện thêm nhân khẩu
+	    AddNhanKhau addNhanKhau = loader.getController();
+
+	    // Kiểm tra nếu controller null
+	    if (addNhanKhau == null) return;
+
+	    stage.setResizable(false);
+	    stage.showAndWait();
+
+	    // Sau khi thêm, cập nhật lại danh sách nhân khẩu
+	    showNhanKhau();
+	}
+
+	
 	
 	public void updateNhanKhau() throws IOException, ClassNotFoundException, SQLException {
 		// lay ra nhan khau can update

@@ -30,7 +30,23 @@ public class HoKhauService {
         }
         return false;
     }
+    
+    public List<String> getAllSoPhong() throws SQLException, ClassNotFoundException {
+        List<String> listSoPhong = new ArrayList<>();
+        String query = "SELECT SoPhong FROM phong";
 
+        try (Connection connection = MysqlConnection.getMysqlConnection()) {
+            try (PreparedStatement stmt = connection.prepareStatement(query);
+                 ResultSet rs = stmt.executeQuery()) {
+
+                while (rs.next()) {
+                    listSoPhong.add(rs.getString("SoPhong"));
+                }
+            }
+        }
+        return listSoPhong;
+    }
+ 
     // Phương thức xóa hộ khẩu
     public boolean delete(int maHo) throws ClassNotFoundException, SQLException {
         try (Connection connection = MysqlConnection.getMysqlConnection()) {

@@ -2,6 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.hokhau.AddHoKhau">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.khoanthu.UpdateKhoanThu">
 	<left>
 		<VBox prefHeight="600.0" prefWidth="189.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
 			<children>
@@ -22,20 +23,20 @@
 						<Image url="@../../../img/bluemoon.jpg" />
 					</image>
 				</ImageView>
-				<HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
+				<HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center; -fx-background-color: #4480ff; -fx-background-radius: 8;">
 					<children>
-						<FontAwesomeIcon glyphName="MONEY" selectionFill="BLACK" size="20" wrappingWidth="26.785715103149414">
+						<FontAwesomeIcon fill="WHITE" glyphName="MONEY" selectionFill="BLACK" size="20" wrappingWidth="26.785715103149414">
 							<font>
 								<Font size="16.0" />
 							</font>
 						</FontAwesomeIcon>
-						<Button mnemonicParsing="false" onAction="#setKhoanPhi" prefHeight="56.0" prefWidth="130.0" style="-fx-background-color: white; -fx-font-weight: bold;" text="Khoản phí" />
+						<Button mnemonicParsing="false" onAction="#setKhoanPhi" prefHeight="56.0" prefWidth="130.0" style="-fx-background-color: #4480ff; -fx-font-weight: bold;" text="Khoản phí" textFill="WHITE" />
 					</children>
 				</HBox>
-				<HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center; -fx-background-color: #4480ff; -fx-background-radius: 8;">
+				<HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
 					<children>
 						<FontAwesomeIcon glyphName="HOME" selectionFill="BLACK" size="20" text="" />
-						<Button mnemonicParsing="false" onAction="#setHoKhau" prefHeight="61.0" prefWidth="130.0" style="-fx-background-color: #4480ff; -fx-font-weight: bold;" text="Hộ khẩu" />
+						<Button mnemonicParsing="false" onAction="#setHoKhau" prefHeight="61.0" prefWidth="130.0" style="-fx-background-color: white; -fx-font-weight: bold;" text="Hộ khẩu" />
 					</children>
 				</HBox>
 				<HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
@@ -77,22 +78,20 @@
 			<children>
 				<AnchorPane layoutX="190.0" layoutY="125.0" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: white;">
 					<children>
-						<Label layoutX="116.0" layoutY="8.0" text="Thêm hộ khẩu">
+						<Label layoutX="74.0" layoutY="14.0" text="Thêm loại khoản thu">
 							<font>
 								<Font name="System Bold" size="25.0" />
 							</font>
 						</Label>
-						<Label layoutX="40.0" layoutY="64.0" />
-						<Label layoutX="196.0" layoutY="252.0" />
-						<TextField fx:id="tfIDChuHo" layoutX="35.0" layoutY="120.0" prefHeight="30.0" prefWidth="323.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
-						<Label layoutX="35.0" layoutY="100.0" text="ID chủ hộ" />
-						<Button layoutX="139.0" layoutY="296.0" mnemonicParsing="false" onAction="#addHoKhau" style="-fx-background-color: #4480ff; -fx-background-radius: 10; -fx-border-radius: 10;" text="Thêm hộ khẩu" textFill="WHITE">
+						<Label layoutX="35.0" layoutY="100.0" text="Tên khoản thu" />
+						<ComboBox layoutX="35.0" layoutY="190.0" prefHeight="30.0" prefWidth="323.0" style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<Label layoutX="35.0" layoutY="170.0" text="Loại khoản thu" />
+						<Button layoutX="166.0" layoutY="290.0" mnemonicParsing="false" onAction="#updateKhoanThu" style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Thêm" textFill="WHITE">
 							<font>
 								<Font name="System Bold" size="15.0" />
 							</font>
 						</Button>
-						<TextField fx:id="tfSoPhong" layoutX="35.0" layoutY="190.0" prefHeight="30.0" prefWidth="323.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
-						<Label layoutX="35.0" layoutY="170.0" text="Số phòng" />
+                  <TextField layoutX="34.0" layoutY="120.0" prefHeight="30.0" prefWidth="323.0" style="-fx-background-color: #f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
 					</children>
 				</AnchorPane>
 			</children>

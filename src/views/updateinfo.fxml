@@ -4,8 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,19 +12,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.PasswordField?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.hokhau.ChiTietHoKhauController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserController">
    <left>
       <VBox prefHeight="600.0" prefWidth="189.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="189.0" fitWidth="205.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../img/bluemoon.jpg" />
+                  <Image url="@../../img/bluemoon.jpg"  />
                </image>
             </ImageView>
             <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
                <children>
-                  <FontAwesomeIcon glyphName="MONEY" size="20" wrappingWidth="26.785715103149414">
+                  <FontAwesomeIcon glyphName="MONEY" selectionFill="BLACK" size="20" wrappingWidth="26.785715103149414">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -33,10 +34,10 @@
                   <Button mnemonicParsing="false" onAction="#setKhoanPhi" prefHeight="56.0" prefWidth="130.0" style="-fx-background-color: white; -fx-font-weight: bold;" text="Khoản phí" />
                </children>
             </HBox>
-            <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center; -fx-background-color: #4480ff; -fx-background-radius: 8;">
+            <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
                <children>
-                  <FontAwesomeIcon fill="WHITE" glyphName="HOME" selectionFill="BLACK" size="20" text="" />
-                  <Button mnemonicParsing="false" onAction="#setHoKhau" prefHeight="61.0" prefWidth="130.0" style="-fx-background-color: #4480ff; -fx-font-weight: bold;" text="Hộ khẩu" textFill="WHITE" />
+                  <FontAwesomeIcon glyphName="HOME" selectionFill="BLACK" size="20" text="" />
+                  <Button mnemonicParsing="false" onAction="#setHoKhau" prefHeight="61.0" prefWidth="130.0" style="-fx-background-color: white; -fx-font-weight: bold;" text="Hộ khẩu" />
                </children>
             </HBox>
             <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
@@ -58,10 +59,10 @@
                </children>
             </HBox>
             <Separator prefWidth="200.0" />
-            <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
+            <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center; -fx-background-color: #4480ff; -fx-background-radius: 8;">
                <children>
-                  <FontAwesomeIcon glyphName="USER" selectionFill="BLACK" size="20" />
-                  <Button mnemonicParsing="false" onAction="#update" prefHeight="56.0" prefWidth="130.0" style="-fx-background-color: white; -fx-font-weight: bold;" text="Cập nhật thông tin" />
+                  <FontAwesomeIcon fill="WHITE" glyphName="USER" selectionFill="BLACK" size="20" text="" />
+                  <Button mnemonicParsing="false" onAction="#update" prefHeight="56.0" prefWidth="130.0" style="-fx-background-color: #4480FF; -fx-font-weight: bold;" text="Thay đổi mật khẩu" textFill="WHITE" />
                </children>
             </HBox>
             <HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
@@ -74,30 +75,28 @@
       </VBox>
    </left>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f5f6fa;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: f9f9fb;" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tvThongKe" layoutX="164.0" layoutY="149.0" prefHeight="357.0" prefWidth="472.0">
-               <columns>
-                  <TableColumn fx:id="colId" prefWidth="70.0" text="ID" />
-                  <TableColumn fx:id="colTen" prefWidth="250.0" text="Họ và tên" />
-                  <TableColumn fx:id="colQuanHe" prefWidth="150.0" text="Quan hệ với chủ hộ" />
-               </columns>
-            </TableView>
-            <Label layoutX="280.0" layoutY="28.0" text="Thông tin chi tiết hộ khẩu">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Button onAction = "#handleThemThanhVien" layoutX="400.0" layoutY="80.0" mnemonicParsing="false" style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;" text="Thêm thành viên" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Button>
-            <Button onAction = "#handleXoaThanhVien" layoutX="580.0" layoutY="80.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: #d5d5d5; -fx-border-radius: 10; -fx-background-radius: 10;" text="Xóa thành viên" textFill="#ea0234">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Button>
+            <AnchorPane layoutX="163.0" layoutY="35.0" prefHeight="512.0" prefWidth="436.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="130.0" layoutY="178.0" text="Mật khẩu mới" />
+                  <PasswordField fx:id="pfNewPassword" layoutX="130.0" layoutY="198.0" prefHeight="27.0" prefWidth="208.0" style="-fx-background-color: f5f6fa; -fx-border-radius: 4; -fx-background-radius: 4; -fx-border-color: d5d5d5;" />
+                  <Label layoutX="130.0" layoutY="266.0" text="Xác nhận mật khẩu mới" />
+                  <PasswordField fx:id="pfConfirmNewPassword" layoutX="130.0" layoutY="286.0" prefHeight="27.0" prefWidth="208.0" style="-fx-background-color: f5f6fa; -fx-border-radius: 4; -fx-background-radius: 4; -fx-border-color: d5d5d5;" />
+                  <Button layoutX="167.0" layoutY="399.0" mnemonicParsing="false" onAction="#handleChangePassword" prefHeight="36.0" prefWidth="103.0" style="-fx-background-color: #4480ff; -fx-background-radius: 8;" text="Cập nhật" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Text layoutX="122.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cập nhật mật khẩu">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <Label layoutX="130.0" layoutY="99.0" text="Mật khẩu hiện tại" />
+                  <PasswordField fx:id="pfCurrentPassword" layoutX="130.0" layoutY="119.0" prefHeight="27.0" prefWidth="208.0" style="-fx-background-color: f5f6fa; -fx-border-radius: 4; -fx-background-radius: 4; -fx-border-color: d5d5d5;" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </center>

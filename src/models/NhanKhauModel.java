@@ -32,7 +32,7 @@ public class NhanKhauModel {
 
     // Constructor đầy đủ (trường hợp cần dùng sau khi đã có mã hộ và quan hệ)
     public NhanKhauModel(int id, String cccd, String ten, String gioiTinh, Date ngaySinh, String sdt, 
-                         Integer maHo, String quanHeChuHo) {
+                         Integer maHo, String queQuan) {
         this.id = id;  // ID tự động tăng trong cơ sở dữ liệu
         this.cccd = cccd;
         this.ten = ten;
@@ -40,17 +40,17 @@ public class NhanKhauModel {
         this.ngaySinh = ngaySinh;
         this.sdt = sdt;
         this.maHo = maHo;  // Có thể là null nếu chưa điền
-        this.quanHeChuHo = quanHeChuHo; // Có thể là null nếu chưa điền
+        this.queQuan = queQuan; // Có thể là null nếu chưa điền
     }
 
-    public NhanKhauModel(int id, String cccd, String ten, String gioiTinh, Date ngaySinh, String sdt, String quanHeChuHo) {
+    public NhanKhauModel(int id, String cccd, String ten, String gioiTinh, Date ngaySinh, String sdt, String queQuan) {
     	this.id = id;  // ID tự động tăng trong cơ sở dữ liệu
     	this.cccd = cccd;
     	this.ten = ten;
     	this.gioiTinh = gioiTinh;
     	this.ngaySinh = ngaySinh;
     	this.sdt = sdt;
-    	this.quanHeChuHo = quanHeChuHo; // Có thể là null nếu chưa điền
+    	this.queQuan = queQuan; // Có thể là null nếu chưa điền
     }
 
     public NhanKhauModel(int id, String cccd, String ten, String gioiTinh, Date ngaySinh, String sdt) {
@@ -63,14 +63,14 @@ public class NhanKhauModel {
     }
     
     public NhanKhauModel(String cccd, String ten, String gioiTinh, Date ngaySinh, String sdt, 
-            Integer maHo, String quanHeChuHo) {
+            Integer maHo, String queQuan) {
     	this.cccd = cccd;
     	this.ten = ten;
     	this.gioiTinh = gioiTinh;
     	this.ngaySinh = ngaySinh;
     	this.sdt = sdt;
     	this.maHo = maHo;  // Có thể là null nếu chưa điền
-    	this.quanHeChuHo = quanHeChuHo; // Có thể là null nếu chưa điền
+    	this.queQuan = queQuan; // Có thể là null nếu chưa điền
     }
     
     // Getters và Setters
@@ -117,18 +117,20 @@ public class NhanKhauModel {
     public String getSdt() {
         return sdt;
     }
-
-    public void setQueQuan(String queQuan) {
-        this.queQuan = queQuan;
+    
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
     }
+    
     
     public String getQueQuan() {
         return queQuan;
     }
 
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
+    public void setQueQuan(String queQuan) {
+        this.queQuan = queQuan;
     }
+    
 
     public Integer getMaHo() {
         return maHo;
