@@ -85,11 +85,11 @@
                   <TableColumn fx:id="colNgaySinh" prefWidth="100.0" text="Ngày sinh" />
                   <TableColumn fx:id="colCCCD" prefWidth="110.0" text="CCCD" />
                   <TableColumn fx:id="colSDT" prefWidth="110.0" text="Số điện thoại" />
-                  <TableColumn prefWidth="157.0" text="Quê quán" />
+                  <TableColumn fx:id="colQueQuan" prefWidth="157.0" text="Quê quán" />
                </columns>
             </TableView>
             <ComboBox fx:id="cbChooseSearch" layoutX="410.0" layoutY="14.0" prefHeight="25.0" prefWidth="118.0" promptText="Tìm kiếm theo" style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-border-radius: 8; -fx-background-radius: 8;" />
-            <Button layoutX="620.0" layoutY="80.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: d5d5d5; -fx-border-radius: 10; -fx-background-radius: 10;" text="Xóa nhân khẩu" textFill="#ea0234">
+            <Button layoutX="620.0" layoutY="80.0" mnemonicParsing="false" onAction="#delNhanKhau" style="-fx-background-color: white; -fx-border-color: d5d5d5; -fx-border-radius: 10; -fx-background-radius: 10;" text="Xóa nhân khẩu" textFill="#ea0234">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -97,7 +97,7 @@
             <HBox layoutX="528.0" layoutY="15.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: white; -fx-alignment: center;">
                <children>
                   <TextField fx:id="tfSearch" prefHeight="25.0" prefWidth="173.0" promptText="Tìm kiếm" style="-fx-background-color: white;" />
-                  <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="30.0" style="-fx-background-color: white;">
+                  <Button onAction ="#searchNhanKhau" mnemonicParsing="false" prefHeight="24.0" prefWidth="30.0" style="-fx-background-color: white;">
                      <graphic>
                         <FontAwesomeIcon glyphName="SEARCH" size="14" />
                      </graphic>

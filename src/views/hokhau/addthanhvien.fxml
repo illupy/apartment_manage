@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.hokhau.AddHoKhau">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.hokhau.SetThanhVien">
 	<left>
 		<VBox prefHeight="600.0" prefWidth="189.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
 			<children>
@@ -34,8 +34,8 @@
 				</HBox>
 				<HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center; -fx-background-color: #4480ff; -fx-background-radius: 8;">
 					<children>
-						<FontAwesomeIcon fill="WHITE" glyphName="HOME" selectionFill="BLACK" size="20" text="" />
-						<Button mnemonicParsing="false" onAction="#setHoKhau" prefHeight="61.0" prefWidth="130.0" style="-fx-background-color: #4480ff; -fx-font-weight: bold;" text="Hộ khẩu" textFill="WHITE" />
+						<FontAwesomeIcon glyphName="HOME" selectionFill="BLACK" size="20" text="" />
+						<Button mnemonicParsing="false" onAction="#setHoKhau" prefHeight="61.0" prefWidth="130.0" style="-fx-background-color: #4480ff; -fx-font-weight: bold;" text="Hộ khẩu" />
 					</children>
 				</HBox>
 				<HBox prefHeight="55.0" prefWidth="150.0" style="-fx-alignment: center;">
@@ -84,14 +84,14 @@
 						</Label>
 						<Label layoutX="40.0" layoutY="64.0" />
 						<Label layoutX="196.0" layoutY="252.0" />
-						<TextField layoutX="35.0" layoutY="120.0" prefHeight="30.0" prefWidth="323.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<TextField fx:id="idField" layoutX="35.0" layoutY="120.0" prefHeight="30.0" prefWidth="323.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
 						<Label layoutX="35.0" layoutY="100.0" text="ID" />
 						<Button layoutX="127.0" layoutY="290.0" mnemonicParsing="false" onAction="#addThanhVien" style="-fx-background-color: #4480ff; -fx-background-radius: 10; -fx-border-radius: 10;" text="Thêm thành viên" textFill="WHITE">
 							<font>
 								<Font name="System Bold" size="15.0" />
 							</font>
 						</Button>
-						<TextField layoutX="35.0" layoutY="190.0" prefHeight="30.0" prefWidth="323.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
+						<TextField fx:id="relationField" layoutX="35.0" layoutY="190.0" prefHeight="30.0" prefWidth="323.0" style="-fx-background-color: f9f9fb; -fx-border-color: d5d5d5; -fx-background-radius: 8; -fx-border-radius: 8;" />
 						<Label layoutX="35.0" layoutY="170.0" text="Quan hệ với chủ hộ" />
 					</children>
 				</AnchorPane>
