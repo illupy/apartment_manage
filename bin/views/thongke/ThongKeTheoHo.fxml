@@ -70,14 +70,19 @@
 					</children>
 				</HBox>
 				<HBox prefHeight="55.0" prefWidth="150.0"
-					style="-fx-alignment: center;">
+					style="-fx-alignment: center; -fx-background-color: #4480ff; -fx-background-radius: 8;">
 					<children>
-						<FontAwesomeIcon glyphName="BAR_CHART"
-							selectionFill="BLACK" size="20" />
+						<FontAwesomeIcon fill="WHITE"
+							glyphName="BAR_CHART" selectionFill="BLACK" size="20"
+							wrappingWidth="26.785715103149414">
+							<font>
+								<Font size="16.0" />
+							</font>
+						</FontAwesomeIcon>
 						<Button mnemonicParsing="false" onAction="#setTKho"
 							prefHeight="55.0" prefWidth="130.0"
-							style="-fx-background-color: white; -fx-font-weight: bold;"
-							text="Thống kê theo hộ" />
+							style="-fx-background-color: #4480ff; -fx-font-weight: bold;"
+							text="Thống kê theo hộ" textFill="WHITE" />
 					</children>
 				</HBox>
 				<HBox prefHeight="55.0" prefWidth="150.0"
@@ -121,24 +126,32 @@
 		<AnchorPane prefHeight="200.0" prefWidth="200.0"
 			style="-fx-background-color: #F5F6FA;" BorderPane.alignment="CENTER">
 			<children>
-				<HBox alignment="CENTER" layoutX="61.0" layoutY="32.0"
+				<Button layoutX="61.0" layoutY="80.0" mnemonicParsing="false"
+					onAction="#xemChiTietTheoHo"
+					style="-fx-background-color: white; -fx-border-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
+					text="Xem chi tiết" textFill="#4480ff">
+					<font>
+						<Font name="System Bold" size="15.0" />
+					</font>
+				</Button>
+				<HBox alignment="CENTER" layoutX="374.0" layoutY="78.0"
 					spacing="10.0" prefHeight="40.0" prefWidth="400.0">
 					<ComboBox fx:id="cbMonth" promptText="Tháng"
-						prefHeight="35.0" prefWidth="120.0"
+						prefHeight="30.0" prefWidth="120.0"
 						style="-fx-background-color: white; 
                -fx-border-color: #e0e0e0; 
                -fx-border-radius: 8; 
                -fx-background-radius: 8;" />
 
 					<ComboBox fx:id="cbYear" promptText="Năm"
-						prefHeight="35.0" prefWidth="120.0"
+						prefHeight="30.0" prefWidth="120.0"
 						style="-fx-background-color: white; 
                -fx-border-color: #e0e0e0; 
                -fx-border-radius: 8; 
                -fx-background-radius: 8;" />
 
 					<Button onAction="#thongKeTheoThangNam" prefHeight="35.0"
-						prefWidth="50.0"
+						prefWidth="30.0"
 						style="-fx-background-color: #f0f0f0; 
                -fx-background-radius: 8; 
                -fx-border-radius: 8;">
@@ -152,11 +165,12 @@
 					layoutY="14.0" prefHeight="25.0" prefWidth="118.0"
 					promptText="Tìm kiếm theo"
 					style="-fx-background-color: #f9f9fb; -fx-border-color: #d5d5d5; -fx-border-radius: 8; -fx-background-radius: 8;" />
-				<HBox layoutX="492.0" layoutY="32.0" prefHeight="34.0"
-					prefWidth="230.0" style="-fx-alignment: center;">
+				<HBox layoutX="528.0" layoutY="15.0" prefHeight="25.0"
+					prefWidth="200.0"
+					style="-fx-background-color: white; -fx-alignment: center;">
 					<children>
 						<TextField prefHeight="25.0" prefWidth="173.0"
-							fx:id="tfSearch" promptText="Search"
+							fx:id="tfSearch" promptText="Tìm kiếm"
 							style="-fx-background-color: white; -fx-background-radius: 0;" />
 						<Button mnemonicParsing="false" prefHeight="24.0"
 							onAction="#search" prefWidth="30.0"
@@ -169,14 +183,6 @@
 						</Button>
 					</children>
 				</HBox>
-				<Button layoutX="61.0" layoutY="80.0" mnemonicParsing="false"
-					onAction="#xemChiTietTheoHo"
-					style="-fx-background-color: white; -fx-border-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
-					text="Xem chi tiết" textFill="#4480ff">
-					<font>
-						<Font name="System Bold" size="15.0" />
-					</font>
-				</Button>
 				<TableView fx:id="tvThongKeTheoHo" layoutX="66.0"
 					layoutY="156.0" prefHeight="200.0" prefWidth="649.0">
 					<columns>
@@ -188,7 +194,6 @@
 							text="Số tiền cần đóng" />
 						<TableColumn fx:id="colTienDaDong" prefWidth="123.0"
 							text="Số tiền đã đóng" />
-						<TableColumn prefWidth="165.0" text="Chi tiết" />
 					</columns>
 				</TableView>
 				<Text layoutX="244.0" layoutY="136.0" strokeType="OUTSIDE"

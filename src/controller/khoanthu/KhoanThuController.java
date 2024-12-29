@@ -103,15 +103,31 @@ public class KhoanThuController extends controller.HomeController implements Ini
 			}
 
 			@Override
-			protected void updateItem(Void item, boolean empty) {
-				super.updateItem(item, empty);
-
-				if (empty) {
-					setGraphic(null);
-				} else {
-					setGraphic(container);
-				}
-			}
+		    protected void updateItem(Void item, boolean empty) {
+		        super.updateItem(item, empty);
+		        
+		        if (empty) {
+		            setGraphic(null);
+		        } else {
+		            // Lấy dữ liệu của dòng hiện tại
+		            KhoanThuModel khoanThu = getTableView().getItems().get(getIndex());
+		            
+		            // Kiểm tra nếu đã nộp thì disable button
+		            if (khoanThu.getDaNop() == 1) {
+		                daNopButton.setDisable(true);
+		                daNopButton.setText("Đã nộp");
+		                // Tùy chọn: có thể thay đổi style của button
+		                daNopButton.setStyle("-fx-background-color: #cccccc;");
+		            } else {
+		                daNopButton.setDisable(false);
+		                daNopButton.setText("Nộp");
+		                // Reset style nếu cần
+		                daNopButton.setStyle("");
+		            }
+		            
+		            setGraphic(container);
+		        }
+		    }
 		});
 
 		Map<Integer, String> mapLoaiKhoanThu = new TreeMap<>();
@@ -280,7 +296,6 @@ public class KhoanThuController extends controller.HomeController implements Ini
 	@FXML
 	void updateKhoanThu(ActionEvent event) throws IOException {
 		KhoanThuModel khoanThu = tvKhoanPhi.getSelectionModel().getSelectedItem();
-
 		if (khoanThu == null) {
 			Alert alert = new Alert(AlertType.WARNING, "Chọn khoản thu muốn sửa!", ButtonType.OK);
 			alert.setHeaderText(null);
@@ -298,11 +313,6 @@ public class KhoanThuController extends controller.HomeController implements Ini
 			}
 
 		}
-	}
-
-	@FXML
-	void nopTien(ActionEvent event) throws IOException {
-		switchScene(event, "/views/noptien/AddNopTien.fxml");
 	}
 
 	void setDaNop(KhoanThuModel khoanThu) throws ClassNotFoundException, SQLException {

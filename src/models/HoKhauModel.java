@@ -114,7 +114,7 @@ public class HoKhauModel {
     }
     
     public double getTienDaDong() {
-    	return tienCanDong;
+    	return tienDaDong;
     }
     
     public void setTienDaDong(double tienDaDong) {

@@ -39,8 +39,8 @@ public class HomeController {
 
 		    // Lấy controller của màn hình đích
 		    UpdateKhoanThu updateController = loader.getController();
+		    
 		    LoaiKhoanThuModel loaiKhoanThu = new LoaiKhoanThuModel(khoanThu.getMaKhoanThu(), khoanThu.getTenKhoanThu());
-
 		    // Thiết lập dữ liệu cho controller
 		    if (khoanThu != null) {
 		        // Điền thông tin vào các trường của controller
@@ -96,7 +96,7 @@ public class HomeController {
 
 	@FXML
 	public void update(ActionEvent event) throws IOException {
-		switchScene(event, "/views/Main.fxml");
+		switchScene(event, "/views/updateinfo.fxml");
 	}
 
 	@FXML

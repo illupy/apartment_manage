@@ -32,9 +32,9 @@
 					</image>
 				</ImageView>
 				<HBox prefHeight="55.0" prefWidth="150.0"
-					style="-fx-alignment: center; -fx-background-color: #4480ff; -fx-background-radius: 8;">
+					style="-fx-alignment: center;">
 					<children>
-						<FontAwesomeIcon fill="WHITE" glyphName="MONEY"
+						<FontAwesomeIcon glyphName="MONEY"
 							selectionFill="BLACK" size="20"
 							wrappingWidth="26.785715103149414">
 							<font>
@@ -43,8 +43,8 @@
 						</FontAwesomeIcon>
 						<Button mnemonicParsing="false" onAction="#setKhoanPhi"
 							prefHeight="56.0" prefWidth="130.0"
-							style="-fx-background-color: #4480ff; -fx-font-weight: bold;"
-							text="Khoản phí" textFill="WHITE" />
+							style="-fx-background-color: white; -fx-font-weight: bold;"
+							text="Khoản phí" />
 					</children>
 				</HBox>
 				<HBox prefHeight="55.0" prefWidth="150.0"
@@ -70,14 +70,19 @@
 					</children>
 				</HBox>
 				<HBox prefHeight="55.0" prefWidth="150.0"
-					style="-fx-alignment: center;">
+					style="-fx-alignment: center; -fx-background-color: #4480ff; -fx-background-radius: 8;">
 					<children>
-						<FontAwesomeIcon glyphName="BAR_CHART"
-							selectionFill="BLACK" size="20" />
+						<FontAwesomeIcon fill="WHITE"
+							glyphName="BAR_CHART" selectionFill="BLACK" size="20"
+							wrappingWidth="26.785715103149414">
+							<font>
+								<Font size="16.0" />
+							</font>
+						</FontAwesomeIcon>
 						<Button mnemonicParsing="false" onAction="#setTKho"
 							prefHeight="55.0" prefWidth="130.0"
-							style="-fx-background-color: white; -fx-font-weight: bold;"
-							text="Thống kê theo hộ" />
+							style="-fx-background-color: #4480ff; -fx-font-weight: bold;"
+							text="Thống kê theo hộ" textFill="WHITE" />
 					</children>
 				</HBox>
 				<HBox prefHeight="55.0" prefWidth="150.0"
@@ -121,23 +126,23 @@
 		<AnchorPane prefHeight="200.0" prefWidth="200.0"
 			style="-fx-background-color: #F5F6FA;" BorderPane.alignment="CENTER">
 			<children>
-				<HBox alignment="CENTER" layoutX="247.0" layoutY="32.0"
+				<HBox alignment="CENTER" layoutX="374.0" layoutY="78.0"
 					spacing="10.0" prefHeight="40.0" prefWidth="400.0">
 					<ComboBox fx:id="cbMonth" promptText="Tháng"
-						prefHeight="35.0" prefWidth="120.0"
+						prefHeight="30.0" prefWidth="120.0"
 						style="-fx-background-color: white; 
                -fx-border-color: #e0e0e0; 
                -fx-border-radius: 8; 
                -fx-background-radius: 8;" />
 
 					<ComboBox fx:id="cbYear" promptText="Năm"
-						prefHeight="35.0" prefWidth="120.0"
+						prefHeight="30.0" prefWidth="120.0"
 						style="-fx-background-color: white; 
                -fx-border-color: #e0e0e0; 
                -fx-border-radius: 8; 
                -fx-background-radius: 8;" />
 
-					<Button prefHeight="35.0" prefWidth="50.0"
+					<Button prefHeight="30.0" prefWidth="50.0"
 						style="-fx-background-color: #f0f0f0; 
                -fx-background-radius: 8; 
                -fx-border-radius: 8;">
@@ -164,12 +169,15 @@
 						</Button>
 					</children>
 				</HBox>
-				<TableView fx:id="tvThongKeChiTietTheoHo" layoutX="112.0" layoutY="173.0"
-					prefHeight="200.0" prefWidth="558.0">
+				<TableView fx:id="tvThongKeChiTietTheoHo" layoutX="112.0"
+					layoutY="173.0" prefHeight="200.0" prefWidth="558.0">
 					<columns>
-						<TableColumn fx:id="colMaKhoanThu" prefWidth="101.0" text="TT" />
-						<TableColumn fx:id="colTenKhoanThu" prefWidth="261.0" text="CÁC KHOẢN PHÍ" />
-						<TableColumn fx:id="colTongTien" prefWidth="65.0" text="SỐ TIỀN" />
+						<TableColumn fx:id="colMaKhoanThu" prefWidth="101.0"
+							text="TT" />
+						<TableColumn fx:id="colTenKhoanThu" prefWidth="261.0"
+							text="CÁC KHOẢN PHÍ" />
+						<TableColumn fx:id="colTongTien" prefWidth="65.0"
+							text="SỐ TIỀN" />
 						<TableColumn prefWidth="130.0" text="TRẠNG THÁI" />
 					</columns>
 				</TableView>

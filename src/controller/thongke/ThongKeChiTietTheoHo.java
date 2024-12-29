@@ -62,6 +62,10 @@ public class ThongKeChiTietTheoHo extends controller.HomeController implements I
 		listThongKeChiTietTheoHo = new ThongKeService().getHouseholdDetailStats(hoKhauSelected.getMaHo());
 		listValueTableView = FXCollections.observableArrayList(listThongKeChiTietTheoHo);
 		
+		if (hoKhauSelected == null || hoKhauSelected.getMaHo() == 0) {
+	        return; // Không làm gì nếu hoKhauSelected chưa được thiết lập
+	    }
+		
 		if (listThongKeChiTietTheoHo.isEmpty()) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setTitle("Thông báo");
@@ -80,27 +84,18 @@ public class ThongKeChiTietTheoHo extends controller.HomeController implements I
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		try {
-			
-			importTableData();
-
-			// Thêm danh sách tháng (1 đến 12) vào cbMonth
-			ObservableList<String> months = FXCollections.observableArrayList();
-			for (int i = 1; i <= 12; i++) {
-				months.add(String.valueOf(i));
-			}
-			cbMonth.setItems(months);
-
-			// Thêm danh sách năm (ví dụ: từ 2000 đến 2030) vào cbYear
-			ObservableList<String> years = FXCollections.observableArrayList();
-			for (int i = 2000; i <= 2030; i++) {
-				years.add(String.valueOf(i));
-			}
-			cbYear.setItems(years);
-
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//Thêm danh sách tháng (1 đến 12) vào cbMonth
+		ObservableList<String> months = FXCollections.observableArrayList();
+		for (int i = 1; i <= 12; i++) {
+			months.add(String.valueOf(i));
 		}
+		cbMonth.setItems(months);
+
+		// Thêm danh sách năm (ví dụ: từ 2000 đến 2030) vào cbYear
+		ObservableList<String> years = FXCollections.observableArrayList();
+		for (int i = 2000; i <= 2030; i++) {
+			years.add(String.valueOf(i));
+		}
+		cbYear.setItems(years);
 	}
 }

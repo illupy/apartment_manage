@@ -11,7 +11,20 @@ public class KhoanThuModel {
 	private Date ngayKetThuc;
 	private int maHo;
 	private int maKhoanThu;
+	private int daNop; //chua nop la 0, da nop la 1
 	
+	public int getDaNop() {
+		return daNop;
+	}
+
+	public void setDaNop(int daNop) {
+		this.daNop = daNop;
+	}
+
+	public void setIdKhoanThu(int idKhoanThu) {
+		this.idKhoanThu = idKhoanThu;
+	}
+
 	public KhoanThuModel() {}
 
 	public KhoanThuModel(String tenKhoanThu, double soTien, int loaiKhoanThu ) {
@@ -101,7 +114,10 @@ public class KhoanThuModel {
 		this.maHo = maHo;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return maKhoanThu + tenKhoanThu;
+	}
 
 	
 }

@@ -84,8 +84,10 @@ public class KhoanThuService {
 		List<KhoanThuModel> list = new ArrayList<>();
 
 		Connection connection = MysqlConnection.getMysqlConnection();
-		String query = "select kt.IDKhoanThu, lkt.TenKhoanThu, kt.SoTien, kt.NgayBatDauThu, kt.NgayKetThucThu, kt.MaHo, lkt.BatBuoc "
-				+ "from khoan_thu kt " + "join loai_khoan_thu lkt on kt.MaKhoanThu = lkt.MaKhoanThu";
+		String query = "select kt.IDKhoanThu, lkt.TenKhoanThu, kt.SoTien, kt.NgayBatDauThu, kt.NgayKetThucThu, " + ""
+				+ "kt.MaHo, lkt.BatBuoc, lkt.MaKhoanThu, kt.DaNop " 
+				+ "from khoan_thu kt "
+				+ "join loai_khoan_thu lkt on kt.MaKhoanThu = lkt.MaKhoanThu";
 		PreparedStatement preparedStatement = (PreparedStatement) connection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		while (rs.next()) {
@@ -97,6 +99,8 @@ public class KhoanThuService {
 			khoanThuModel.setSoTien(rs.getDouble("SoTien"));
 			khoanThuModel.setTenKhoanThu(rs.getString("TenKhoanThu"));
 			khoanThuModel.setMaHo(rs.getInt("MaHo"));
+			khoanThuModel.setMaKhoanThu(rs.getInt("MaKhoanThu"));
+			khoanThuModel.setDaNop(rs.getInt("DaNop"));
 			list.add(khoanThuModel);
 		}
 		preparedStatement.close();
@@ -126,8 +130,7 @@ public class KhoanThuService {
 	public boolean addLoaiKhoanThu(String tenKhoanThu, int BatBuoc) throws ClassNotFoundException, SQLException {
 		try (Connection connection = MysqlConnection.getMysqlConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(
-						"INSERT INTO loai_khoan_thu(TenKhoanThu, BatBuoc) "
-								+ "VALUES (?, ?);",
+						"INSERT INTO loai_khoan_thu(TenKhoanThu, BatBuoc) " + "VALUES (?, ?);",
 						Statement.RETURN_GENERATED_KEYS)) {
 
 			preparedStatement.setString(1, tenKhoanThu);

@@ -126,7 +126,7 @@
 					layoutY="150.0" prefHeight="420.0" prefWidth="750.0"
 					style="-fx-border-color: white;">
 					<columns>
-						<TableColumn fx:id="colIDKhoanThu" prefWidth="50.0"
+						<TableColumn fx:id="colIDKhoanThu" prefWidth="45.0"
 							text="ID" />
 						<TableColumn fx:id="colTenKhoanThu" prefWidth="160.0"
 							text="Tên khoản thu" />
@@ -136,9 +136,9 @@
 							prefWidth="120.0" text="Số tiền" />
 						<TableColumn fx:id="colLoaiKhoanThu" prefWidth="90.0"
 							text="Loại khoản thu" />
-						<TableColumn fx:id="colNgayBatDau" prefWidth="105.0"
+						<TableColumn fx:id="colNgayBatDau" prefWidth="100.0"
 							text="Ngày bắt đầu thu" />
-						<TableColumn fx:id="colNgayKetThuc" prefWidth="105.0"
+						<TableColumn fx:id="colNgayKetThuc" prefWidth="100.0"
 							text="Ngày hết hạn" />
 						<TableColumn fx:id="colAction" prefWidth="63.0"
 							text="Nộp tiền" />
