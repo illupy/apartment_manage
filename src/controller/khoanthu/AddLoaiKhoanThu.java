@@ -27,21 +27,36 @@ public class AddLoaiKhoanThu extends controller.HomeController implements Initia
 		String batBuocString = batBuoc.getSelectedItem();
 		int batBuocInt = 1;
 		
-		if (tenKhoanThu == null) {
-			Alert alert = new Alert(AlertType.WARNING, "Hãy nhập vào tên khoản thu!", ButtonType.OK);
-			alert.setHeaderText(null);
-			alert.showAndWait();
-			return;
-		}
-		
-		if (batBuocString == null) {
-			Alert alert = new Alert(AlertType.WARNING, "Hãy lựa chọn 1 trong 2 giá trị!", ButtonType.OK);
-			alert.setHeaderText(null);
-			alert.showAndWait();
-			return;
-		} else if (batBuocString.equals("Tự nguyện")) {
-			batBuocInt = 0;
-		}
+		// Kiểm tra tên khoản thu
+        if (tenKhoanThu == null || tenKhoanThu.trim().isEmpty()) {
+            Alert alert = new Alert(AlertType.WARNING, "Hãy nhập vào tên khoản thu hợp lệ!", ButtonType.OK);
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
+        
+        // Kiểm tra giá trị ComboBox
+        if (batBuocString == null || batBuocString.trim().isEmpty()) {
+            Alert alert = new Alert(AlertType.WARNING, "Hãy lựa chọn một giá trị trong danh sách!", ButtonType.OK);
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
+
+        // Xác định giá trị bắt buộc
+        switch (batBuocString) {
+            case "Tự nguyện":
+                batBuocInt = 0;
+                break;
+            case "Bắt buộc":
+                batBuocInt = 1;
+                break;
+            default:
+                Alert alert = new Alert(AlertType.WARNING, "Giá trị không hợp lệ! Hãy chọn lại.", ButtonType.OK);
+                alert.setHeaderText(null);
+                alert.showAndWait();
+                return;
+        }
 		
 		if (new KhoanThuService().addLoaiKhoanThu(tenKhoanThu, batBuocInt)) {
 	        Alert alert = new Alert(AlertType.INFORMATION, "Thêm loại khoản thu thành công!", ButtonType.OK);

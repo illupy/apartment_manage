@@ -103,11 +103,28 @@ public class AddKhoanThu extends controller.HomeController implements Initializa
             alert.showAndWait();
             return;
         }
+        
+     // Kiểm tra mã hộ
+        if (tfMaHo.getText() == null || tfMaHo.getText().trim().isEmpty()) {
+            Alert alert = new Alert(AlertType.WARNING, "Vui lòng nhập mã hộ hợp lệ!", ButtonType.OK);
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
+
+        Pattern pattern_maHo = Pattern.compile("^[0-9]+$");
+        if (!pattern_maHo.matcher(tfMaHo.getText().trim()).matches()) {
+            Alert alert = new Alert(AlertType.WARNING, "Mã hộ phải là số nguyên dương!", ButtonType.OK);
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
 
         // Lấy thông tin từ item đã chọn
         int maKhoanThu = selectedKhoanThu.getMaKhoanThu();
         double soTienDouble = Double.parseDouble(tfSoTien.getText());
         int maHo = Integer.parseInt(tfMaHo.getText());
+        
         
         KhoanThuModel newKhoanThu = new KhoanThuModel();
         newKhoanThu.setMaKhoanThu(maKhoanThu);
