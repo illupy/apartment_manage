@@ -12,20 +12,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="600.0" maxWidth="900.0"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-	prefWidth="700.0" xmlns="http://javafx.com/javafx/8"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="controller.LoginController">
+<BorderPane maxHeight="600.0" maxWidth="900.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
 	<left>
-		<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-			prefHeight="500.0" prefWidth="368.0"
-			style="-fx-background-color: #0598ff;" BorderPane.alignment="CENTER">
+		<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="368.0" style="-fx-background-color: #0598ff;" BorderPane.alignment="CENTER">
 			<children>
-				<FontAwesomeIcon fill="WHITE" glyphName="BUILDING"
-					layoutX="152.0" layoutY="205.0" size="75" />
-				<Text fill="WHITE" layoutX="71.0" layoutY="272.0"
-					strokeType="OUTSIDE" strokeWidth="0.0" text="BlueMoon Management">
+				<FontAwesomeIcon fill="WHITE" glyphName="BUILDING" layoutX="152.0" layoutY="205.0" size="75" />
+				<Text fill="WHITE" layoutX="71.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BlueMoon Management">
 					<font>
 						<Font size="20.0" />
 					</font>
@@ -34,69 +26,46 @@
 		</AnchorPane>
 	</left>
 	<right>
-		<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-			minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-			prefWidth="334.0" style="-fx-background-color: white;"
-			BorderPane.alignment="CENTER">
+		<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="334.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
 			<children>
-				<FontAwesomeIcon fill="#0598ff" glyphName="USERS"
-					layoutX="157.0" layoutY="97.0" selectionFill="#0598ff" size="35" />
-				<TextField fx:id="tfUsername" focusTraversable="false"
-					layoutX="76.0" layoutY="190.0" prefHeight="28.0" prefWidth="200.0"
-					promptText="Username"
-					style="-fx-background-color: #F1F4F9; -fx-border-color: #D8D8D8; -fx-border-radius: 8px;">
+				<FontAwesomeIcon fill="#0598ff" glyphName="USERS" layoutX="157.0" layoutY="97.0" selectionFill="#0598ff" size="35" />
+				<TextField fx:id="tfUsername" focusTraversable="false" layoutX="76.0" layoutY="190.0" prefHeight="28.0" prefWidth="200.0" promptText="Username" style="-fx-background-color: #F1F4F9; -fx-border-color: #D8D8D8; -fx-border-radius: 8px;">
 					<font>
 						<Font size="14.0" />
 					</font>
 				</TextField>
-				<PasswordField fx:id="tfPassword"
-					focusTraversable="false" layoutX="76.0" layoutY="236.0"
-					prefHeight="28.0" prefWidth="200.0" promptText="Password"
-					style="-fx-background-color: #F1F4F9; -fx-border-color: #D8D8D8; -fx-border-radius: 8px;">
+				<PasswordField fx:id="tfPassword" focusTraversable="false" layoutX="76.0" layoutY="236.0" prefHeight="28.0" prefWidth="200.0" promptText="Password" style="-fx-background-color: #F1F4F9; -fx-border-color: #D8D8D8; -fx-border-radius: 8px;">
 					<font>
 						<Font size="14.0" />
 					</font>
 				</PasswordField>
-				<FontAwesomeIcon fill="#0598ff" glyphName="USER"
-					layoutX="43.0" layoutY="211.0" size="20" text="" />
-				<FontAwesomeIcon fill="#0598ff" glyphName="KEY"
-					layoutX="41.0" layoutY="257.0" size="20" />
-				<ImageView fitHeight="63.0" fitWidth="59.0"
-					layoutX="228.0" layoutY="422.0" pickOnBounds="true"
-					preserveRatio="true">
+				<FontAwesomeIcon fill="#0598ff" glyphName="KEY" layoutX="41.0" layoutY="257.0" size="20" text="" />
+				<ImageView fitHeight="63.0" fitWidth="59.0" layoutX="228.0" layoutY="422.0" pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="@../../img/bluemoon.jpg" />
 					</image>
 				</ImageView>
-				<Button fx:id="btnLogin" layoutX="142.0" layoutY="310.0"
-					mnemonicParsing="false" onAction="#Login" prefHeight="30.0"
-					prefWidth="67.0"
-					style="-fx-background-color: #0598ff; -fx-cursor: hand;"
-					text="Log in" textFill="WHITE">
+				<Button fx:id="btnLogin" layoutX="142.0" layoutY="310.0" mnemonicParsing="false" onAction="#Login" prefHeight="30.0" prefWidth="67.0" style="-fx-background-color: #0598ff; -fx-cursor: hand;" text="Log in" textFill="WHITE">
 					<font>
 						<Font size="14.0" />
 					</font>
 				</Button>
-				<Label fx:id="lbLoginFail" layoutX="76.0" layoutY="275.0"
-					text="Tài khoản hoặc mật khẩu không chính xác !" textFill="RED"
-					visible="false">
+				<Label fx:id="lbLoginFail" layoutX="76.0" layoutY="275.0" text="Tài khoản hoặc mật khẩu không chính xác !" textFill="RED" visible="false">
 					<font>
 						<Font name="System Bold Italic" size="12.0" />
 					</font>
 				</Label>
-				<Text fill="#0598ff" layoutX="124.0" layoutY="137.0"
-					strokeType="OUTSIDE" strokeWidth="0.0" text="User Login">
+				<Text fill="#0598ff" layoutX="124.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Login">
 					<font>
 						<Font size="22.0" />
 					</font>
 				</Text>
-				<ImageView fitHeight="62.0" fitWidth="141.0"
-					layoutX="54.0" layoutY="423.0" pickOnBounds="true"
-					preserveRatio="true">
+				<ImageView fitHeight="62.0" fitWidth="141.0" layoutX="54.0" layoutY="423.0" pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="@../../img/logo-soict-hust.png" />
 					</image>
 				</ImageView>
+            <FontAwesomeIcon fill="#0598ff" glyphName="USER" layoutX="41.0" layoutY="214.0" size="20" />
 			</children>
 		</AnchorPane>
 	</right>

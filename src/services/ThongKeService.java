@@ -74,6 +74,40 @@ public class ThongKeService {
 		return list;
 	}
 	
+	public List<KhoanThuModel> getHouseholdDetailStatsbyMonthYear(int maHo, int month, int year) throws ClassNotFoundException, SQLException {
+		List<KhoanThuModel> list = new ArrayList<>();
+		
+		String query = "select lkt.MaKhoanThu, lkt.TenKhoanThu, COALESCE(sum(kt.SoTien)) as SoTienCanDong, COALESCE(sum(nt.SoTien), 0) as 'SoTienDaThu' "
+				+ "from khoan_thu kt "
+				+ "inner join loai_khoan_thu lkt on kt.MaKhoanThu = lkt.MaKhoanThu "
+				+ "left join nop_tien nt on nt.IDKhoanThu = kt.IDKhoanThu "
+				+ "where kt.MaHo = ? and month(kt.NgayBatDauThu) = ? and year(kt.NgayKetThucThu) = ? "
+				+ "group by lkt.TenKhoanThu, lkt.MaKhoanThu;";
+
+		try (Connection connection = MysqlConnection.getMysqlConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			
+			preparedStatement.setInt(1, maHo);
+			preparedStatement.setInt(2, month);
+			preparedStatement.setInt(3, year);
+
+			try (ResultSet rs = preparedStatement.executeQuery()) {
+				while (rs.next()) {
+					KhoanThuModel khoanThu = new KhoanThuModel();
+					khoanThu.setMaKhoanThu(rs.getInt("MaKhoanThu"));
+					khoanThu.setTenKhoanThu(rs.getString("TenKhoanThu"));
+					khoanThu.setSoTien(rs.getDouble("SoTienCanDong"));
+					khoanThu.setSoTienDaThu(rs.getDouble("SoTienDaThu"));
+					list.add(khoanThu);
+				}
+			}
+		} catch (SQLException e) {
+			// Ghi log lỗi hoặc xử lý ngoại lệ
+			throw e;
+		}
+		return list;
+	}
+	
 	public List<KhoanThuModel> getHouseholdDetailStats(int maHo) throws ClassNotFoundException, SQLException {
 		List<KhoanThuModel> list = new ArrayList<>();
 		

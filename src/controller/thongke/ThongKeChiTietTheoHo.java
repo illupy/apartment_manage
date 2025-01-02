@@ -41,6 +41,7 @@ public class ThongKeChiTietTheoHo extends controller.HomeController implements I
 	
 	private List<KhoanThuModel> listThongKeChiTietTheoHo;
 	private ObservableList<KhoanThuModel> listValueTableView;
+	private List<KhoanThuModel> listHomeDetailStatsByMonthYear;
 
 	private HoKhauModel hoKhauSelected = new HoKhauModel();	
 	
@@ -86,6 +87,54 @@ public class ThongKeChiTietTheoHo extends controller.HomeController implements I
 		FormatMoneyNumber.applyCurrencyFormat(colTongTien);
 		FormatMoneyNumber.applyCurrencyFormat(colSoTienDaThu);
 		tvThongKeChiTietTheoHo.setItems(listValueTableView);
+	}
+	
+	public void thongKeTheoThangNam() throws ClassNotFoundException, SQLException {
+		if (cbMonth.getValue() == null) {
+			// Hiển thị cảnh báo cho ComboBox tháng
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Thiếu thông tin");
+			alert.setHeaderText(null);
+			alert.setContentText("Vui lòng chọn tháng!");
+			alert.showAndWait();
+			return; // Dừng việc xử lý tiếp theo
+		}
+
+		// Kiểm tra ComboBox năm
+		if (cbYear.getValue() == null) {
+			// Hiển thị cảnh báo cho ComboBox năm
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Thiếu thông tin");
+			alert.setHeaderText(null);
+			alert.setContentText("Vui lòng chọn năm!");
+			alert.showAndWait();
+			return; // Dừng việc xử lý tiếp theo
+		}
+		int maHo = hoKhauSelected.getMaHo();
+		int month = Integer.parseInt(cbMonth.getValue());
+		int year = Integer.parseInt(cbYear.getValue());
+		
+		ObservableList<KhoanThuModel> listValueTableView_tmp = null;
+
+		listHomeDetailStatsByMonthYear = new ThongKeService().getHouseholdDetailStatsbyMonthYear(maHo, month, year);
+		if (listHomeDetailStatsByMonthYear.isEmpty()) {
+			// Hiển thị thông báo khi không có dữ liệu
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Thông báo");
+			alert.setHeaderText(null);
+			alert.setContentText("Không có dữ liệu thống kê.");
+			alert.showAndWait();
+			return;
+		}
+		listValueTableView_tmp = FXCollections.observableArrayList(listHomeDetailStatsByMonthYear);
+
+		// Thiet lap cot
+		colMaKhoanThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, Integer>("maKhoanThu"));
+		colTenKhoanThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("tenKhoanThu"));
+		colTongTien.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, Double>("soTien"));
+		colSoTienDaThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, Double>("SoTienDaThu"));
+
+		tvThongKeChiTietTheoHo.setItems(listValueTableView_tmp);
 	}
 
 	@Override
