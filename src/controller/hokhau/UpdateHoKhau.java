@@ -1,5 +1,6 @@
 package controller.hokhau;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -8,12 +9,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import models.ChuHoModel;
 import models.HoKhauModel;
 import models.NhanKhauModel;
@@ -94,9 +93,21 @@ public class UpdateHoKhau extends controller.HomeController implements Initializ
             new QuanHeService().updateChuHoInQuanHe(hoKhauModel.getMaHo(), idChuHo);
 
             // Cập nhật lại giao diện
-            showAlert("Cập nhật hộ khẩu thành công!");
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.close();
+            Alert alert = new Alert(AlertType.INFORMATION, "Cập nhật hộ khẩu thành công!", ButtonType.OK);
+            alert.setHeaderText(null);
+            
+            // Đợi người dùng bấm OK trên alert rồi mới chuyển scene
+            alert.showAndWait().ifPresent(response -> {
+                try {
+                    switchScene(event, "/views/hokhau/hokhau.fxml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Alert errorAlert = new Alert(AlertType.ERROR, "Có lỗi xảy ra: " + e.getMessage(), ButtonType.OK);
+                    errorAlert.setHeaderText(null);
+                    errorAlert.showAndWait();
+                }
+            });
+
 
         } catch (ClassNotFoundException | SQLException ex) {
             showAlert("Đã xảy ra lỗi khi cập nhật hộ khẩu: " + ex.getMessage());

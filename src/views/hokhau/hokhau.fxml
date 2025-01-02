@@ -165,7 +165,7 @@
 					</children>
 				</HBox>
 				<Button layoutX="483.0" layoutY="81.0"
-					mnemonicParsing="false" onAction="#updateHoKhau"
+					mnemonicParsing="false" onAction="#updateHoKhau2"
 					style="-fx-background-color: #4480ff; -fx-border-radius: 10; -fx-background-radius: 10;"
 					text="Sửa hộ khẩu" textFill="WHITE">
 					<font>

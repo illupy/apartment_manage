@@ -394,6 +394,13 @@ public class NhanKhauController extends HomeController implements Initializable{
 	public void updateNhanKhau() throws IOException, ClassNotFoundException, SQLException {
 		// lay ra nhan khau can update
 		NhanKhauModel nhanKhauModel = tvNhanKhau.getSelectionModel().getSelectedItem();
+
+		if(nhanKhauModel == null) {
+			Alert alert = new Alert(AlertType.WARNING, "Chọn nhân khẩu cần update !", ButtonType.OK);
+			alert.setHeaderText(null);
+			alert.showAndWait();
+			return;
+		}
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/views/nhankhau/updatenhankhau.fxml"));
@@ -404,12 +411,7 @@ public class NhanKhauController extends HomeController implements Initializable{
         
         // bat loi truong hop khong hop le
         if(updateNhanKhau == null) return;
-        if(nhanKhauModel == null) {
-			Alert alert = new Alert(AlertType.WARNING, "Chọn nhân khẩu cần update !", ButtonType.OK);
-			alert.setHeaderText(null);
-			alert.showAndWait();
-			return;
-		}
+
         updateNhanKhau.setNhanKhauModel(nhanKhauModel);
         
         stage.setResizable(false);

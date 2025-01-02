@@ -19,9 +19,11 @@ import controller.hokhau.UpdateHoKhau;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -109,36 +111,36 @@ public class HoKhauController extends HomeController implements Initializable {
 		cbChooseSearch.setItems(listComboBox);
 	}
 
-	public void chiTietHoKhau() throws IOException {
+	public void chiTietHoKhau(ActionEvent event) throws IOException {
 		HoKhauModel selectedHoKhau = tvHoKhau.getSelectionModel().getSelectedItem();
+		
 		if (selectedHoKhau == null) {
 			Alert alert = new Alert(Alert.AlertType.WARNING, "Hãy chọn hộ khẩu để xem chi tiết!", ButtonType.OK);
 			alert.setHeaderText(null);
 			alert.showAndWait();
 			return;
 		}
-
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/hokhau/ChiTietHoKhau.fxml"));
 		Parent root = loader.load();
 
 		ChiTietHoKhauController chiTietController = loader.getController();
 		chiTietController.setHoKhauModel(selectedHoKhau);
 
-		Stage stage = new Stage();
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		stage.setScene(new Scene(root));
-		stage.setTitle("Chi Tiết Hộ Khẩu");
 		stage.show();
 	}
 
-	public void addHoKhau() throws IOException, ClassNotFoundException, SQLException {
+	public void addHoKhau(ActionEvent event) throws IOException, ClassNotFoundException, SQLException {
 		// Load giao diện addnhankhau.fxml
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/views/hokhau/addhokhau.fxml"));
 		Parent home = loader.load();
 
 		// Tạo stage để hiển thị cửa sổ thêm nhân khẩu
-		Stage stage = new Stage();
-		stage.setScene(new Scene(home, 800, 600));
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		stage.setScene(new Scene(home));
 
 		// Lấy controller của giao diện thêm nhân khẩu
 		AddHoKhau addHoKhau = loader.getController();
@@ -148,7 +150,7 @@ public class HoKhauController extends HomeController implements Initializable {
 			return;
 
 		stage.setResizable(false);
-		stage.showAndWait();
+		stage.show();
 
 		// Sau khi thêm, cập nhật lại danh sách nhân khẩu
 		showHoKhau();
@@ -322,32 +324,26 @@ public class HoKhauController extends HomeController implements Initializable {
 		}
 		}
 	}
-
-	public void updateHoKhau() throws ClassNotFoundException, SQLException, IOException {
-		// lay ra nhan khau can update
-		HoKhauModel hoKhauModel = tvHoKhau.getSelectionModel().getSelectedItem();
-
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/views/hokhau/updatehokhau.fxml"));
-		Parent home = loader.load();
-		Stage stage = new Stage();
-		stage.setScene(new Scene(home, 800, 600));
-		UpdateHoKhau updateHoKhau = loader.getController();
-
-		// bat loi truong hop khong hop le
-		if (updateHoKhau == null)
-			return;
-		if (hoKhauModel == null) {
-			Alert alert = new Alert(AlertType.WARNING, "Chọn hộ khẩu cần sửa !", ButtonType.OK);
+	
+	public void updateHoKhau2(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
+		HoKhauModel hoKhau = tvHoKhau.getSelectionModel().getSelectedItem();
+		
+		if (hoKhau == null) {
+			Alert alert = new Alert(AlertType.WARNING, "Chọn hộ mmuốn sửa!", ButtonType.OK);
 			alert.setHeaderText(null);
 			alert.showAndWait();
 			return;
 		}
-		updateHoKhau.setHoKhauModel(hoKhauModel);
-
-		stage.setResizable(false);
-		stage.showAndWait();
-		showHoKhau();
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/hokhau/updatehokhau.fxml"));
+		Parent root = loader.load();
+		
+		UpdateHoKhau updateHoKhau = loader.getController();
+		updateHoKhau.setHoKhauModel(hoKhau);
+		
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		stage.setScene(new Scene(root));
+		stage.show();
 	}
 
 	@Override
