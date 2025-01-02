@@ -11,14 +11,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import models.HoKhauModel;
 import models.KhoanThuModel;
 import models.LoaiKhoanThuModel;
 import services.ThongKeService;
+import application.FormatMoneyNumber;
 
 public class ThongKeController extends controller.HomeController implements Initializable {
 	@FXML
@@ -62,7 +61,10 @@ public class ThongKeController extends controller.HomeController implements Init
 		colTongSoTienCanThu
 				.setCellValueFactory(new PropertyValueFactory<LoaiKhoanThuModel, Double>("tongSoTienCanThu"));
 		colTongSoTienDaThu.setCellValueFactory(new PropertyValueFactory<LoaiKhoanThuModel, Double>("tongSoTienDaThu"));
-
+		
+		FormatMoneyNumber.applyCurrencyFormat(colTongSoTienCanThu);
+		FormatMoneyNumber.applyCurrencyFormat(colTongSoTienDaThu);
+		
 		tvThongKe.setItems(listValueTableView);
 	}
 
@@ -106,7 +108,8 @@ public class ThongKeController extends controller.HomeController implements Init
 		colTongSoTienCanThu
 				.setCellValueFactory(new PropertyValueFactory<LoaiKhoanThuModel, Double>("tongSoTienCanThu"));
 		colTongSoTienDaThu.setCellValueFactory(new PropertyValueFactory<LoaiKhoanThuModel, Double>("tongSoTienDaThu"));
-
+		FormatMoneyNumber.applyCurrencyFormat(colTongSoTienCanThu);
+		FormatMoneyNumber.applyCurrencyFormat(colTongSoTienDaThu);
 		tvThongKe.setItems(listValueTableView_tmp);
 	}
 

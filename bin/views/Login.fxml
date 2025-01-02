@@ -33,7 +33,7 @@
 			</children>
 		</AnchorPane>
 	</left>
-	<center>
+	<right>
 		<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
 			minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
 			prefWidth="334.0" style="-fx-background-color: white;"
@@ -99,5 +99,5 @@
 				</ImageView>
 			</children>
 		</AnchorPane>
-	</center>
+	</right>
 </BorderPane>

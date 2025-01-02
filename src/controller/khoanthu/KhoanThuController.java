@@ -36,6 +36,7 @@ import models.KhoanThuModel;
 import models.NopTienModel;
 import services.KhoanThuService;
 import services.NopTienService;
+import application.FormatMoneyNumber;
 
 public class KhoanThuController extends controller.HomeController implements Initializable {
 	@FXML
@@ -47,7 +48,7 @@ public class KhoanThuController extends controller.HomeController implements Ini
 	@FXML
 	private TableColumn<KhoanThuModel, String> colMaHo;
 	@FXML
-	private TableColumn<KhoanThuModel, String> colSoTien;
+	private TableColumn<KhoanThuModel, Double> colSoTien;
 	@FXML
 	private TableColumn<KhoanThuModel, String> colLoaiKhoanThu;
 	@FXML
@@ -71,11 +72,13 @@ public class KhoanThuController extends controller.HomeController implements Ini
 		colIDKhoanThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("idKhoanThu"));
 		colTenKhoanThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("tenKhoanThu"));
 		colMaHo.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("maHo"));
-		colSoTien.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("soTien"));
+		colSoTien.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, Double>("soTien"));
 		colLoaiKhoanThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("loaiKhoanThu"));
 		colNgayBatDau.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("ngayBatDau"));
 		colNgayKetThuc.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("ngayKetThuc"));
 
+		FormatMoneyNumber.applyCurrencyFormat(colSoTien);
+		
 		colAction.setCellFactory(param -> new TableCell<KhoanThuModel, Void>() {
 			private final HBox container = new HBox(8);
 			private final Button daNopButton = new Button("Đã Nộp");

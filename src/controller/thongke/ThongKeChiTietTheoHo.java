@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 import models.HoKhauModel;
 import models.KhoanThuModel;
 import services.ThongKeService;
+import application.FormatMoneyNumber;
 
 public class ThongKeChiTietTheoHo extends controller.HomeController implements Initializable {
 
@@ -81,7 +82,9 @@ public class ThongKeChiTietTheoHo extends controller.HomeController implements I
 		colTenKhoanThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("tenKhoanThu"));
 		colTongTien.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, Double>("soTien"));
 		colSoTienDaThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, Double>("SoTienDaThu"));
-	
+		
+		FormatMoneyNumber.applyCurrencyFormat(colTongTien);
+		FormatMoneyNumber.applyCurrencyFormat(colSoTienDaThu);
 		tvThongKeChiTietTheoHo.setItems(listValueTableView);
 	}
 

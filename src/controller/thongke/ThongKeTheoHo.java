@@ -28,6 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.HoKhauModel;
 import services.ThongKeService;
+import application.FormatMoneyNumber;
 
 public class ThongKeTheoHo extends controller.HomeController implements Initializable {
 	@FXML
@@ -72,7 +73,10 @@ public class ThongKeTheoHo extends controller.HomeController implements Initiali
 		colTenChuHo.setCellValueFactory(new PropertyValueFactory<HoKhauModel, String>("tenChuHo"));
 		colTienCanDong.setCellValueFactory(new PropertyValueFactory<HoKhauModel, Double>("tienCanDong"));
 		colTienDaDong.setCellValueFactory(new PropertyValueFactory<HoKhauModel, Double>("tienDaDong"));
-
+		
+		FormatMoneyNumber.applyCurrencyFormat(colTienCanDong);
+		FormatMoneyNumber.applyCurrencyFormat(colTienDaDong);
+		
 		tvThongKeTheoHo.setItems(listValueTableView);
 	}
 
