@@ -6,13 +6,23 @@ public class KhoanThuModel {
 	private int idKhoanThu;
 	private String tenKhoanThu;
 	private double soTien;
+	private double soTienDaThu;
+
+	public double getSoTienDaThu() {
+		return soTienDaThu;
+	}
+
+	public void setSoTienDaThu(double soTienDaThu) {
+		this.soTienDaThu = soTienDaThu;
+	}
+
 	private int loaiKhoanThu; // tự nguyện là 1 bắt buộc là 0
 	private Date ngayBatDau;
 	private Date ngayKetThuc;
 	private int maHo;
 	private int maKhoanThu;
-	private int daNop; //chua nop la 0, da nop la 1
-	
+	private int daNop; // chua nop la 0, da nop la 1
+
 	public int getDaNop() {
 		return daNop;
 	}
@@ -25,20 +35,21 @@ public class KhoanThuModel {
 		this.idKhoanThu = idKhoanThu;
 	}
 
-	public KhoanThuModel() {}
+	public KhoanThuModel() {
+	}
 
-	public KhoanThuModel(String tenKhoanThu, double soTien, int loaiKhoanThu ) {
-		this.tenKhoanThu=tenKhoanThu;
+	public KhoanThuModel(String tenKhoanThu, double soTien, int loaiKhoanThu) {
+		this.tenKhoanThu = tenKhoanThu;
 		this.soTien = soTien;
 		this.loaiKhoanThu = loaiKhoanThu;
 	}
-	
-	public KhoanThuModel(int idKhoanThu ,String tenKhoanThu, double soTien, int loaiKhoanThu ) {
+
+	public KhoanThuModel(int idKhoanThu, String tenKhoanThu, double soTien, int loaiKhoanThu) {
 		this.idKhoanThu = idKhoanThu;
-		this.tenKhoanThu=tenKhoanThu;
+		this.tenKhoanThu = tenKhoanThu;
 		this.soTien = soTien;
 		this.loaiKhoanThu = loaiKhoanThu;
-	}	
+	}
 
 	public KhoanThuModel(int idKhoanThu, String tenKhoanThu, double soTien, Date ngayBatDau, Date ngayKetThuc,
 			int maHo) {
@@ -81,7 +92,7 @@ public class KhoanThuModel {
 	public void setLoaiKhoanThu(int loaiKhoanThu) {
 		this.loaiKhoanThu = loaiKhoanThu;
 	}
-	
+
 	public Date getNgayBatDau() {
 		return ngayBatDau;
 	}
@@ -93,7 +104,7 @@ public class KhoanThuModel {
 	public int getMaKhoanThu() {
 		return maKhoanThu;
 	}
-	
+
 	public void setMaKhoanThu(int maKhoanThu) {
 		this.maKhoanThu = maKhoanThu;
 	}
@@ -105,7 +116,7 @@ public class KhoanThuModel {
 	public void setNgayKetThuc(Date ngayKetThuc) {
 		this.ngayKetThuc = ngayKetThuc;
 	}
-	
+
 	public int getMaHo() {
 		return maHo;
 	}
@@ -113,11 +124,10 @@ public class KhoanThuModel {
 	public void setMaHo(int maHo) {
 		this.maHo = maHo;
 	}
-	
+
 	@Override
 	public String toString() {
 		return maKhoanThu + tenKhoanThu;
 	}
 
-	
 }

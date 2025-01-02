@@ -173,21 +173,23 @@
 					layoutY="173.0" prefHeight="200.0" prefWidth="558.0">
 					<columns>
 						<TableColumn fx:id="colMaKhoanThu" prefWidth="101.0"
-							text="TT" />
+							text="Mã khoản thu" />
 						<TableColumn fx:id="colTenKhoanThu" prefWidth="261.0"
-							text="CÁC KHOẢN PHÍ" />
+							text="Tên khoản thu" />
 						<TableColumn fx:id="colTongTien" prefWidth="65.0"
-							text="SỐ TIỀN" />
-						<TableColumn prefWidth="130.0" text="TRẠNG THÁI" />
+							text="Số tiền cần đóng" />
+						<TableColumn fx:id="colSoTienDaThu" prefWidth="130.0"
+							text="Số tiền đã đóng" />
 					</columns>
 				</TableView>
-				<Text fx:id="title" layoutX="267.0" layoutY="138.0"
-					strokeType="OUTSIDE" strokeWidth="0.0"
-					style="-fx-font-weight: BOLD;" text="CHI TIẾT HỘ GIA ĐÌNH .....">
-					<font>
-						<Font size="20.0" />
-					</font>
-				</Text>
+				<HBox alignment="CENTER" layoutY="138.0" prefWidth="781.0">
+					<Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0"
+						style="-fx-font-weight: BOLD;" text="CHI TIẾT HỘ GIA ĐÌNH .....">
+						<font>
+							<Font size="20.0" />
+						</font>
+					</Text>
+				</HBox>
 			</children>
 		</AnchorPane>
 	</center>

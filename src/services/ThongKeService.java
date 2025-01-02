@@ -77,9 +77,10 @@ public class ThongKeService {
 	public List<KhoanThuModel> getHouseholdDetailStats(int maHo) throws ClassNotFoundException, SQLException {
 		List<KhoanThuModel> list = new ArrayList<>();
 		
-		String query = "select lkt.MaKhoanThu, lkt.TenKhoanThu, sum(kt.SoTien) as TongTien "
+		String query = "select lkt.MaKhoanThu, lkt.TenKhoanThu, COALESCE(sum(kt.SoTien)) as SoTienCanDong, COALESCE(sum(nt.SoTien), 0) as 'SoTienDaThu' "
 				+ "from khoan_thu kt "
 				+ "inner join loai_khoan_thu lkt on kt.MaKhoanThu = lkt.MaKhoanThu "
+				+ "left join nop_tien nt on nt.IDKhoanThu = kt.IDKhoanThu "
 				+ "where kt.MaHo = ? "
 				+ "group by lkt.TenKhoanThu, lkt.MaKhoanThu;";
 
@@ -93,7 +94,8 @@ public class ThongKeService {
 					KhoanThuModel khoanThu = new KhoanThuModel();
 					khoanThu.setMaKhoanThu(rs.getInt("MaKhoanThu"));
 					khoanThu.setTenKhoanThu(rs.getString("TenKhoanThu"));
-					khoanThu.setSoTien(rs.getDouble("TongTien"));
+					khoanThu.setSoTien(rs.getDouble("SoTienCanDong"));
+					khoanThu.setSoTienDaThu(rs.getDouble("SoTienDaThu"));
 					list.add(khoanThu);
 				}
 			}

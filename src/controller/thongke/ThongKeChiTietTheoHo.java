@@ -30,6 +30,8 @@ public class ThongKeChiTietTheoHo extends controller.HomeController implements I
 	@FXML
 	private TableColumn<KhoanThuModel, Double> colTongTien;
 	@FXML
+	private TableColumn<KhoanThuModel, Double> colSoTienDaThu;
+	@FXML
 	private TableView<KhoanThuModel> tvThongKeChiTietTheoHo;
 	@FXML
 	ComboBox<String> cbMonth;
@@ -47,7 +49,7 @@ public class ThongKeChiTietTheoHo extends controller.HomeController implements I
 
 	public void setHoKhauSelected(HoKhauModel hoKhau) {
 		this.hoKhauSelected = hoKhau;
-		title.setText("CHI TIẾT HỘ GIA ĐÌNH " + hoKhauSelected.getMaHo());
+		title.setText("CHI TIẾT HỘ GIA ĐÌNH " + hoKhauSelected.getTenChuHo());
 	}
 
 	public Text getTitle() {
@@ -78,6 +80,7 @@ public class ThongKeChiTietTheoHo extends controller.HomeController implements I
 		colMaKhoanThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, Integer>("maKhoanThu"));
 		colTenKhoanThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, String>("tenKhoanThu"));
 		colTongTien.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, Double>("soTien"));
+		colSoTienDaThu.setCellValueFactory(new PropertyValueFactory<KhoanThuModel, Double>("SoTienDaThu"));
 	
 		tvThongKeChiTietTheoHo.setItems(listValueTableView);
 	}
