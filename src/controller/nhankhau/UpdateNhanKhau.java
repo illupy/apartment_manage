@@ -1,5 +1,6 @@
 package controller.nhankhau;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -81,12 +82,21 @@ public class UpdateNhanKhau extends controller.HomeController implements Initial
 		NhanKhauModel nhanKhauModel = new NhanKhauModel(maNhanKhau, cccdString, tenString, gioiTinhString, ngaySinhDate, sdtString, quequanString);
 		new NhanKhauService().updateNhanKhau(nhanKhauModel);
 
-		// Display success message
-		showAlert("Cập nhật thông tin nhân khẩu thành công!");
-
-		// Close the stage after update
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		stage.close();
+		// Cập nhật lại giao diện
+        Alert alert = new Alert(AlertType.INFORMATION, "Cập nhật nhân khẩu thành công!", ButtonType.OK);
+        alert.setHeaderText(null);
+        
+        // Đợi người dùng bấm OK trên alert rồi mới chuyển scene
+        alert.showAndWait().ifPresent(response -> {
+            try {
+                switchScene(event, "/views/nhankhau/nhankhau.fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+                Alert errorAlert = new Alert(AlertType.ERROR, "Có lỗi xảy ra: " + e.getMessage(), ButtonType.OK);
+                errorAlert.setHeaderText(null);
+                errorAlert.showAndWait();
+            }
+        });
 	}
 
 	private boolean validateFields() {

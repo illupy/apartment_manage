@@ -1,5 +1,6 @@
 package controller.nhankhau;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
@@ -10,8 +11,11 @@ import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -35,8 +39,11 @@ public class AddNhanKhau extends controller.HomeController implements Initializa
     @FXML
     private TextField tfQueQuan;
 
+    private Stage stage;
+	private Scene scene;
+    
     @FXML
-    public void addNhanKhau(ActionEvent event) throws ClassNotFoundException, SQLException {
+    public void addNhanKhau(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
             if (!validateFields()) {
                 return;
             }
@@ -58,9 +65,12 @@ public class AddNhanKhau extends controller.HomeController implements Initializa
             // Hiển thị thông báo thành công
             showAlert("Thêm thông tin nhân khẩu thành công!");
 
-            // Đóng cửa sổ sau khi thêm
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    		stage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/nhankhau/nhankhau.fxml"));
+    		Parent root = loader.load();
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+    		stage.setScene(scene);
+    		stage.show();
  
     }
     
@@ -77,7 +87,6 @@ public class AddNhanKhau extends controller.HomeController implements Initializa
         }
         return true;
     }
-
     private boolean validateCCCD() {
         Pattern cccdPattern = Pattern.compile("\\d{9,12}");
         if (!cccdPattern.matcher(tfCccd.getText()).matches()) {

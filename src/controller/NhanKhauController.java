@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -366,15 +367,15 @@ public class NhanKhauController extends HomeController implements Initializable{
 	}
 	
 
-	public void addNhanKhau() throws IOException, ClassNotFoundException, SQLException {
+	public void addNhanKhau(ActionEvent event) throws IOException, ClassNotFoundException, SQLException {
 	    // Load giao diện addnhankhau.fxml
 	    FXMLLoader loader = new FXMLLoader();
 	    loader.setLocation(getClass().getResource("/views/nhankhau/addnhankhau.fxml"));
 	    Parent home = loader.load();
 
 	    // Tạo stage để hiển thị cửa sổ thêm nhân khẩu
-	    Stage stage = new Stage();
-	    stage.setScene(new Scene(home, 800, 600));
+	    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+	    stage.setScene(new Scene(home));
 
 	    // Lấy controller của giao diện thêm nhân khẩu
 	    AddNhanKhau addNhanKhau = loader.getController();
@@ -383,7 +384,7 @@ public class NhanKhauController extends HomeController implements Initializable{
 	    if (addNhanKhau == null) return;
 
 	    stage.setResizable(false);
-	    stage.showAndWait();
+	    stage.show();
 
 	    // Sau khi thêm, cập nhật lại danh sách nhân khẩu
 	    showNhanKhau();
@@ -391,7 +392,7 @@ public class NhanKhauController extends HomeController implements Initializable{
 
 	
 	
-	public void updateNhanKhau() throws IOException, ClassNotFoundException, SQLException {
+	public void updateNhanKhau(ActionEvent event) throws IOException, ClassNotFoundException, SQLException {
 		// lay ra nhan khau can update
 		NhanKhauModel nhanKhauModel = tvNhanKhau.getSelectionModel().getSelectedItem();
 
@@ -404,19 +405,14 @@ public class NhanKhauController extends HomeController implements Initializable{
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/views/nhankhau/updatenhankhau.fxml"));
-		Parent home = loader.load(); 
-        Stage stage = new Stage();
-        stage.setScene(new Scene(home,800,600));
+		Parent root = loader.load(); 
+       
         UpdateNhanKhau updateNhanKhau = loader.getController();
-        
-        // bat loi truong hop khong hop le
-        if(updateNhanKhau == null) return;
-
         updateNhanKhau.setNhanKhauModel(nhanKhauModel);
         
-        stage.setResizable(false);
-        stage.showAndWait();
-        showNhanKhau();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		stage.setScene(new Scene(root));
+		stage.show();
 	}
 	
 	@Override
